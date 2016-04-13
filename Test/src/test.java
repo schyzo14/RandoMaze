@@ -43,6 +43,7 @@ public class test extends JFrame {
 		
 		JButton btnAllo = new JButton("ALLO");
 		contentPane.add(btnAllo, BorderLayout.WEST);
+		// blabla test
 	}
 
 }
