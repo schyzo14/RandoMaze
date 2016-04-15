@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="model" nsURI="http:///model.ecore" nsPrefix="model">
+  <eClassifiers xsi:type="ecore:EClass" name="Individu">
+    <eOperations name="jeParle" ordered="false" lowerBound="1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" ordered="false" lowerBound="1"
+        eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Integer"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nom" ordered="false" lowerBound="1"
+        eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pointVie" ordered="false"
+        lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Integer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Personnage" eSuperTypes="#//Individu">
+    <eOperations name="creerPersonnage" ordered="false" lowerBound="1">
+      <eParameters name="nom" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//String"/>
+    </eOperations>
+    <eOperations name="toString" ordered="false" lowerBound="1"/>
+    <eOperations name="save_Perso" ordered="false" lowerBound="1">
+      <eParameters name="perso" ordered="false" lowerBound="1" eType="#//Personnage"/>
+      <eParameters name="piece" ordered="false" lowerBound="1" eType="#//Piece"/>
+      <eParameters name="pv" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Integer"/>
+    </eOperations>
+    <eOperations name="creerPersonnage" ordered="false" lowerBound="1">
+      <eParameters name="nom" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//String"/>
+      <eParameters name="idUtilisateur" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Integer"/>
+    </eOperations>
+    <eOperations name="move" ordered="false" lowerBound="1">
+      <eParameters name="salle" ordered="false" lowerBound="1" eType="#//Piece"/>
+      <eParameters name="porte" ordered="false" lowerBound="1" eType="#//Porte"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Piece">
+    <eOperations name="fuir" ordered="false" lowerBound="1">
+      <eParameters name="porteSortie" ordered="false" lowerBound="1" eType="#//Porte"/>
+      <eParameters name="piece" ordered="false" lowerBound="1" eType="#//Piece"/>
+      <eParameters name="user" ordered="false" lowerBound="1" eType="#//Personnage"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="idPiece" ordered="false"
+        lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Integer"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nomServeur" ordered="false"
+        lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="positionX" ordered="false"
+        lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Integer"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="positionY" ordered="false"
+        lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Integer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Porte">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="idPorte" ordered="false"
+        lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Integer"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="situationPorte" ordered="false"
+        lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//String"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Monstre" eSuperTypes="#//Individu">
+    <eOperations name="createMonster" ordered="false" lowerBound="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Partie">
+    <eOperations name="jouerTour" ordered="false" lowerBound="1"/>
+    <eOperations name="quitter" ordered="false" lowerBound="1"/>
+    <eOperations name="retDemandeConfirmation" ordered="false" lowerBound="1"/>
+    <eOperations name="confirmation" ordered="false" lowerBound="1">
+      <eParameters name="reponse" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Boolean"/>
+    </eOperations>
+    <eOperations name="sauvegarde" ordered="false" lowerBound="1">
+      <eParameters name="joueur" ordered="false" lowerBound="1" eType="#//Individu"/>
+    </eOperations>
+    <eOperations name="afficherJoueur" ordered="false" lowerBound="1">
+      <eParameters name="position" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Integer"/>
+      <eParameters name="id" ordered="false" lowerBound="1" eType="#//Personnage"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LabyrintheImpl" eSuperTypes="#//UnicastRemoteObject"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UnicastRemoteObject"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Labyrinthe" abstract="true" interface="true"
+      eSuperTypes="#//Remote"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Remote" abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Utilisateur">
+    <eOperations name="seConnecter" ordered="false" lowerBound="1">
+      <eParameters name="id" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//String"/>
+      <eParameters name="mdp" ordered="false" lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//String"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="idUtilisateur" ordered="false"
+        lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//Integer"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nomUtilisateur" ordered="false"
+        lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mdpUtilisateur" ordered="false"
+        lowerBound="1" eType="ecore:EDataType ../../org.eclipse.uml2.types/model/Types.ecore#//String"/>
+  </eClassifiers>
+</ecore:EPackage>

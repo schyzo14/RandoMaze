@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/uml2/2.2.0/GenModel"
+    modelDirectory="/generate/src" modelPluginID="generate" modelName="Model"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.uml2.uml.ecore.importer"
+    complianceLevel="5.0" copyrightFields="false" usedGenPackages="../../org.eclipse.uml2.types/model/Types.genmodel#//types"
+    operationReflection="true" importOrganizing="true">
+  <genAnnotations source="http://www.eclipse.org/emf/2002/GenModel/importer/org.eclipse.uml2.uml.ecore.importer">
+    <details key="OPPOSITE_ROLE_NAMES" value="IGNORE"/>
+    <details key="DUPLICATE_FEATURES" value="IGNORE"/>
+    <details key="ANNOTATION_DETAILS" value="IGNORE"/>
+    <details key="PROPERTY_DEFAULT_EXPRESSIONS" value="IGNORE"/>
+    <details key="DUPLICATE_FEATURE_INHERITANCE" value="IGNORE"/>
+    <details key="COMMENTS" value="IGNORE"/>
+    <details key="DERIVED_FEATURES" value="IGNORE"/>
+    <details key="SUPER_CLASS_ORDER" value="IGNORE"/>
+    <details key="DUPLICATE_OPERATION_INHERITANCE" value="IGNORE"/>
+    <details key="REDEFINING_OPERATIONS" value="IGNORE"/>
+    <details key="INVARIANT_CONSTRAINTS" value="IGNORE"/>
+    <details key="UNION_PROPERTIES" value="IGNORE"/>
+    <details key="DUPLICATE_OPERATIONS" value="IGNORE"/>
+    <details key="NON_API_INVARIANTS" value="IGNORE"/>
+    <details key="CAMEL_CASE_NAMES" value="IGNORE"/>
+    <details key="SUBSETTING_PROPERTIES" value="IGNORE"/>
+    <details key="OPERATION_BODIES" value="IGNORE"/>
+    <details key="ECORE_TAGGED_VALUES" value="IGNORE"/>
+    <details key="UNTYPED_PROPERTIES" value="IGNORE"/>
+    <details key="REDEFINING_PROPERTIES" value="IGNORE"/>
+    <details key="INVOCATION_DELEGATES" value="IGNORE"/>
+    <details key="VALIDATION_DELEGATES" value="IGNORE"/>
+  </genAnnotations>
+  <foreignModel>../../modelesUML/model.uml</foreignModel>
+  <genPackages xsi:type="genmodel:GenPackage" prefix="Model" disposableProviderFactory="true"
+      ecorePackage="model.ecore#/">
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="model.ecore#//Individu">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Individu/id"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Individu/nom"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Individu/pointVie"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="model.ecore#//Individu/jeParle"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="model.ecore#//Personnage">
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="model.ecore#//Personnage/creerPersonnage">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="model.ecore#//Personnage/creerPersonnage/nom"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="model.ecore#//Personnage/toString"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="model.ecore#//Personnage/save_Perso">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="model.ecore#//Personnage/save_Perso/perso"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="model.ecore#//Personnage/save_Perso/piece"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="model.ecore#//Personnage/save_Perso/pv"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="model.ecore#//Personnage/creerPersonnage.1">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="model.ecore#//Personnage/creerPersonnage.1/nom"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="model.ecore#//Personnage/creerPersonnage.1/idUtilisateur"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="model.ecore#//Personnage/move">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="model.ecore#//Personnage/move/salle"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="model.ecore#//Personnage/move/porte"/>
+      </genOperations>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="model.ecore#//Piece">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Piece/idPiece"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Piece/nomServeur"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Piece/positionX"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Piece/positionY"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="model.ecore#//Piece/fuir">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="model.ecore#//Piece/fuir/porteSortie"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="model.ecore#//Piece/fuir/piece"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="model.ecore#//Piece/fuir/user"/>
+      </genOperations>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="model.ecore#//Porte">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Porte/idPorte"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Porte/situationPorte"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="model.ecore#//Monstre">
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="model.ecore#//Monstre/createMonster"/>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="model.ecore#//Partie">
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="model.ecore#//Partie/jouerTour"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="model.ecore#//Partie/quitter"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="model.ecore#//Partie/retDemandeConfirmation"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="model.ecore#//Partie/confirmation">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="model.ecore#//Partie/confirmation/reponse"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="model.ecore#//Partie/sauvegarde">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="model.ecore#//Partie/sauvegarde/joueur"/>
+      </genOperations>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="model.ecore#//Partie/afficherJoueur">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="model.ecore#//Partie/afficherJoueur/position"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="model.ecore#//Partie/afficherJoueur/id"/>
+      </genOperations>
+    </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="model.ecore#//LabyrintheImpl"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="model.ecore#//UnicastRemoteObject"/>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="model.ecore#//Labyrinthe"/>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="model.ecore#//Remote"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="model.ecore#//Utilisateur">
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Utilisateur/idUtilisateur"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Utilisateur/nomUtilisateur"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute model.ecore#//Utilisateur/mdpUtilisateur"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="model.ecore#//Utilisateur/seConnecter">
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="model.ecore#//Utilisateur/seConnecter/id"/>
+        <genParameters xsi:type="genmodel:GenParameter" ecoreParameter="model.ecore#//Utilisateur/seConnecter/mdp"/>
+      </genOperations>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
