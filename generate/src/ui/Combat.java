@@ -5,6 +5,8 @@
  */
 package ui;
 
+import java.awt.Color;
+
 /**
  *
  * @author Schyzo
@@ -38,6 +40,7 @@ public class Combat extends javax.swing.JFrame {
         buttonRun = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Combat");
 
         monster.setText("Monstre");
 
