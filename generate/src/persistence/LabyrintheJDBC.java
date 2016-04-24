@@ -28,7 +28,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	private PreparedStatement reqSelectPorteByIdPieceSt = null;
 	
 	// Utilisateur
-	private static final String reqSelectUtilisateurByNom = "select idutilisateur, nomutilisateur, mdputilisateur from UTILISATEUR where nomutilisateur='?'";
+	private static final String reqSelectUtilisateurByNom = "select idutilisateur, nomutilisateur, mdputilisateur from UTILISATEUR where nomutilisateur=?";
 	private static final String reqInsertUtilisateur = "insert into UTILISATEUR (nomutilisateur, mdputilisateur) values (?, ?)";
 	
 	private PreparedStatement reqSelectUtilisateurByNomSt = null;
@@ -139,7 +139,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 			
 			Utilisateur utilisateur = new Utilisateur();
 			while (rs.next()) {
-				utilisateur.setIdUtilisateur(rs.getInt(1));
+				utilisateur.setIdUtilisateur((int)rs.getLong(1));
 				utilisateur.setNomUtilisateur(rs.getString(2));
 				utilisateur.setMdpUtilisateur(rs.getString(3));
 			}
@@ -242,6 +242,8 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 //			System.out.println(piece.getIdPiece() + " - " + piece.getNomServeur() +
 //					" - " + piece.getPositionX() + "/" + piece.getPositionY());
 //		}
+		Utilisateur utilisateur = labyrintheJDBC.selectUtilisateurByNom("YouYou");
+		System.out.println(utilisateur.getIdUtilisateur() + " - " + utilisateur.getNomUtilisateur() + " - " + utilisateur.getMdpUtilisateur());
 	}
 
 }
