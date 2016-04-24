@@ -3,7 +3,7 @@
 package model.impl;
 
 import model.Individu;
-import model.LabyrintheImpl;
+import model.Labyrinthe;
 import model.ModelFactory;
 import model.ModelPackage;
 import model.Monstre;
@@ -11,8 +11,9 @@ import model.Partie;
 import model.Personnage;
 import model.Piece;
 import model.Porte;
-import model.UnicastRemoteObject;
 import model.Utilisateur;
+
+import java.rmi.RemoteException;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -72,8 +73,7 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 			case ModelPackage.PORTE: return createPorte();
 			case ModelPackage.MONSTRE: return createMonstre();
 			case ModelPackage.PARTIE: return createPartie();
-			case ModelPackage.LABYRINTHE_IMPL: return createLabyrintheImpl();
-			case ModelPackage.UNICAST_REMOTE_OBJECT: return createUnicastRemoteObject();
+			case ModelPackage.LABYRINTHE: return (EObject) createLabyrinthe();
 			case ModelPackage.UTILISATEUR: return createUtilisateur();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -143,21 +143,12 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @throws RemoteException 
 	 * @generated
 	 */
-	public LabyrintheImpl createLabyrintheImpl() {
-		LabyrintheImplImpl labyrintheImpl = new LabyrintheImplImpl();
-		return labyrintheImpl;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public UnicastRemoteObject createUnicastRemoteObject() {
-		UnicastRemoteObjectImpl unicastRemoteObject = new UnicastRemoteObjectImpl();
-		return unicastRemoteObject;
+	public Labyrinthe createLabyrintheImpl() throws RemoteException {
+		LabyrintheImpl labyrinthe = new LabyrintheImpl();
+		return labyrinthe;
 	}
 
 	/**
@@ -188,6 +179,12 @@ public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	@Deprecated
 	public static ModelPackage getPackage() {
 		return ModelPackage.eINSTANCE;
+	}
+
+	@Override
+	public Labyrinthe createLabyrinthe() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 } //ModelFactoryImpl

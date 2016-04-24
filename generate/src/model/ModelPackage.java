@@ -532,10 +532,10 @@ public interface ModelPackage extends EPackage {
 	int UNICAST_REMOTE_OBJECT_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link model.impl.LabyrintheImplImpl <em>Labyrinthe Impl</em>}' class.
+	 * The meta object id for the '{@link model.impl.LabyrintheImpl <em>Labyrinthe Impl</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see model.impl.LabyrintheImplImpl
+	 * @see model.impl.LabyrintheImpl
 	 * @see model.impl.ModelPackageImpl#getLabyrintheImpl()
 	 * @generated
 	 */
@@ -980,11 +980,11 @@ public interface ModelPackage extends EPackage {
 	EOperation getPartie__AfficherJoueur__int_Personnage();
 
 	/**
-	 * Returns the meta object for class '{@link model.LabyrintheImpl <em>Labyrinthe Impl</em>}'.
+	 * Returns the meta object for class '{@link model.Labyrinthe <em>Labyrinthe Impl</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Labyrinthe Impl</em>'.
-	 * @see model.LabyrintheImpl
+	 * @see model.Labyrinthe
 	 * @generated
 	 */
 	EClass getLabyrintheImpl();
@@ -1340,10 +1340,10 @@ public interface ModelPackage extends EPackage {
 		EOperation PARTIE___AFFICHER_JOUEUR__INT_PERSONNAGE = eINSTANCE.getPartie__AfficherJoueur__int_Personnage();
 
 		/**
-		 * The meta object literal for the '{@link model.impl.LabyrintheImplImpl <em>Labyrinthe Impl</em>}' class.
+		 * The meta object literal for the '{@link model.impl.LabyrintheImpl <em>Labyrinthe Impl</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see model.impl.LabyrintheImplImpl
+		 * @see model.impl.LabyrintheImpl
 		 * @see model.impl.ModelPackageImpl#getLabyrintheImpl()
 		 * @generated
 		 */

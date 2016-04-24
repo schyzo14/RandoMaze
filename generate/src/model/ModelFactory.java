@@ -82,16 +82,7 @@ public interface ModelFactory extends EFactory {
 	 * @return a new object of class '<em>Labyrinthe Impl</em>'.
 	 * @generated
 	 */
-	LabyrintheImpl createLabyrintheImpl();
-
-	/**
-	 * Returns a new object of class '<em>Unicast Remote Object</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Unicast Remote Object</em>'.
-	 * @generated
-	 */
-	UnicastRemoteObject createUnicastRemoteObject();
+	Labyrinthe createLabyrinthe();
 
 	/**
 	 * Returns a new object of class '<em>Utilisateur</em>'.

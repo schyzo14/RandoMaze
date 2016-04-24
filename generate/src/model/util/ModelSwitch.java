@@ -104,29 +104,9 @@ public class ModelSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ModelPackage.LABYRINTHE_IMPL: {
-				LabyrintheImpl labyrintheImpl = (LabyrintheImpl)theEObject;
-				T result = caseLabyrintheImpl(labyrintheImpl);
-				if (result == null) result = caseUnicastRemoteObject(labyrintheImpl);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case ModelPackage.UNICAST_REMOTE_OBJECT: {
-				UnicastRemoteObject unicastRemoteObject = (UnicastRemoteObject)theEObject;
-				T result = caseUnicastRemoteObject(unicastRemoteObject);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case ModelPackage.LABYRINTHE: {
 				Labyrinthe labyrinthe = (Labyrinthe)theEObject;
 				T result = caseLabyrinthe(labyrinthe);
-				if (result == null) result = caseRemote(labyrinthe);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case ModelPackage.REMOTE: {
-				Remote remote = (Remote)theEObject;
-				T result = caseRemote(remote);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -241,22 +221,7 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseLabyrintheImpl(LabyrintheImpl object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Unicast Remote Object</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Unicast Remote Object</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseUnicastRemoteObject(UnicastRemoteObject object) {
+	public T caseLabyrintheImpl(Labyrinthe object) {
 		return null;
 	}
 
@@ -272,21 +237,6 @@ public class ModelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseLabyrinthe(Labyrinthe object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Remote</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Remote</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseRemote(Remote object) {
 		return null;
 	}
 

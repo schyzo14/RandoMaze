@@ -4,7 +4,6 @@ package model.impl;
 
 import model.Individu;
 import model.Labyrinthe;
-import model.LabyrintheImpl;
 import model.ModelFactory;
 import model.ModelPackage;
 import model.Monstre;
@@ -12,8 +11,6 @@ import model.Partie;
 import model.Personnage;
 import model.Piece;
 import model.Porte;
-import model.Remote;
-import model.UnicastRemoteObject;
 import model.Utilisateur;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -694,13 +691,9 @@ public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 		addEParameter(op, theTypesPackage.getInteger(), "position", 1, 1, IS_UNIQUE, !IS_ORDERED);
 		addEParameter(op, this.getPersonnage(), "id", 1, 1, IS_UNIQUE, !IS_ORDERED);
 
-		initEClass(labyrintheImplEClass, LabyrintheImpl.class, "LabyrintheImpl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(unicastRemoteObjectEClass, UnicastRemoteObject.class, "UnicastRemoteObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(labyrintheImplEClass, Labyrinthe.class, "Labyrinthe", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(labyrintheEClass, Labyrinthe.class, "Labyrinthe", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(remoteEClass, Remote.class, "Remote", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(utilisateurEClass, Utilisateur.class, "Utilisateur", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getUtilisateur_IdUtilisateur(), theTypesPackage.getInteger(), "idUtilisateur", null, 1, 1, Utilisateur.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);

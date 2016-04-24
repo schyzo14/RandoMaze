@@ -2,8 +2,11 @@
  */
 package model.impl;
 
-import model.LabyrintheImpl;
+import model.Labyrinthe;
 import model.ModelPackage;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -16,13 +19,19 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class LabyrintheImplImpl extends UnicastRemoteObjectImpl implements LabyrintheImpl {
+public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4845385714813023620L;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @throws RemoteException 
 	 * @generated
 	 */
-	protected LabyrintheImplImpl() {
+	protected LabyrintheImpl() throws RemoteException {
 		super();
 	}
 
@@ -32,8 +41,8 @@ public class LabyrintheImplImpl extends UnicastRemoteObjectImpl implements Labyr
 	 * @generated
 	 */
 	@Override
-	protected EClass eStaticClass() {
-		return ModelPackage.Literals.LABYRINTHE_IMPL;
+	public EClass eStaticClass() {
+		return ModelPackage.Literals.LABYRINTHE;
 	}
 
-} //LabyrintheImplImpl
+} //LabyrintheImpl

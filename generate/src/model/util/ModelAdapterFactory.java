@@ -92,20 +92,12 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 				return createPartieAdapter();
 			}
 			@Override
-			public Adapter caseLabyrintheImpl(LabyrintheImpl object) {
+			public Adapter caseLabyrintheImpl(Labyrinthe object) {
 				return createLabyrintheImplAdapter();
-			}
-			@Override
-			public Adapter caseUnicastRemoteObject(UnicastRemoteObject object) {
-				return createUnicastRemoteObjectAdapter();
 			}
 			@Override
 			public Adapter caseLabyrinthe(Labyrinthe object) {
 				return createLabyrintheAdapter();
-			}
-			@Override
-			public Adapter caseRemote(Remote object) {
-				return createRemoteAdapter();
 			}
 			@Override
 			public Adapter caseUtilisateur(Utilisateur object) {
@@ -216,13 +208,13 @@ public class ModelAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link model.LabyrintheImpl <em>Labyrinthe Impl</em>}'.
+	 * Creates a new adapter for an object of class '{@link model.Labyrinthe <em>Labyrinthe Impl</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see model.LabyrintheImpl
+	 * @see model.Labyrinthe
 	 * @generated
 	 */
 	public Adapter createLabyrintheImplAdapter() {
