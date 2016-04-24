@@ -34,7 +34,7 @@ public class CreerPersonnage extends javax.swing.JFrame {
         b_creer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("RandoMaze - Inscirption");
+        setTitle("RandoMaze - Inscription");
         setBackground(new java.awt.Color(204, 204, 204));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -52,7 +52,7 @@ public class CreerPersonnage extends javax.swing.JFrame {
 
         b_creer.setBackground(new java.awt.Color(102, 102, 255));
         b_creer.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        b_creer.setText("CrÃ©er");
+        b_creer.setText("Créer");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
