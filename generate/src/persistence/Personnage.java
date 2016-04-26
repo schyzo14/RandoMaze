@@ -2,19 +2,19 @@ package persistence;
 
 public class Personnage {
 
-	private int ipPersonnage;
+	private int idPersonnage;
 	private String nomPersonnage;
 	private int idUtilisateur;
 	private int pointVie;
 	private int idpiece;
 	
 	
-	public int getIpPersonnage() {
-		return ipPersonnage;
+	public int getIdPersonnage() {
+		return idPersonnage;
 	}
 	
-	public void setIpPersonnage(int ipPersonnage) {
-		this.ipPersonnage = ipPersonnage;
+	public void setIdPersonnage(int idPersonnage) {
+		this.idPersonnage = idPersonnage;
 	}
 	
 	public String getNomPersonnage() {
