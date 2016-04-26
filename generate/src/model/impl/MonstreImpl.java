@@ -46,9 +46,29 @@ public class MonstreImpl extends IndividuImpl implements Monstre {
 	 * @generated
 	 */
 	public void createMonster() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		MonstreImpl monstre = new MonstreImpl();
+		monstre.setPointVie(5);
+		
+		int val = 1 + ((int)Math.random() * (4 - 1));
+		
+		switch (val) {
+			case 1:
+				monstre.setId(1);
+				monstre.setNom("Méchant 1");
+				break;
+			case 2:
+				monstre.setId(2);
+				monstre.setNom("Méchant 2");
+				break;
+			case 3:
+				monstre.setId(3);
+				monstre.setNom("Méchant 3");
+				break;
+			case 4:
+				monstre.setId(4);
+				monstre.setNom("Méchant 4");
+				break;
+		}
 	}
 
 	/**
