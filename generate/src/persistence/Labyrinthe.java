@@ -2,6 +2,11 @@ package persistence;
 
 import java.util.ArrayList;
 
+import model.Personnage;
+import model.Piece;
+import model.Porte;
+import model.Utilisateur;
+
 public interface Labyrinthe extends java.rmi.Remote {
 
 	// Pièces

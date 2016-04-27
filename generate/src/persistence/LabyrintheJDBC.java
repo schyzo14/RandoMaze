@@ -11,7 +11,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import model.Personnage;
+import model.Piece;
+import model.Porte;
+import model.Utilisateur;
+
 public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6415704478523465430L;
 
 	private Connection conn;
 	
@@ -76,11 +86,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 			
 			ArrayList<Piece> listPieces = new ArrayList<Piece>();
 			while (rs.next()) {
-				Piece piece = new Piece();
-				piece.setIdPiece(rs.getInt(1));
-				piece.setNomServeur(rs.getString(2));
-				piece.setPositionX(rs.getInt(3));
-				piece.setPositionY(rs.getInt(4));
+				Piece piece = new Piece(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
 				listPieces.add(piece);
 			}
 			return listPieces;
@@ -117,10 +123,8 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 			
 			ArrayList<Porte> listPortes = new ArrayList<Porte>();
 			while (rs.next()) {
-				Porte porte = new Porte();
-				porte.setIdporte(rs.getInt(1));
-				porte.setSituationporte(rs.getString(2));
-				porte.setIdpiece(rs.getInt(3));
+				Porte porte = new Porte(rs.getInt(1), rs.getString(2));
+				//porte.setIdpiece(rs.getInt(3));
 				listPortes.add(porte);
 			}
 			return listPortes;
@@ -137,11 +141,9 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 			reqSelectUtilisateurByNomSt.setString(1, nom);
 			ResultSet rs = reqSelectUtilisateurByNomSt.executeQuery();
 			
-			Utilisateur utilisateur = new Utilisateur();
+			Utilisateur utilisateur = null;
 			while (rs.next()) {
-				utilisateur.setIdUtilisateur((int)rs.getLong(1));
-				utilisateur.setNomUtilisateur(rs.getString(2));
-				utilisateur.setMdpUtilisateur(rs.getString(3));
+				utilisateur = new Utilisateur((int)rs.getLong(1), rs.getString(2), rs.getString(3));
 			}
 			return utilisateur;
 			
@@ -174,13 +176,13 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 			
 			ArrayList<Personnage> listPersonnages = new ArrayList<Personnage>();
 			while (rs.next()) {
-				Personnage personnage = new Personnage();
+				/*Personnage personnage = new Personnage();
 				personnage.setIdPersonnage(rs.getInt(1));
 				personnage.setNomPersonnage(rs.getString(2));
 				personnage.setIdUtilisateur(rs.getInt(3));
 				personnage.setPointVie(rs.getInt(4));
-				personnage.setIdpiece(rs.getInt(5));
-				listPersonnages.add(personnage);
+				personnage.setIdpiece(rs.getInt(5));1*/
+				//listPersonnages.add(personnage);
 			}
 			return listPersonnages;
 			
@@ -245,10 +247,10 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 //					" - " + piece.getPositionX() + "/" + piece.getPositionY());
 //		}
 		Utilisateur utilisateur = labyrintheJDBC.selectUtilisateurByNom("YouYou");
-		System.out.println(utilisateur.getIdUtilisateur() + " - " + utilisateur.getNomUtilisateur() + " - " + utilisateur.getMdpUtilisateur());
-		ArrayList<Personnage> listPersonnage = labyrintheJDBC.selectPersonnageByUtilisateur(utilisateur.getIdUtilisateur());
+		System.out.println(utilisateur.getIdUser() + " - " + utilisateur.getNomUser() + " - " + utilisateur.getMdpUser());
+		ArrayList<Personnage> listPersonnage = labyrintheJDBC.selectPersonnageByUtilisateur(utilisateur.getIdUser());
 		for (Personnage personnage : listPersonnage) {
-			System.out.println(personnage.getIdPersonnage() + " - " + personnage.getNomPersonnage());
+			System.out.println(personnage.getIdIndiv() + " - " + personnage.getNomIndiv());
 		}
 		
 	}

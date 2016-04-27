@@ -1,112 +1,50 @@
-/**
- */
 package model;
 
-import org.eclipse.emf.ecore.EObject;
-
-/**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Individu</b></em>'.
- * <!-- end-user-doc -->
- *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link model.Individu#getId <em>Id</em>}</li>
- *   <li>{@link model.Individu#getNom <em>Nom</em>}</li>
- *   <li>{@link model.Individu#getPointVie <em>Point Vie</em>}</li>
- * </ul>
- * </p>
- *
- * @see model.ModelPackage#getIndividu()
- * @model
- * @generated
- */
-public interface Individu extends EObject {
+public class Individu {
+	private int idIndiv;
+	private String nomIndiv;
+	private int nbPVIndiv;
+	
+	public Individu(int id, String nom, int PV) {
+		idIndiv = id;
+		nomIndiv = nom;
+		nbPVIndiv = PV;
+	}
+	
 	/**
-	 * Returns the value of the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Id</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Id</em>' attribute.
-	 * @see #setId(int)
-	 * @see model.ModelPackage#getIndividu_Id()
-	 * @model dataType="org.eclipse.uml2.types.Integer" required="true" ordered="false"
-	 * @generated
+	 * @return the idIndiv
 	 */
-	int getId();
-
+	public int getIdIndiv() {
+		return idIndiv;
+	}
 	/**
-	 * Sets the value of the '{@link model.Individu#getId <em>Id</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Id</em>' attribute.
-	 * @see #getId()
-	 * @generated
+	 * @param idIndiv the idIndiv to set
 	 */
-	void setId(int value);
-
+	public void setIdIndiv(int idIndiv) {
+		this.idIndiv = idIndiv;
+	}
 	/**
-	 * Returns the value of the '<em><b>Nom</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Nom</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Nom</em>' attribute.
-	 * @see #setNom(String)
-	 * @see model.ModelPackage#getIndividu_Nom()
-	 * @model dataType="org.eclipse.uml2.types.String" required="true" ordered="false"
-	 * @generated
+	 * @return the nomIndiv
 	 */
-	String getNom();
-
+	public String getNomIndiv() {
+		return nomIndiv;
+	}
 	/**
-	 * Sets the value of the '{@link model.Individu#getNom <em>Nom</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Nom</em>' attribute.
-	 * @see #getNom()
-	 * @generated
+	 * @param nomIndiv the nomIndiv to set
 	 */
-	void setNom(String value);
-
+	public void setNomIndiv(String nomIndiv) {
+		this.nomIndiv = nomIndiv;
+	}
 	/**
-	 * Returns the value of the '<em><b>Point Vie</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Point Vie</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Point Vie</em>' attribute.
-	 * @see #setPointVie(int)
-	 * @see model.ModelPackage#getIndividu_PointVie()
-	 * @model dataType="org.eclipse.uml2.types.Integer" required="true" ordered="false"
-	 * @generated
+	 * @return the nbPVIndiv
 	 */
-	int getPointVie();
-
+	public int getNbPVIndiv() {
+		return nbPVIndiv;
+	}
 	/**
-	 * Sets the value of the '{@link model.Individu#getPointVie <em>Point Vie</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Point Vie</em>' attribute.
-	 * @see #getPointVie()
-	 * @generated
+	 * @param nbPVIndiv the nbPVIndiv to set
 	 */
-	void setPointVie(int value);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model
-	 * @generated
-	 */
-	void jeParle();
-
-} // Individu
+	public void setNbPVIndiv(int nbPVIndiv) {
+		this.nbPVIndiv = nbPVIndiv;
+	}
+}

@@ -1,112 +1,72 @@
-/**
- */
 package model;
 
-import org.eclipse.emf.ecore.EObject;
+import java.util.HashMap;
 
-/**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Utilisateur</b></em>'.
- * <!-- end-user-doc -->
- *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link model.Utilisateur#getIdUtilisateur <em>Id Utilisateur</em>}</li>
- *   <li>{@link model.Utilisateur#getNomUtilisateur <em>Nom Utilisateur</em>}</li>
- *   <li>{@link model.Utilisateur#getMdpUtilisateur <em>Mdp Utilisateur</em>}</li>
- * </ul>
- * </p>
- *
- * @see model.ModelPackage#getUtilisateur()
- * @model
- * @generated
- */
-public interface Utilisateur extends EObject {
-	/**
-	 * Returns the value of the '<em><b>Id Utilisateur</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Id Utilisateur</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Id Utilisateur</em>' attribute.
-	 * @see #setIdUtilisateur(int)
-	 * @see model.ModelPackage#getUtilisateur_IdUtilisateur()
-	 * @model dataType="org.eclipse.uml2.types.Integer" required="true" ordered="false"
-	 * @generated
-	 */
-	int getIdUtilisateur();
+public class Utilisateur {
+	private int idUser;
+	private String nomUser;
+	private String mdpUser;
+	private HashMap<Integer, Personnage> listePerso;
+
+	public Utilisateur(int id, String nom, String mdp) {
+		idUser = id;
+		nomUser = nom;
+		mdpUser = mdp;
+	}
 
 	/**
-	 * Sets the value of the '{@link model.Utilisateur#getIdUtilisateur <em>Id Utilisateur</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Id Utilisateur</em>' attribute.
-	 * @see #getIdUtilisateur()
-	 * @generated
+	 * @return the idUser
 	 */
-	void setIdUtilisateur(int value);
+	public int getIdUser() {
+		return idUser;
+	}
 
 	/**
-	 * Returns the value of the '<em><b>Nom Utilisateur</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Nom Utilisateur</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Nom Utilisateur</em>' attribute.
-	 * @see #setNomUtilisateur(String)
-	 * @see model.ModelPackage#getUtilisateur_NomUtilisateur()
-	 * @model dataType="org.eclipse.uml2.types.String" required="true" ordered="false"
-	 * @generated
+	 * @param idUser the idUser to set
 	 */
-	String getNomUtilisateur();
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
+	}
 
 	/**
-	 * Sets the value of the '{@link model.Utilisateur#getNomUtilisateur <em>Nom Utilisateur</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Nom Utilisateur</em>' attribute.
-	 * @see #getNomUtilisateur()
-	 * @generated
+	 * @return the nomUser
 	 */
-	void setNomUtilisateur(String value);
+	public String getNomUser() {
+		return nomUser;
+	}
 
 	/**
-	 * Returns the value of the '<em><b>Mdp Utilisateur</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Mdp Utilisateur</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Mdp Utilisateur</em>' attribute.
-	 * @see #setMdpUtilisateur(String)
-	 * @see model.ModelPackage#getUtilisateur_MdpUtilisateur()
-	 * @model dataType="org.eclipse.uml2.types.String" required="true" ordered="false"
-	 * @generated
+	 * @param nomUser the nomUser to set
 	 */
-	String getMdpUtilisateur();
+	public void setNomUser(String nomUser) {
+		this.nomUser = nomUser;
+	}
 
 	/**
-	 * Sets the value of the '{@link model.Utilisateur#getMdpUtilisateur <em>Mdp Utilisateur</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Mdp Utilisateur</em>' attribute.
-	 * @see #getMdpUtilisateur()
-	 * @generated
+	 * @return the mdpUser
 	 */
-	void setMdpUtilisateur(String value);
+	public String getMdpUser() {
+		return mdpUser;
+	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model idDataType="org.eclipse.uml2.types.String" idRequired="true" idOrdered="false" mdpDataType="org.eclipse.uml2.types.String" mdpRequired="true" mdpOrdered="false"
-	 * @generated
+	 * @param mdpUser the mdpUser to set
 	 */
-	void seConnecter(String id, String mdp);
+	public void setMdpUser(String mdpUser) {
+		this.mdpUser = mdpUser;
+	}
+	
+	/**
+	 * @return the listePerso
+	 */
+	public HashMap<Integer, Personnage> getListePerso() {
+		return listePerso;
+	}
 
-} // Utilisateur
+	/**
+	 * @param listePerso the listePerso to set
+	 */
+	public void setListePerso(HashMap<Integer, Personnage> listePerso) {
+		this.listePerso = listePerso;
+	}
+}

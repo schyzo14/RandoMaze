@@ -1,139 +1,88 @@
-/**
- */
 package model;
 
-import org.eclipse.emf.ecore.EObject;
+import java.util.ArrayList;
 
-/**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Piece</b></em>'.
- * <!-- end-user-doc -->
- *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link model.Piece#getIdPiece <em>Id Piece</em>}</li>
- *   <li>{@link model.Piece#getNomServeur <em>Nom Serveur</em>}</li>
- *   <li>{@link model.Piece#getPositionX <em>Position X</em>}</li>
- *   <li>{@link model.Piece#getPositionY <em>Position Y</em>}</li>
- * </ul>
- * </p>
- *
- * @see model.ModelPackage#getPiece()
- * @model
- * @generated
- */
-public interface Piece extends EObject {
-	/**
-	 * Returns the value of the '<em><b>Id Piece</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Id Piece</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Id Piece</em>' attribute.
-	 * @see #setIdPiece(int)
-	 * @see model.ModelPackage#getPiece_IdPiece()
-	 * @model dataType="org.eclipse.uml2.types.Integer" required="true" ordered="false"
-	 * @generated
-	 */
-	int getIdPiece();
+public class Piece {
+	private int idPiece;
+	private String nomServer;
+	private int posX;
+	private int posY;
+	private ArrayList<Porte> listePortes;
+	
+	public Piece(int id, String nom, int x, int y) {
+		idPiece = id;
+		nomServer = nom;
+		posX = x;
+		posY = y;
+	}
 
 	/**
-	 * Sets the value of the '{@link model.Piece#getIdPiece <em>Id Piece</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Id Piece</em>' attribute.
-	 * @see #getIdPiece()
-	 * @generated
+	 * @return the idPiece
 	 */
-	void setIdPiece(int value);
+	public int getIdPiece() {
+		return idPiece;
+	}
 
 	/**
-	 * Returns the value of the '<em><b>Nom Serveur</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Nom Serveur</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Nom Serveur</em>' attribute.
-	 * @see #setNomServeur(String)
-	 * @see model.ModelPackage#getPiece_NomServeur()
-	 * @model dataType="org.eclipse.uml2.types.String" required="true" ordered="false"
-	 * @generated
+	 * @param idPiece the idPiece to set
 	 */
-	String getNomServeur();
+	public void setIdPiece(int idPiece) {
+		this.idPiece = idPiece;
+	}
 
 	/**
-	 * Sets the value of the '{@link model.Piece#getNomServeur <em>Nom Serveur</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Nom Serveur</em>' attribute.
-	 * @see #getNomServeur()
-	 * @generated
+	 * @return the nomServer
 	 */
-	void setNomServeur(String value);
+	public String getNomServer() {
+		return nomServer;
+	}
 
 	/**
-	 * Returns the value of the '<em><b>Position X</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Position X</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Position X</em>' attribute.
-	 * @see #setPositionX(int)
-	 * @see model.ModelPackage#getPiece_PositionX()
-	 * @model dataType="org.eclipse.uml2.types.Integer" required="true" ordered="false"
-	 * @generated
+	 * @param nomServer the nomServer to set
 	 */
-	int getPositionX();
+	public void setNomServer(String nomServer) {
+		this.nomServer = nomServer;
+	}
 
 	/**
-	 * Sets the value of the '{@link model.Piece#getPositionX <em>Position X</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Position X</em>' attribute.
-	 * @see #getPositionX()
-	 * @generated
+	 * @return the posX
 	 */
-	void setPositionX(int value);
+	public int getPosX() {
+		return posX;
+	}
 
 	/**
-	 * Returns the value of the '<em><b>Position Y</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Position Y</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Position Y</em>' attribute.
-	 * @see #setPositionY(int)
-	 * @see model.ModelPackage#getPiece_PositionY()
-	 * @model dataType="org.eclipse.uml2.types.Integer" required="true" ordered="false"
-	 * @generated
+	 * @param posX the posX to set
 	 */
-	int getPositionY();
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
 
 	/**
-	 * Sets the value of the '{@link model.Piece#getPositionY <em>Position Y</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Position Y</em>' attribute.
-	 * @see #getPositionY()
-	 * @generated
+	 * @return the posY
 	 */
-	void setPositionY(int value);
+	public int getPosY() {
+		return posY;
+	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model porteSortieRequired="true" porteSortieOrdered="false" pieceRequired="true" pieceOrdered="false" userRequired="true" userOrdered="false"
-	 * @generated
+	 * @param posY the posY to set
 	 */
-	void fuir(Porte porteSortie, Piece piece, Personnage user);
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
 
-} // Piece
+	/**
+	 * @return the listePortes
+	 */
+	public ArrayList<Porte> getListePortes() {
+		return listePortes;
+	}
+
+	/**
+	 * @param listePortes the listePortes to set
+	 */
+	public void setListePortes(ArrayList<Porte> listePortes) {
+		this.listePortes = listePortes;
+	}
+}
