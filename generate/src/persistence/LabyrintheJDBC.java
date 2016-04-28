@@ -54,7 +54,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	private PreparedStatement reqUpdatePersonnageSt = null;
 	
 	
-	protected LabyrintheJDBC(String nomBD) throws RemoteException {
+	public LabyrintheJDBC(String nomBD) throws RemoteException {
 		try {
 			// récupération du driver
 		    Class.forName("org.h2.Driver");
@@ -237,22 +237,36 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	
 	public static void main(String[] args) throws Exception {
 		LocateRegistry.createRegistry(1099);
-		LabyrintheJDBC labyrintheJDBC = new LabyrintheJDBC("Labyrinthe");
-		Naming.bind("Labyrinthe", labyrintheJDBC);
-		System.out.println("Connexion BD réusie");
+		//LabyrintheJDBC labyrintheJDBC = new LabyrintheJDBC("Labyrinthe");
+		Naming.rebind("MaBD", new LabyrintheJDBC("Labyrinthe"));
+		System.out.println("Connexion BD réussie");
 //		labyrintheJDBC.creerPiece("s1", 1, 2);
 //		ArrayList<Piece> listPiece = labyrintheJDBC.selectPiece();
 //		for (Piece piece : listPiece) {
 //			System.out.println(piece.getIdPiece() + " - " + piece.getNomServeur() +
 //					" - " + piece.getPositionX() + "/" + piece.getPositionY());
 //		}
-		Utilisateur utilisateur = labyrintheJDBC.selectUtilisateurByNom("YouYou");
+		/*Utilisateur utilisateur = labyrintheJDBC.selectUtilisateurByNom("YouYou");
 		System.out.println(utilisateur.getIdUser() + " - " + utilisateur.getNomUser() + " - " + utilisateur.getMdpUser());
 		ArrayList<Personnage> listPersonnage = labyrintheJDBC.selectPersonnageByUtilisateur(utilisateur.getIdUser());
 		for (Personnage personnage : listPersonnage) {
 			System.out.println(personnage.getIdIndiv() + " - " + personnage.getNomIndiv());
-		}
+		}*/
 		
 	}
 
+	@Override
+	public String seConnecter(String id, String mdp) throws RemoteException {
+		Utilisateur utilisateur = selectUtilisateurByNom(id);
+		String res="";
+		if(utilisateur == null) {
+			res = "Mauvais utilisateur";
+		} else if(utilisateur.getMdpUser().equals(mdp)) {
+			res = "Connexion réussie";
+		} else {
+			res = "Mauvais mot de passe";
+		}
+		
+		return res;
+	}
 }

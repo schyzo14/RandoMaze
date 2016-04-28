@@ -4,6 +4,13 @@
  */
 package ui;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+
+import model.Labyrinthe;
+
 /**
  *
  * @author Aurore
@@ -54,11 +61,23 @@ public class Connexion extends javax.swing.JFrame {
                 motDePasseActionPerformed(evt);
             }
         });
-
+        
+        //BOUTON CONNEXION
         buttonConnexion.setText("Connexion");
         buttonConnexion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonConnexionActionPerformed(evt);
+               try {
+				buttonConnexionActionPerformed(evt);
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NotBoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             }
         });
 
@@ -116,8 +135,10 @@ public class Connexion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_motDePasseActionPerformed
 
-    private void buttonConnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConnexionActionPerformed
-        // TODO add your handling code here:
+    private void buttonConnexionActionPerformed(java.awt.event.ActionEvent evt) throws MalformedURLException, RemoteException, NotBoundException {//GEN-FIRST:event_buttonConnexionActionPerformed
+        Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
+        String res = laby.se_connecter(nomUtilisateur.getText(), motDePasse.getText());
+        System.out.println(res);
     }//GEN-LAST:event_buttonConnexionActionPerformed
 
     private void buttonInscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInscriptionActionPerformed
