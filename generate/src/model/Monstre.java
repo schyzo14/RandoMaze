@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Random;
+
 public class Monstre extends Individu {
 	
 	public Monstre(int id, String nom) {
@@ -14,7 +16,8 @@ public class Monstre extends Individu {
 	public Monstre createMonstre () {
 		Monstre monstre;
 		
-		int val = 1 + ((int)Math.random() * (4 - 1));
+		Random rand = new Random();
+		int val = rand.nextInt(4 - 1 + 1) + 1;
 		
 		switch (val) {
 			case 1:

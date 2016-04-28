@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Random;
+
 public class Individu {
 	private int idIndiv;
 	private String nomIndiv;
@@ -47,4 +49,30 @@ public class Individu {
 	public void setNbPVIndiv(int nbPVIndiv) {
 		this.nbPVIndiv = nbPVIndiv;
 	}
+	
+	/**
+	 * Retirer des PV
+	 * 
+	 * @return False=monstre / True=personnage
+	 */
+	public static boolean retirerPV () {
+		
+		// attendre 1 seconde
+		try {
+		    Thread.sleep(1000);                 // 1000 milliseconds is one second.
+		} catch(InterruptedException ex) {
+		    Thread.currentThread().interrupt();
+		}
+		
+		// retirer aléatoirement des PV
+		Random rand = new Random();
+		int val = rand.nextInt(1 - 0 + 1) + 0;
+		if (val == 0) {
+			return false; // Retirer au monstre
+		} else {
+			return true; // Retirer au personnage
+		}
+		
+	}
+	
 }
