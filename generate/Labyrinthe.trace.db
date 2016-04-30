@@ -97,3 +97,15 @@ insert into PERSONNAGE (NOMPERSONNAGE , IDUTILISATEUR , POINTVIE , IDPIECE ) val
 04-26 21:49:38 jdbc[2]: exception
 org.h2.jdbc.JdbcSQLException: Table "IDPIECE" not found; SQL statement:
 select * from IDPIECE [42102-147]
+04-30 21:12:47 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM PIECE 
+DELETE FROM[*] PIECE "; SQL statement:
+select * from PIECE 
+delete from PIECE [42000-147]
+04-30 21:18:11 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "              
+INSERT INTO PIECE (IDPIECE, NOMSERVEUR , POSITIONX , POSITIONY ) VALUES (14, 'beta', 2, 6)
+INSERT[*] INTO PORTE (SITUATIONPORTE , IDPIECE ) VALUES ('NORD', 14) "; SQL statement:
+-- Salle 14 --
+insert into PIECE (IDPIECE, NOMSERVEUR , POSITIONX , POSITIONY ) values (14, 'beta', 2, 6)
+insert into PORTE (SITUATIONPORTE , IDPIECE ) values ('NORD', 14) [42000-147]
