@@ -5,6 +5,10 @@
  */
 package ui;
 
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.Toolkit;
+
 /**
  *
  * @author Administrateur
@@ -16,6 +20,16 @@ public class CreerPersonnage extends javax.swing.JFrame {
      */
     public CreerPersonnage() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        
+        //Dimensionnement Fenetre
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        Dimension d = tk.getScreenSize();
+        Insets insets = tk.getScreenInsets(getGraphicsConfiguration());
+        int width = (int) (524 - insets.left - insets.right);
+        int height = (int) (368 - insets.top - insets.bottom);
+        setSize(width, height);
     }
 
     /**
@@ -34,25 +48,31 @@ public class CreerPersonnage extends javax.swing.JFrame {
         b_creer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("RandoMaze - Inscription");
+        setTitle("RandoMaze - Creer un personnage");
         setBackground(new java.awt.Color(204, 204, 204));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        l_nomPers.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        l_nomPers.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         l_nomPers.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l_nomPers.setText("Nom du personnage");
 
-        tf_nomPers.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 255)));
-
-        b_annuler.setBackground(new java.awt.Color(102, 102, 255));
-        b_annuler.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        b_annuler.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         b_annuler.setText("Annuler");
+        b_annuler.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                b_annulerMouseClicked(evt);
+            }
+        });
 
-        b_creer.setBackground(new java.awt.Color(102, 102, 255));
-        b_creer.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        b_creer.setText("Créer");
+        b_creer.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        b_creer.setText("CrÃ©er");
+        b_creer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                b_creerMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -60,35 +80,30 @@ public class CreerPersonnage extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(75, 75, 75)
-                .addComponent(b_annuler, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(b_creer, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(b_annuler, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(96, 96, 96)
+                .addComponent(b_creer, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
                 .addGap(75, 75, 75))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
-                .addComponent(l_nomPers, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(l_nomPers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tf_nomPers, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addComponent(tf_nomPers, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                .addGap(41, 41, 41))
         );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {b_annuler, b_creer});
-
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(l_nomPers, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tf_nomPers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(99, 99, 99)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tf_nomPers, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(l_nomPers, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(75, 75, 75)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(b_creer)
-                    .addComponent(b_annuler))
+                    .addComponent(b_creer, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b_annuler, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(83, 83, 83))
         );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {b_annuler, b_creer});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,6 +118,20 @@ public class CreerPersonnage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void b_annulerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_annulerMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        Personnage fenPersonnage = new Personnage();
+        fenPersonnage.setVisible(true);
+    }//GEN-LAST:event_b_annulerMouseClicked
+
+    private void b_creerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_creerMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        Personnage fenPersonnage = new Personnage();
+        fenPersonnage.setVisible(true);
+    }//GEN-LAST:event_b_creerMouseClicked
 
     /**
      * @param args the command line arguments

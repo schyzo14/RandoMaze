@@ -5,6 +5,10 @@
  */
 package ui;
 
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.Toolkit;
+
 /**
  *
  * @author Administrateur
@@ -16,6 +20,16 @@ public class Sauvegarder extends javax.swing.JFrame {
      */
     public Sauvegarder() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        
+        //Dimensionnement Fenetre
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        Dimension d = tk.getScreenSize();
+        Insets insets = tk.getScreenInsets(getGraphicsConfiguration());
+        int width = (int) (524 - insets.left - insets.right);
+        int height = (int) (368 - insets.top - insets.bottom);
+        setSize(width, height);
     }
 
     /**
@@ -34,20 +48,29 @@ public class Sauvegarder extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RandoMaze - Sauvegarder");
+        setBounds(new java.awt.Rectangle(0, 0, 0, 0));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        l_question.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        l_question.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         l_question.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l_question.setText("Voulez-vous sauvegarder et quitter le jeu ?");
 
-        b_oui.setBackground(new java.awt.Color(102, 102, 255));
-        b_oui.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        b_oui.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         b_oui.setText("Oui");
+        b_oui.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                b_ouiMouseClicked(evt);
+            }
+        });
 
-        b_non.setBackground(new java.awt.Color(102, 102, 255));
-        b_non.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        b_non.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         b_non.setText("Non");
+        b_non.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                b_nonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -55,30 +78,25 @@ public class Sauvegarder extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(b_oui, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(b_non, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(l_question, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(48, Short.MAX_VALUE))
+                        .addComponent(b_oui, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                        .addGap(101, 101, 101)
+                        .addComponent(b_non, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
+                    .addComponent(l_question, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE))
+                .addGap(48, 48, 48))
         );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {b_non, b_oui});
-
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(66, 66, 66)
-                .addComponent(l_question, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(l_question, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                 .addGap(57, 57, 57)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(b_oui)
-                    .addComponent(b_non))
-                .addContainerGap(117, Short.MAX_VALUE))
+                    .addComponent(b_oui, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(b_non, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                .addGap(117, 117, 117))
         );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {b_non, b_oui});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,11 +106,23 @@ public class Sauvegarder extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void b_ouiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_ouiMouseClicked
+        // TODO add your handling code here:
+        System.out.println("Sauvegarde dans la BDD");
+        System.exit(0);
+    }//GEN-LAST:event_b_ouiMouseClicked
+
+    private void b_nonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_nonMouseClicked
+        // TODO add your handling code here:
+        //Fermer la bdd ... 
+        System.exit(0);
+    }//GEN-LAST:event_b_nonMouseClicked
 
     /**
      * @param args the command line arguments
