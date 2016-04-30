@@ -1,11 +1,9 @@
 package model;
 
-import java.util.ArrayList;
-
 public class Porte {
 	public int idPorte;
 	public String positionPorte;
-	public ArrayList<Piece> listePieces;
+	public int idPiece;
 	
 	public Porte(int id, String situation) {
 		idPorte = id;
@@ -41,16 +39,17 @@ public class Porte {
 	}
 
 	/**
-	 * @return the listePieces
+	 * @return the idPiece
 	 */
-	public ArrayList<Piece> getListePieces() {
-		return listePieces;
+	public int getIdPiece() {
+		return idPiece;
 	}
 
 	/**
-	 * @param listePieces the listePieces to set
+	 * @param idPiece the idPiece to set
 	 */
-	public void setListePieces(ArrayList<Piece> listePieces) {
-		this.listePieces = listePieces;
+	public void setIdPiece(int idPiece) {
+		this.idPiece = idPiece;
 	}
+
 }

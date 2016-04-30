@@ -12,8 +12,6 @@ public interface Labyrinthe extends java.rmi.Remote {
 	// Pièces
 	public ArrayList<Piece> selectPiece () 
 			throws java.rmi.RemoteException;
-	public boolean creerPiece (String nomserveur, int positionX, int positionY)
-			throws java.rmi.RemoteException;
 
 	// Porte
 	public ArrayList<Porte> selectPorteByIdPiece (int idpiece)

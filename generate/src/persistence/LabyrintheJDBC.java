@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.Personnage;
 import model.Piece;
@@ -27,10 +28,8 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	
 	// Piece
 	private static final String reqSelectPiece = "select idpiece, nomserveur, positionX, positionY from PIECE";
-	private static final String reqInsertPiece = "insert into PIECE (nomserveur, positionX, positionY) values (?, ?, ?)";
 	
 	private PreparedStatement reqSelectPieceSt = null;
-	private PreparedStatement reqInsertPieceSt = null;
 	
 	// Porte
 	private static final String reqSelectPorteByIdPiece = "select idporte, situationporte, idpiece from PORTE where idpiece=?";
@@ -63,7 +62,6 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	        // construction des prepared statement
 		    // Piece
 		    reqSelectPieceSt = conn.prepareStatement(reqSelectPiece);
-		    reqInsertPieceSt = conn.prepareStatement(reqInsertPiece);
 		    // Porte
 		    reqSelectPorteByIdPieceSt = conn.prepareStatement(reqSelectPorteByIdPiece);
 		    // Utilisateur
@@ -87,6 +85,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 			ArrayList<Piece> listPieces = new ArrayList<Piece>();
 			while (rs.next()) {
 				Piece piece = new Piece(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
+				piece.setListePortes(selectPorteByIdPiece(rs.getInt(1)));
 				listPieces.add(piece);
 			}
 			return listPieces;
@@ -97,24 +96,6 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 		}
 	}
 	
-	
-	@Override
-	public boolean creerPiece(String nomserveur, int positionX, int positionY) throws RemoteException {
-		try {
-			reqInsertPieceSt.setString(1, nomserveur);
-			reqInsertPieceSt.setInt(2,positionX);
-			reqInsertPieceSt.setInt(3,positionY);
-        	if (reqInsertPieceSt.executeUpdate()==1)
-				return true;
-        	else
-        		return false;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
-
 	@Override
 	public ArrayList<Porte> selectPorteByIdPiece(int idpiece) throws RemoteException {
 		try {
@@ -124,7 +105,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 			ArrayList<Porte> listPortes = new ArrayList<Porte>();
 			while (rs.next()) {
 				Porte porte = new Porte(rs.getInt(1), rs.getString(2));
-				//porte.setIdpiece(rs.getInt(3));
+				porte.setIdPiece(rs.getInt(3));
 				listPortes.add(porte);
 			}
 			return listPortes;
@@ -144,6 +125,12 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 			Utilisateur utilisateur = null;
 			while (rs.next()) {
 				utilisateur = new Utilisateur((int)rs.getLong(1), rs.getString(2), rs.getString(3));
+				ArrayList<Personnage> listePerso = selectPersonnageByUtilisateur((int)rs.getLong(1));
+				HashMap<Integer, Personnage> listePersoMap = new HashMap<Integer, Personnage>();
+				for (Personnage perso : listePerso) {
+					listePersoMap.put(perso.getIdIndiv(), perso);
+				}
+				utilisateur.setListePerso(listePersoMap);
 			}
 			return utilisateur;
 			
@@ -176,13 +163,8 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 			
 			ArrayList<Personnage> listPersonnages = new ArrayList<Personnage>();
 			while (rs.next()) {
-				/*Personnage personnage = new Personnage();
-				personnage.setIdPersonnage(rs.getInt(1));
-				personnage.setNomPersonnage(rs.getString(2));
-				personnage.setIdUtilisateur(rs.getInt(3));
-				personnage.setPointVie(rs.getInt(4));
-				personnage.setIdpiece(rs.getInt(5));1*/
-				//listPersonnages.add(personnage);
+				Personnage personnage = new Personnage(rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getInt(5), rs.getInt(3));
+				listPersonnages.add(personnage);
 			}
 			return listPersonnages;
 			
@@ -237,21 +219,33 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	
 	public static void main(String[] args) throws Exception {
 		LocateRegistry.createRegistry(1099);
-		//LabyrintheJDBC labyrintheJDBC = new LabyrintheJDBC("Labyrinthe");
+		LabyrintheJDBC labyrintheJDBC = new LabyrintheJDBC("Labyrinthe");
 		Naming.rebind("MaBD", new LabyrintheJDBC("Labyrinthe"));
 		System.out.println("Connexion BD réussie");
-//		labyrintheJDBC.creerPiece("s1", 1, 2);
-//		ArrayList<Piece> listPiece = labyrintheJDBC.selectPiece();
-//		for (Piece piece : listPiece) {
-//			System.out.println(piece.getIdPiece() + " - " + piece.getNomServeur() +
-//					" - " + piece.getPositionX() + "/" + piece.getPositionY());
-//		}
-		/*Utilisateur utilisateur = labyrintheJDBC.selectUtilisateurByNom("YouYou");
-		System.out.println(utilisateur.getIdUser() + " - " + utilisateur.getNomUser() + " - " + utilisateur.getMdpUser());
-		ArrayList<Personnage> listPersonnage = labyrintheJDBC.selectPersonnageByUtilisateur(utilisateur.getIdUser());
-		for (Personnage personnage : listPersonnage) {
-			System.out.println(personnage.getIdIndiv() + " - " + personnage.getNomIndiv());
-		}*/
+/*		ArrayList<Piece> listePiece =  labyrintheJDBC.selectPiece();
+		for (Piece piece : listePiece) {
+			System.out.println();
+			System.out.print(piece.getIdPiece() + " - " 
+					+ piece.getNomServer() + " - " 
+					+ piece.getPosX() + " - " 
+					+ piece.getPosY() + " - ");
+			ArrayList<Porte> listePorte = piece.getListePortes();
+			for (Porte porte : listePorte) {
+				System.out.print(porte.positionPorte + " - ");
+			}
+		}		*/
+		
+/*		Utilisateur utilisateur = labyrintheJDBC.selectUtilisateurByNom("YouYou");
+		System.out.println(utilisateur.getIdUser() + " - " 
+				+ utilisateur.getNomUser() + " - "
+				+ utilisateur.getMdpUser());
+		HashMap<Integer, Personnage> listPerso = utilisateur.getListePerso();
+		for (int idPerso : listPerso.keySet()) {
+			Personnage personnage = listPerso.get(idPerso);
+			System.out.println(personnage.getIdPiece() + " - "
+					+ personnage.getNbPVIndiv() + " - "
+					+ personnage.getNomIndiv());
+		}		*/
 		
 	}
 

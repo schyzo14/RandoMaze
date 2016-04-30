@@ -2,9 +2,13 @@ package model;
 
 public class Personnage extends Individu {
 	private Utilisateur user;
+	private int idPiece;
+	private int idUtilisateur;
 	
-	public Personnage(int id, String nom, int pv) {
+	public Personnage(int id, String nom, int pv, int idPiece, int idUtilisateur) {
 		super(id, nom, pv);
+		setIdPiece(idPiece);
+		setIdUtilisateur(idUtilisateur);
 	}
 
 	/**
@@ -19,5 +23,21 @@ public class Personnage extends Individu {
 	 */
 	public void setUser(Utilisateur user) {
 		this.user = user;
+	}
+
+	public int getIdPiece() {
+		return idPiece;
+	}
+
+	public void setIdPiece(int idPiece) {
+		this.idPiece = idPiece;
+	}
+
+	public int getIdUtilisateur() {
+		return idUtilisateur;
+	}
+
+	public void setIdUtilisateur(int idUtilisateur) {
+		this.idUtilisateur = idUtilisateur;
 	}
 }
