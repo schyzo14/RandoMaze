@@ -22,6 +22,9 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 		LocateRegistry.createRegistry(1098);
 	 	Naming.rebind("MonServeur1", new LabyrintheImpl());
 	 	System.out.println("MonServeur1 est lancé.");
+	 	LocateRegistry.createRegistry(1097);
+	 	Naming.rebind("MonServeur2", new LabyrintheImpl());
+	 	System.out.println("MonServeur2 est lancé.");
 	}
 
 	@Override
