@@ -46,7 +46,7 @@ public class Inscription extends javax.swing.JFrame {
         nomUtilisateur = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        motDePasse = new javax.swing.JTextField();
+        motDePasse = new javax.swing.JPasswordField();
         buttonInscription = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -192,7 +192,7 @@ public class Inscription extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField motDePasse;
+    private javax.swing.JPasswordField motDePasse;
     private javax.swing.JTextField nomUtilisateur;
     // End of variables declaration//GEN-END:variables
 }
