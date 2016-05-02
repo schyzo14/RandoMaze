@@ -193,14 +193,21 @@ public class Connexion extends javax.swing.JFrame {
         // TODO add your handling code here:
         Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
         boolean res = laby.se_connecter(nomUtilisateur.getText(), motDePasse.getText());
-        System.out.println(res);
+        if(res==true)
+        {
+        	this.setVisible(false);
+        	Personnage fenPersonnage = new Personnage();
+        	fenPersonnage.setVisible(true);
+        }else
+        {
+        	System.out.println("Erreur de nom d'utilisateur ou de mot de passe.");
+        }
+        
     }//GEN-LAST:event_buttonConnexionActionPerformed
 
     private void buttonConnexionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonConnexionMouseClicked
         // TODO add your handling code here:
-        this.setVisible(false);
-        Personnage fenPersonnage = new Personnage();
-        fenPersonnage.setVisible(true);
+        
     }//GEN-LAST:event_buttonConnexionMouseClicked
 
     private void buttonInscriptionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonInscriptionMouseClicked
