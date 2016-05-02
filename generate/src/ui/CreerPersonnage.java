@@ -67,7 +67,7 @@ public class CreerPersonnage extends javax.swing.JFrame {
         });
 
         b_creer.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        b_creer.setText("Créer");
+        b_creer.setText("Creer");
         b_creer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 b_creerMouseClicked(evt);
