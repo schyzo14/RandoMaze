@@ -195,6 +195,7 @@ public class Connexion extends javax.swing.JFrame {
         boolean res = laby.se_connecter(nomUtilisateur.getText(), motDePasse.getText());
         if(res==true)
         {
+        	System.out.println("Nom d'utilisateur et mot de passe correct!");
         	this.setVisible(false);
         	Personnage fenPersonnage = new Personnage();
         	fenPersonnage.setVisible(true);
