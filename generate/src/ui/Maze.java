@@ -87,6 +87,7 @@ public class Maze extends javax.swing.JFrame {
         b_sauvegarder = new javax.swing.JButton();
         l_textSave = new javax.swing.JLabel();
         b_quitter = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RandoMaze - Jouer");
