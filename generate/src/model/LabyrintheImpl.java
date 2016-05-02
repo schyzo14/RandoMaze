@@ -28,10 +28,10 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 	}
 
 	@Override
-	public String se_connecter(String id, String mdp) throws MalformedURLException, RemoteException, NotBoundException {
+	public boolean se_connecter(String id, String mdp) throws MalformedURLException, RemoteException, NotBoundException {
 		// TODO Auto-generated method stub
 		persistence.Labyrinthe labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
-		String res = labyBD.seConnecter(id, mdp);
+		boolean res = labyBD.seConnecter(id, mdp);
 		return res;
 	}
 }

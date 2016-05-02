@@ -250,15 +250,11 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	}
 
 	@Override
-	public String seConnecter(String id, String mdp) throws RemoteException {
+	public boolean seConnecter(String id, String mdp) throws RemoteException {
 		Utilisateur utilisateur = selectUtilisateurByNom(id);
-		String res="";
-		if(utilisateur == null) {
-			res = "Mauvais utilisateur";
-		} else if(utilisateur.getMdpUser().equals(mdp)) {
-			res = "Connexion réussie";
-		} else {
-			res = "Mauvais mot de passe";
+		boolean res=true;
+		if(utilisateur == null || !utilisateur.getMdpUser().equals(mdp)) {
+			res = false;
 		}
 		
 		return res;

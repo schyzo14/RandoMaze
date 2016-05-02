@@ -192,7 +192,7 @@ public class Connexion extends javax.swing.JFrame {
     private void buttonConnexionActionPerformed(java.awt.event.ActionEvent evt) throws MalformedURLException, RemoteException, NotBoundException {//GEN-FIRST:event_buttonConnexionActionPerformed
         // TODO add your handling code here:
         Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
-        String res = laby.se_connecter(nomUtilisateur.getText(), motDePasse.getText());
+        boolean res = laby.se_connecter(nomUtilisateur.getText(), motDePasse.getText());
         System.out.println(res);
     }//GEN-LAST:event_buttonConnexionActionPerformed
 

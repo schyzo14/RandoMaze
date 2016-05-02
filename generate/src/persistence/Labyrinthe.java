@@ -18,7 +18,7 @@ public interface Labyrinthe extends java.rmi.Remote {
 			throws java.rmi.RemoteException;
 	
 	// Utilisateur
-	public String seConnecter(String id, String mdp)
+	public boolean seConnecter(String id, String mdp)
 			throws java.rmi.RemoteException;
 	public Utilisateur selectUtilisateurByNom (String nom)
 			throws java.rmi.RemoteException;
