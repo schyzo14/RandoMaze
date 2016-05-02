@@ -71,7 +71,9 @@ public class Combat extends javax.swing.JFrame {
         monsterPV.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         imagePlayer.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
+        imagePlayer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imagePlayer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/avatar.png"))); // NOI18N
+        
         player.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         player.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         player.setText("Personnage");
@@ -81,6 +83,8 @@ public class Combat extends javax.swing.JFrame {
         lifePointsPlayer.setText("PV");
 
         imageEnemy.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        imageEnemy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imageEnemy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/xemnas.jpg"))); // NOI18N
 
         lifePointsEnemy.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lifePointsEnemy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
