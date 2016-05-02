@@ -92,6 +92,11 @@ public class Combat extends javax.swing.JFrame {
 
         buttonRun.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         buttonRun.setText("Fuir");
+        buttonRun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRunActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -158,6 +163,11 @@ public class Combat extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void buttonRunActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+        this.setVisible(false); 
+    }   
+    
     /**
      * @param args the command line arguments
      */
