@@ -48,7 +48,7 @@ public class CreerPersonnage extends javax.swing.JFrame {
         b_creer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("RandoMaze - Creer un personnage");
+        setTitle("RandoMaze - Créer un personnage");
         setBackground(new java.awt.Color(204, 204, 204));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -67,7 +67,7 @@ public class CreerPersonnage extends javax.swing.JFrame {
         });
 
         b_creer.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        b_creer.setText("Creer");
+        b_creer.setText("Créer");
         b_creer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 b_creerMouseClicked(evt);
