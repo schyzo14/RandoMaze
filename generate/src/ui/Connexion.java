@@ -55,7 +55,7 @@ public class Connexion extends javax.swing.JFrame {
         nomUtilisateur = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        motDePasse = new javax.swing.JTextField();
+        motDePasse = new javax.swing.JPasswordField();
         buttonConnexion = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         buttonInscription = new javax.swing.JToggleButton();
