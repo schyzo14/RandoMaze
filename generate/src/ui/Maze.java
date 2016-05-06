@@ -28,14 +28,6 @@ public class Maze extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        
-        //Dimensionnement Fenetre
-        /*Toolkit tk = Toolkit.getDefaultToolkit();
-        Dimension d = tk.getScreenSize();
-        Insets insets = tk.getScreenInsets(getGraphicsConfiguration());
-        int width = (int) (1024 - insets.left - insets.right);
-        int height = (int) (768 - insets.top - insets.bottom);
-        setSize(width, height);*/
     }
 
     /**
