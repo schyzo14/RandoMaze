@@ -1,8 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Piece {
+public class Piece implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6444614151907722565L;
 	private int idPiece;
 	private String nomServer;
 	private int posX;
