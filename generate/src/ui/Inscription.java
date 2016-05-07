@@ -8,6 +8,13 @@ package ui;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+
+import model.Labyrinthe;
+import model.Utilisateur;
 
 /**
  *
@@ -81,7 +88,18 @@ public class Inscription extends javax.swing.JFrame {
         buttonInscription.setText("S'inscrire");
         buttonInscription.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonInscriptionMouseClicked(evt);
+                try {
+					buttonInscriptionMouseClicked(evt);
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NotBoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
         buttonInscription.addActionListener(new java.awt.event.ActionListener() {
@@ -146,11 +164,21 @@ public class Inscription extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonInscriptionActionPerformed
 
-    private void buttonInscriptionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonInscriptionMouseClicked
-        // TODO add your handling code here:
-        this.setVisible(false);
-        CreerPersonnage fenCreerPersonnage = new CreerPersonnage();
-        fenCreerPersonnage.setVisible(true);
+    private void buttonInscriptionMouseClicked(java.awt.event.MouseEvent evt) throws MalformedURLException, RemoteException, NotBoundException {//GEN-FIRST:event_buttonInscriptionMouseClicked
+        
+    	Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
+    	boolean result = laby.creerUtilisateur(nomUtilisateur.getText(), motDePasse.getText());
+    	
+    	if (result == false) {
+    		System.out.println("Problème d'inscription");
+    	} else {
+    		System.out.println("Inscription réussie");
+    		this.setVisible(false);
+    		Utilisateur utilisateur = laby.se_connecter(nomUtilisateur.getText(), motDePasse.getText());
+            CreerPersonnage fenCreerPersonnage = new CreerPersonnage(utilisateur.getIdUser());
+            fenCreerPersonnage.setVisible(true);
+    	}
+        
     }//GEN-LAST:event_buttonInscriptionMouseClicked
 
     /**

@@ -14,21 +14,30 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import model.Labyrinthe;
+
 /**
  *
  * @author Aurore
  */
 public class Personnage extends javax.swing.JFrame {
 
+	private int idUtilisateur;
+	private ArrayList<model.Personnage> listPersonnages;
+	
     /**
      * Creates new form Personnage
      * @throws NotBoundException 
      * @throws RemoteException 
      * @throws MalformedURLException 
      */
-    public Personnage(int idUtilisateur) throws MalformedURLException, RemoteException, NotBoundException {
-    	persistence.Labyrinthe labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
-    	ArrayList<model.Personnage> listPerso = labyBD.selectPersonnageByUtilisateur(idUtilisateur);
+    public Personnage (int idUtilisateur) throws MalformedURLException, RemoteException, NotBoundException {
+    	
+    	this.idUtilisateur = idUtilisateur;
+    	
+    	Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
+    	ArrayList<model.Personnage> listPerso = laby.getPersonnages(idUtilisateur);
+    	this.listPersonnages = listPerso;
     	
     	String[] strings = new String[listPerso.size()];
     	int i = 0;
@@ -50,32 +59,6 @@ public class Personnage extends javax.swing.JFrame {
         setSize(width, height);
     }
     
-    public Personnage()  {
-    	/*	persistence.Labyrinthe labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
-    	ArrayList<model.Personnage> listPerso = labyBD.selectPersonnageByUtilisateur(idUtilisateur);
-    	
-    	String[] strings = new String[listPerso.size()];
-    	int i = 0;
-    	for (model.Personnage perso : listPerso) {
-    		strings[i] = perso.getNomIndiv();
-    		i ++;
-    	}
-    */	
-    	String[] strings = { "Test 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-    	
-        initComponents(strings);
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        
-        //Dimensionnement Fenetre
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        Dimension d = tk.getScreenSize();
-        Insets insets = tk.getScreenInsets(getGraphicsConfiguration());
-        int width = (int) (824 - insets.left - insets.right);
-        int height = (int) (568 - insets.top - insets.bottom);
-        setSize(width, height);
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -188,16 +171,32 @@ public class Personnage extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonValiderActionPerformed
 
     private void buttonValiderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonValiderMouseClicked
-        // TODO add your handling code here:
-        this.setVisible(false);
-        Maze fenMaze = new Maze();
-        fenMaze.setVisible(true);
+        
+    	String nomPerso = (String) list.getSelectedValue();
+    	
+    	if (nomPerso == null) {
+    		System.out.println("Pas de personnage choisi");
+    	} else {
+    		for (model.Personnage personnage : this.listPersonnages) {
+        		if (personnage.getNomIndiv().equals(nomPerso)) {
+        			System.out.println("Choix du personnage : " + personnage.getNomIndiv());
+        			model.Personnage choixPersonnage = new model.Personnage(personnage.getIdIndiv(), personnage.getNomIndiv(), personnage.getNbPVIndiv(), personnage.getIdPiece(), idUtilisateur);
+        			this.setVisible(false);
+        	        Maze fenMaze = new Maze(choixPersonnage);
+        	        fenMaze.setVisible(true);
+        		} else {
+        			System.out.println("Personnage inconnue");
+        		}
+        	}
+    	}
+    	
+        
     }//GEN-LAST:event_buttonValiderMouseClicked
 
     private void buttonNouveauPersonnageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonNouveauPersonnageMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        CreerPersonnage fenCreerPerso = new CreerPersonnage();
+        CreerPersonnage fenCreerPerso = new CreerPersonnage(this.idUtilisateur);
         fenCreerPerso.setVisible(true);
     }//GEN-LAST:event_buttonNouveauPersonnageMouseClicked
 
@@ -229,23 +228,17 @@ public class Personnage extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+/*        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-					new Personnage(1).setVisible(true);
-				} catch (MalformedURLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (NotBoundException e) {
+				try {
+					new Personnage(this.idUtilisateur).setVisible(true);
+				} catch (MalformedURLException | RemoteException | NotBoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }
         });
-    }
+*/    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonNouveauPersonnage;
     private javax.swing.JToggleButton buttonValider;

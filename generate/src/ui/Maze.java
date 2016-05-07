@@ -24,8 +24,9 @@ public class Maze extends javax.swing.JFrame {
     /**
      * Creates new form Maze
      */
-    public Maze() {
-        initComponents();
+    public Maze(model.Personnage choixPersonnage) {
+    	
+        initComponents(choixPersonnage.getNomIndiv(), choixPersonnage.getNbPVIndiv());
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
@@ -37,7 +38,7 @@ public class Maze extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(String nomPersonnage, int PV) {
 
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -129,7 +130,7 @@ public class Maze extends javax.swing.JFrame {
         jProgressBar1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel2.setText("Nom du Personnage");
+        jLabel2.setText(nomPersonnage);
 
         jScrollPane2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
@@ -139,7 +140,7 @@ public class Maze extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTextArea1);
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel3.setText("PV / PVMax");
+        jLabel3.setText(PV + " / PVMax");
 
         sendMsgButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         sendMsgButton.setText("Envoyer");
@@ -873,12 +874,12 @@ public class Maze extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+/*        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Maze().setVisible(true);
             }
         });
-    }
+*/    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_quitter;

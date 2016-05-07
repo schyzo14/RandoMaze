@@ -8,6 +8,9 @@ package ui;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 /**
  *
@@ -15,10 +18,15 @@ import java.awt.Toolkit;
  */
 public class CreerPersonnage extends javax.swing.JFrame {
 
+	private int idUtilisateur;
+	
     /**
      * Creates new form CreerPersonnage
      */
-    public CreerPersonnage() {
+    public CreerPersonnage(int idUtilisateur) {
+    	
+    	this.idUtilisateur = idUtilisateur;
+    	
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -62,7 +70,12 @@ public class CreerPersonnage extends javax.swing.JFrame {
         b_annuler.setText("Annuler");
         b_annuler.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                b_annulerMouseClicked(evt);
+                try {
+					b_annulerMouseClicked(evt);
+				} catch (MalformedURLException | RemoteException | NotBoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -70,7 +83,12 @@ public class CreerPersonnage extends javax.swing.JFrame {
         b_creer.setText("Créer");
         b_creer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                b_creerMouseClicked(evt);
+                try {
+					b_creerMouseClicked(evt);
+				} catch (MalformedURLException | RemoteException | NotBoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -119,17 +137,17 @@ public class CreerPersonnage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void b_annulerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_annulerMouseClicked
+    private void b_annulerMouseClicked(java.awt.event.MouseEvent evt) throws MalformedURLException, RemoteException, NotBoundException {//GEN-FIRST:event_b_annulerMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        Personnage fenPersonnage = new Personnage();
+        Personnage fenPersonnage = new Personnage(this.idUtilisateur);
         fenPersonnage.setVisible(true);
     }//GEN-LAST:event_b_annulerMouseClicked
 
-    private void b_creerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_creerMouseClicked
+    private void b_creerMouseClicked(java.awt.event.MouseEvent evt) throws MalformedURLException, RemoteException, NotBoundException {//GEN-FIRST:event_b_creerMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        Personnage fenPersonnage = new Personnage();
+        Personnage fenPersonnage = new Personnage(this.idUtilisateur);
         fenPersonnage.setVisible(true);
     }//GEN-LAST:event_b_creerMouseClicked
 
@@ -161,12 +179,12 @@ public class CreerPersonnage extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+/*        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreerPersonnage().setVisible(true);
+                new CreerPersonnage(this.idUtilisateur).setVisible(true);
             }
         });
-    }
+*/    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_annuler;
