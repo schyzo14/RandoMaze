@@ -1,8 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Utilisateur {
+public class Utilisateur implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2544947169058657840L;
 	private int idUser;
 	private String nomUser;
 	private String mdpUser;

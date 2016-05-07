@@ -1,6 +1,12 @@
 package model;
 
-public class Personnage extends Individu {
+import java.io.Serializable;
+
+public class Personnage extends Individu implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 596693072202458878L;
 	private Utilisateur user;
 	private int idPiece;
 	private int idUtilisateur;
