@@ -7,6 +7,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 
+import ui.Personnage;
+
 public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 
 	/**
@@ -28,10 +30,16 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 	}
 
 	@Override
-	public boolean se_connecter(String id, String mdp) throws MalformedURLException, RemoteException, NotBoundException {
-		// TODO Auto-generated method stub
+	public int se_connecter(String id, String mdp) throws MalformedURLException, RemoteException, NotBoundException {
+		
 		persistence.Labyrinthe labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
-		boolean res = labyBD.seConnecter(id, mdp);
-		return res;
+		
+        Utilisateur utilisateur = labyBD.selectUtilisateurByNom(id);
+        if(utilisateur == null || !utilisateur.getMdpUser().equals(mdp)) {
+        	return -1;
+        } else {
+        	return utilisateur.getIdUser();
+        }
+
 	}
 }

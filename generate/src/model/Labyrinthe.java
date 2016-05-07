@@ -7,5 +7,5 @@ import java.rmi.RemoteException;
 
 public interface Labyrinthe extends Remote {
 	
-	public boolean se_connecter(String id, String mdp) throws MalformedURLException, RemoteException, NotBoundException;
+	public int se_connecter(String id, String mdp) throws MalformedURLException, RemoteException, NotBoundException;
 }

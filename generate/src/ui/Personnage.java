@@ -8,6 +8,11 @@ package ui;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,9 +22,48 @@ public class Personnage extends javax.swing.JFrame {
 
     /**
      * Creates new form Personnage
+     * @throws NotBoundException 
+     * @throws RemoteException 
+     * @throws MalformedURLException 
      */
-    public Personnage() {
-        initComponents();
+    public Personnage(int idUtilisateur) throws MalformedURLException, RemoteException, NotBoundException {
+    	persistence.Labyrinthe labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
+    	ArrayList<model.Personnage> listPerso = labyBD.selectPersonnageByUtilisateur(idUtilisateur);
+    	
+    	String[] strings = new String[listPerso.size()];
+    	int i = 0;
+    	for (model.Personnage perso : listPerso) {
+    		strings[i] = perso.getNomIndiv();
+    		i ++;
+    	}
+    	
+        initComponents(strings);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        
+        //Dimensionnement Fenetre
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        Dimension d = tk.getScreenSize();
+        Insets insets = tk.getScreenInsets(getGraphicsConfiguration());
+        int width = (int) (824 - insets.left - insets.right);
+        int height = (int) (568 - insets.top - insets.bottom);
+        setSize(width, height);
+    }
+    
+    public Personnage()  {
+    	/*	persistence.Labyrinthe labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
+    	ArrayList<model.Personnage> listPerso = labyBD.selectPersonnageByUtilisateur(idUtilisateur);
+    	
+    	String[] strings = new String[listPerso.size()];
+    	int i = 0;
+    	for (model.Personnage perso : listPerso) {
+    		strings[i] = perso.getNomIndiv();
+    		i ++;
+    	}
+    */	
+    	String[] strings = { "Test 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+    	
+        initComponents(strings);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         
@@ -39,7 +83,7 @@ public class Personnage extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(String[] strings) {
 
         jPanel1 = new javax.swing.JPanel();
         scrollPanel = new javax.swing.JScrollPane();
@@ -56,7 +100,7 @@ public class Personnage extends javax.swing.JFrame {
 
         list.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         list.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -187,7 +231,18 @@ public class Personnage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Personnage().setVisible(true);
+                try {
+					new Personnage(1).setVisible(true);
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NotBoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
     }

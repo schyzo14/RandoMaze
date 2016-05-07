@@ -12,10 +12,9 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import model.Labyrinthe;
+import model.Utilisateur;
 
 //import model.Labyrinthe;
 
@@ -191,17 +190,17 @@ public class Connexion extends javax.swing.JFrame {
 
     private void buttonConnexionActionPerformed(java.awt.event.ActionEvent evt) throws MalformedURLException, RemoteException, NotBoundException {//GEN-FIRST:event_buttonConnexionActionPerformed
         // TODO add your handling code here:
-        Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
-        boolean res = laby.se_connecter(nomUtilisateur.getText(), motDePasse.getText());
-        if(res==true)
-        {
+    	Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
+
+    	int id = laby.se_connecter(nomUtilisateur.getText(), motDePasse.getText());
+
+		if (id == -1) {
+			System.out.println("Erreur de nom d'utilisateur ou de mot de passe.");
+		} else {
         	System.out.println("Nom d'utilisateur et mot de passe correct!");
         	this.setVisible(false);
-        	Personnage fenPersonnage = new Personnage();
+        	Personnage fenPersonnage = new Personnage(id);
         	fenPersonnage.setVisible(true);
-        }else
-        {
-        	System.out.println("Erreur de nom d'utilisateur ou de mot de passe.");
         }
         
     }//GEN-LAST:event_buttonConnexionActionPerformed
