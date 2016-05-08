@@ -93,7 +93,18 @@ public class Personnage extends javax.swing.JFrame {
         buttonValider.setText("Valider");
         buttonValider.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonValiderMouseClicked(evt);
+                try {
+					buttonValiderMouseClicked(evt);
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NotBoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
         buttonValider.addActionListener(new java.awt.event.ActionListener() {
@@ -170,7 +181,7 @@ public class Personnage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonValiderActionPerformed
 
-    private void buttonValiderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonValiderMouseClicked
+    private void buttonValiderMouseClicked(java.awt.event.MouseEvent evt) throws MalformedURLException, RemoteException, NotBoundException {//GEN-FIRST:event_buttonValiderMouseClicked
         
     	String nomPerso = (String) list.getSelectedValue();
     	

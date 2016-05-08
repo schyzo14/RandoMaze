@@ -6,29 +6,41 @@
 //package ui;
 package ui;
 
-import java.awt.Dimension;
-import java.awt.Insets;
-import java.awt.Toolkit;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.HashMap;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
+
+import model.Labyrinthe;
+import model.Personnage;
 
 /**
  *
  * @author Schyzo
  */
 public class Maze extends javax.swing.JFrame {
-	
+	private static final long serialVersionUID = -5693706248417459444L;
 	private HashMap<String, JPanel> listePanels = new HashMap<String, JPanel>();
+	private Personnage currentPerso;
+	private DefaultListModel<String> listeMsg = new DefaultListModel<String>();
 
     /**
      * Creates new form Maze
+     * @throws NotBoundException 
+     * @throws RemoteException 
+     * @throws MalformedURLException 
      */
-    public Maze(model.Personnage choixPersonnage) {
-    	
-        initComponents(choixPersonnage.getNomIndiv(), choixPersonnage.getNbPVIndiv());
+    public Maze(Personnage choixPersonnage) throws MalformedURLException, RemoteException, NotBoundException {
+        //initComponents(choixPersonnage.getNomIndiv(), choixPersonnage.getNbPVIndiv());
+    	currentPerso = choixPersonnage;
+    	initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
     }
 
     /**
@@ -38,11 +50,11 @@ public class Maze extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(String nomPersonnage, int PV) {
-
+    private void initComponents() {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        jList = new javax.swing.JList(listeMsg);
+        jProgressBar1 = new javax.swing.JProgressBar(0, 10);
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -126,11 +138,15 @@ public class Maze extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jScrollPane1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
+        
+        
+        jScrollPane1.setViewportView(jList);
+        
         jProgressBar1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jProgressBar1.setValue(currentPerso.getNbPVIndiv());
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel2.setText(nomPersonnage);
+        jLabel2.setText(currentPerso.getNomIndiv());
 
         jScrollPane2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
@@ -140,15 +156,10 @@ public class Maze extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTextArea1);
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel3.setText(PV + " / PVMax");
+        jLabel3.setText(currentPerso.getNbPVIndiv() + " / 10");
 
         sendMsgButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         sendMsgButton.setText("Envoyer");
-        sendMsgButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                sendMsgButtonMouseClicked(evt);
-            }
-        });
         sendMsgButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sendMsgButtonActionPerformed(evt);
@@ -714,9 +725,9 @@ public class Maze extends javax.swing.JFrame {
 
         b_sauvegarder.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         b_sauvegarder.setText("Sauvegarder");
-        b_sauvegarder.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                b_sauvegarderMouseClicked(evt);
+        b_sauvegarder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_sauvegarderActionPerformed(evt);
             }
         });
 
@@ -724,11 +735,6 @@ public class Maze extends javax.swing.JFrame {
 
         b_quitter.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         b_quitter.setText("Quitter");
-        b_quitter.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                b_quitterMouseClicked(evt);
-            }
-        });
         b_quitter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 b_quitterActionPerformed(evt);
@@ -822,29 +828,21 @@ public class Maze extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void b_quitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_quitterActionPerformed
-        // TODO add your handling code here:
+    	this.setVisible(false);
+        Sauvegarder fenSauvegarder = new Sauvegarder();
+        fenSauvegarder.setVisible(true);
     }//GEN-LAST:event_b_quitterActionPerformed
 
-    private void b_quitterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_quitterMouseClicked
-        // TODO add your handling code here:
-        this.setVisible(false);
-        /*Sauvegarder fenSauvegarder = new Sauvegarder();
-        fenSauvegarder.setVisible(true);*/
-    }//GEN-LAST:event_b_quitterMouseClicked
-
-    private void b_sauvegarderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_sauvegarderMouseClicked
+    private void b_sauvegarderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_sauvegarderMouseClicked
         // TODO add your handling code here:
         System.out.println("Sauvegarde dans la BDD");
     }//GEN-LAST:event_b_sauvegarderMouseClicked
 
     private void sendMsgButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMsgButtonActionPerformed
-        // TODO add your handling code here:
+    	listeMsg.addElement(currentPerso.getNomIndiv() + " : " + jTextArea1.getText());
+    	jTextArea1.setText("");
+    	System.out.println("Envoyer message Chat");
     }//GEN-LAST:event_sendMsgButtonActionPerformed
-
-    private void sendMsgButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sendMsgButtonMouseClicked
-        // TODO add your handling code here:
-        System.out.println("Envoyer message Chat");
-    }//GEN-LAST:event_sendMsgButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -923,6 +921,7 @@ public class Maze extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel48;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList jList;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel l_textSave;
