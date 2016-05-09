@@ -11,5 +11,4 @@ public class Game {
 		
 		Connexion.main(args);
 	}
-
 }
