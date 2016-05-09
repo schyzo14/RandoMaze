@@ -14,6 +14,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import model.Labyrinthe;
 
 /**
@@ -187,6 +189,7 @@ public class Personnage extends javax.swing.JFrame {
     	
     	if (nomPerso == null) {
     		System.out.println("Pas de personnage choisi");
+    		JOptionPane.showMessageDialog(null, "Veuillez choisir un personnage ou en créez un.");
     	} else {
     		for (model.Personnage personnage : this.listPersonnages) {
         		if (personnage.getNomIndiv().equals(nomPerso)) {
@@ -197,6 +200,7 @@ public class Personnage extends javax.swing.JFrame {
         	        fenMaze.setVisible(true);
         		} else {
         			System.out.println("Personnage inconnue");
+        			JOptionPane.showMessageDialog(null, "Veuillez choisir un personnage ou en créez un.");
         		}
         	}
     	}
