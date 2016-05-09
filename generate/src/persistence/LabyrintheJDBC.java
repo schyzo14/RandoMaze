@@ -150,7 +150,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
         	else
         		return false;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 	}
@@ -186,7 +186,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
         	else
         		return false;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 	}
