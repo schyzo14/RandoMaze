@@ -152,16 +152,22 @@ public class CreerPersonnage extends javax.swing.JFrame {
     private void b_creerMouseClicked(java.awt.event.MouseEvent evt) throws MalformedURLException, RemoteException, NotBoundException {//GEN-FIRST:event_b_creerMouseClicked
         // TODO add your handling code here:
     	Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
-    	boolean result = laby.creerPersonnage(tf_nomPers.getText(), idUtilisateur);
     	
-    	if (result == false) {
-    		System.out.println("Problème de création de personnage - Nom de personnage déjà existant ou autre erreur... ");
-    		JOptionPane.showMessageDialog(null, "Problème de création de personnage - Nom de personnage déjà existant ou autre erreur...");
+    	if (tf_nomPers.getText().trim().length() <= 0) {
+    		System.out.println("Remplissez le nom du personnage.");
+    		JOptionPane.showMessageDialog(null, "Remplissez le nom du personnage.");
     	} else {
-    		System.out.println("Personnage créé !");
-    		this.setVisible(false);
-    		Personnage fenPersonnage = new Personnage(this.idUtilisateur);
-    		fenPersonnage.setVisible(true);
+        	boolean result = laby.creerPersonnage(tf_nomPers.getText(), idUtilisateur);
+        	
+        	if (result == false) {
+        		System.out.println("Problème de création de personnage - Nom de personnage déjà existant ou autre erreur... ");
+        		JOptionPane.showMessageDialog(null, "Problème de création de personnage - Nom de personnage déjà existant ou autre erreur...");
+        	} else {
+        		System.out.println("Personnage créé !");
+        		this.setVisible(false);
+        		Personnage fenPersonnage = new Personnage(this.idUtilisateur);
+        		fenPersonnage.setVisible(true);
+        	}
     	}
         
     }//GEN-LAST:event_b_creerMouseClicked
