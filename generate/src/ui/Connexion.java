@@ -59,7 +59,7 @@ public class Connexion extends javax.swing.JFrame {
         motDePasse = new javax.swing.JPasswordField();
         buttonConnexion = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        buttonInscription = new javax.swing.JToggleButton();
+        buttonInscription = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RandoMaze - Connexion");
@@ -257,7 +257,7 @@ public class Connexion extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonConnexion;
-    private javax.swing.JToggleButton buttonInscription;
+    private javax.swing.JButton buttonInscription;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
