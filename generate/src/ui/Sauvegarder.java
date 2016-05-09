@@ -5,6 +5,7 @@
  */
 package ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
@@ -12,6 +13,10 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 
 import persistence.LabyrintheJDBC;
 import model.Labyrinthe;
@@ -128,10 +133,24 @@ public class Sauvegarder extends javax.swing.JFrame {
 		Labyrinthe laby;
 		try {
 			laby = (Labyrinthe) Naming.lookup("MonServeur1");
-			boolean result = laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv() ,currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
+			boolean result = laby.updatePersonnage(212, currentPerso.getNomIndiv() ,currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
 			
 			if (result == false) {
 				System.out.println("Problème de sauvegarde dans la BDD!");
+		
+				int option = JOptionPane.showConfirmDialog(null, 
+			        "Erreur de sauvegarde. Voulez-vous quand même quitter ?", 
+			        "Erreur de sauvegarde", 
+			        JOptionPane.YES_NO_OPTION, 
+			        JOptionPane.QUESTION_MESSAGE);
+			      
+			      if(option == JOptionPane.OK_OPTION){
+			          System.exit(0);   	
+			      }else{
+			    	  this.setVisible(false);
+	        	      Maze fenMaze = new Maze(currentPerso);
+	        	      fenMaze.setVisible(true);
+			      }
 			} else {
 				System.out.println("Sauvegarde réussie!");
 				System.exit(0);
