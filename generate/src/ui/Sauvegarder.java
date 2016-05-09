@@ -184,7 +184,7 @@ public class Sauvegarder extends javax.swing.JFrame {
 
 	private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
         // TODO add your handling code here:
-    	System.exit(0);
+    	this.setVisible(false);
     }
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables
