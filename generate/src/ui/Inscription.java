@@ -56,7 +56,7 @@ public class Inscription extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         motDePasse = new javax.swing.JPasswordField();
-        buttonInscription = new javax.swing.JToggleButton();
+        buttonInscription = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RandoMaze - Inscription");
@@ -180,10 +180,10 @@ public class Inscription extends javax.swing.JFrame {
     		boolean result = laby.creerUtilisateur(nomUtilisateur.getText(), motDePasse.getText());
         	
         	if (result == false) {
-        		System.out.println("ProblËme d'inscription");
-        		JOptionPane.showMessageDialog(null, "ProblËme d'inscription - Nom dÈj‡ existant ou autre erreur...");
+        		System.out.println("Probl√®me d'inscription");
+        		JOptionPane.showMessageDialog(null, "Probl√®me d'inscription - Nom d√©j√† existant ou autre erreur...");
         	} else {
-        		System.out.println("Inscription rÈussie");
+        		System.out.println("Inscription r√©ussie");
         		this.setVisible(false);
         		Utilisateur utilisateur = laby.se_connecter(nomUtilisateur.getText(), motDePasse.getText());
                 CreerPersonnage fenCreerPersonnage = new CreerPersonnage(utilisateur.getIdUser());
@@ -194,7 +194,7 @@ public class Inscription extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonInscriptionMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton buttonInscription;
+    private javax.swing.JButton buttonInscription;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
