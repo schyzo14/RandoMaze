@@ -8,6 +8,7 @@ package ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -32,20 +33,21 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 	private Personnage currentPerso;
 	private DefaultListModel<String> listeMsg = new DefaultListModel<String>();
 
-	/**
-	 * Creates new form Maze
-	 * @throws NotBoundException 
-	 * @throws RemoteException 
-	 * @throws MalformedURLException 
-	 */
-	public Maze(Personnage choixPersonnage) throws MalformedURLException, RemoteException, NotBoundException {
-		//initComponents(choixPersonnage.getNomIndiv(), choixPersonnage.getNbPVIndiv());
-		currentPerso = choixPersonnage;
-		initComponents();
-		this.setLocationRelativeTo(null);
-		this.setResizable(false);
-		Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
-	}
+    /**
+     * Creates new form Maze
+     * @throws NotBoundException 
+     * @throws RemoteException 
+     * @throws MalformedURLException 
+     */
+    public Maze(Personnage choixPersonnage) throws MalformedURLException, RemoteException, NotBoundException {
+        //initComponents(choixPersonnage.getNomIndiv(), choixPersonnage.getNbPVIndiv());
+    	currentPerso = choixPersonnage;
+    	initComponents();
+    	jPanel2.requestFocus();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
+    }
 
 	/**
 	 * This method is called from within the constructor to initialize the form.
@@ -134,7 +136,14 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		b_sauvegarder = new javax.swing.JButton();
 		l_textSave = new javax.swing.JLabel();
 		b_quitter = new javax.swing.JButton();
+		
 		jLabel4 = new javax.swing.JLabel();
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanel2KeyPressed(evt);
+            }
+        });
 
 		//setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		addWindowListener(new java.awt.event.WindowAdapter() {
@@ -892,6 +901,30 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jTextArea1.setText("");
 		System.out.println("Envoyer message Chat");
 	}//GEN-LAST:event_sendMsgButtonActionPerformed
+	
+    private void jPanel2KeyPressed(java.awt.event.KeyEvent evt) {                                 
+        int keyCode = evt.getKeyCode();
+        switch(keyCode) {
+        case KeyEvent.VK_UP:
+        	//
+        	break;
+        case KeyEvent.VK_DOWN:
+        	//
+        	break;
+        case KeyEvent.VK_LEFT:
+        	//
+        	break;
+        case KeyEvent.VK_RIGHT:
+        	//
+        	break;
+        }
+    }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+
+	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton b_quitter;
@@ -941,10 +974,4 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 	private javax.swing.JLabel l_textSave;
 	private javax.swing.JButton sendMsgButton;
 	// End of variables declaration//GEN-END:variables
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
-	}
 }
