@@ -9,8 +9,11 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.net.MalformedURLException;
+import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+
+import model.Labyrinthe;
 
 /**
  *
@@ -146,9 +149,18 @@ public class CreerPersonnage extends javax.swing.JFrame {
 
     private void b_creerMouseClicked(java.awt.event.MouseEvent evt) throws MalformedURLException, RemoteException, NotBoundException {//GEN-FIRST:event_b_creerMouseClicked
         // TODO add your handling code here:
-        this.setVisible(false);
-        Personnage fenPersonnage = new Personnage(this.idUtilisateur);
-        fenPersonnage.setVisible(true);
+    	Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
+    	boolean result = laby.creerPersonnage(tf_nomPers.getText(), idUtilisateur);
+    	
+    	if (result == false) {
+    		System.out.println("Problème de création de personnage");
+    	} else {
+    		System.out.println("Personnage créé !");
+    		this.setVisible(false);
+    		Personnage fenPersonnage = new Personnage(this.idUtilisateur);
+    		fenPersonnage.setVisible(true);
+    	}
+        
     }//GEN-LAST:event_b_creerMouseClicked
 
     /**

@@ -8,6 +8,14 @@ package ui;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+
+import persistence.LabyrintheJDBC;
+import model.Labyrinthe;
+import model.Personnage;
 
 /**
  *
@@ -15,10 +23,12 @@ import java.awt.Toolkit;
  */
 public class Sauvegarder extends javax.swing.JFrame {
 
+	private Personnage currentPerso;
     /**
      * Creates new form Sauvegarder
      */
-    public Sauvegarder() {
+    public Sauvegarder(Personnage choixPerso) {
+    	currentPerso = choixPerso;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -114,14 +124,38 @@ public class Sauvegarder extends javax.swing.JFrame {
 
     private void b_ouiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_ouiMouseClicked
         // TODO add your handling code here:
-        System.out.println("Sauvegarde dans la BDD");
-        System.exit(0);
+       /* System.out.println("Sauvegarde dans la BDD");
+		Labyrinthe laby;
+		try {
+			laby = (Labyrinthe) Naming.lookup("MonServeur1");
+			boolean result = laby.updatePersonnage(currentPerso.getIdUtilisateur(), currentPerso.getNomIndiv() ,currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
+			
+			if (result == false) {
+				System.out.println("Problème de sauvegarde dans la BDD!");
+			} else {
+				System.out.println("Sauvegarde réussie!");
+				System.exit(0);
+			}
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+        
     }//GEN-LAST:event_b_ouiMouseClicked
 
     private void b_nonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_nonMouseClicked
         // TODO add your handling code here:
         //Fermer la bdd ... 
-        System.exit(0);
+    	/*try {
+    		//LabyrintheJDBC laby = new LabyrintheJDBC("MaBD");
+			//laby.fermer();
+
+			System.exit(0);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+        
     }//GEN-LAST:event_b_nonMouseClicked
 
     /**
@@ -152,11 +186,11 @@ public class Sauvegarder extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Sauvegarder().setVisible(true);
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

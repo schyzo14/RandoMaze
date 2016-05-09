@@ -16,4 +16,10 @@ public interface Labyrinthe extends Remote {
 	
 	public boolean creerUtilisateur (String nom, String mdp)
 			throws MalformedURLException, RemoteException, NotBoundException;
+	
+	public boolean creerPersonnage (String nom, int idUtilisateur)
+			throws MalformedURLException, RemoteException, NotBoundException;
+	
+	public boolean updatePersonnage (int id, String nom ,int pointvie, int idpiece)
+			throws MalformedURLException, RemoteException, NotBoundException;
 }
