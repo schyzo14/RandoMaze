@@ -124,7 +124,7 @@ public class Sauvegarder extends javax.swing.JFrame {
 
     private void b_ouiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_ouiMouseClicked
         // TODO add your handling code here:
-       /* System.out.println("Sauvegarde dans la BDD");
+       System.out.println("Sauvegarde dans la BDD");
 		Labyrinthe laby;
 		try {
 			laby = (Labyrinthe) Naming.lookup("MonServeur1");
@@ -139,14 +139,14 @@ public class Sauvegarder extends javax.swing.JFrame {
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
         
     }//GEN-LAST:event_b_ouiMouseClicked
 
     private void b_nonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_nonMouseClicked
         // TODO add your handling code here:
         //Fermer la bdd ... 
-    	/*try {
+    	try {
     		//LabyrintheJDBC laby = new LabyrintheJDBC("MaBD");
 			//laby.fermer();
 
@@ -154,7 +154,7 @@ public class Sauvegarder extends javax.swing.JFrame {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
         
     }//GEN-LAST:event_b_nonMouseClicked
 
