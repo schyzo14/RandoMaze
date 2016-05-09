@@ -13,6 +13,8 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import javax.swing.JOptionPane;
+
 import model.Labyrinthe;
 import model.Utilisateur;
 
@@ -171,6 +173,7 @@ public class Inscription extends javax.swing.JFrame {
     	
     	if (result == false) {
     		System.out.println("Problème d'inscription");
+    		JOptionPane.showMessageDialog(null, "Problème d'inscription - Nom déjà existant ou autre erreur...");
     	} else {
     		System.out.println("Inscription réussie");
     		this.setVisible(false);
