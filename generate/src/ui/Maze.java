@@ -843,7 +843,7 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		Labyrinthe laby;
 		try {
 			laby = (Labyrinthe) Naming.lookup("MonServeur1");
-			boolean result = laby.updatePersonnage(currentPerso.getIdUtilisateur(), currentPerso.getNomIndiv() ,currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
+			boolean result = laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv() ,currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
 			
 			if (result == false) {
 				System.out.println("Problème de sauvegarde dans la BDD!");
@@ -854,7 +854,6 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 				jLabel3.setText(currentPerso.getNbPVIndiv() + " / 10");
 				l_textSave.setText("Sauvegarde réussie...");
 				messageUtilisateur(l_textSave);
-				
 			}
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			// TODO Auto-generated catch block

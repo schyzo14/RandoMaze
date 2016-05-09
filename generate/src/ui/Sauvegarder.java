@@ -128,7 +128,7 @@ public class Sauvegarder extends javax.swing.JFrame {
 		Labyrinthe laby;
 		try {
 			laby = (Labyrinthe) Naming.lookup("MonServeur1");
-			boolean result = laby.updatePersonnage(currentPerso.getIdUtilisateur(), currentPerso.getNomIndiv() ,currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
+			boolean result = laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv() ,currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
 			
 			if (result == false) {
 				System.out.println("Problème de sauvegarde dans la BDD!");
