@@ -61,7 +61,12 @@ public class Sauvegarder extends javax.swing.JFrame {
         b_oui = new javax.swing.JButton();
         b_non = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         setTitle("RandoMaze - Sauvegarder");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
 
@@ -177,6 +182,11 @@ public class Sauvegarder extends javax.swing.JFrame {
         
     }//GEN-LAST:event_b_nonMouseClicked
 
+	private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
+        // TODO add your handling code here:
+    	System.exit(0);
+    }
+	
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_non;
     private javax.swing.JButton b_oui;
