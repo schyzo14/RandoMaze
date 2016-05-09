@@ -169,17 +169,26 @@ public class Inscription extends javax.swing.JFrame {
     private void buttonInscriptionMouseClicked(java.awt.event.MouseEvent evt) throws MalformedURLException, RemoteException, NotBoundException {//GEN-FIRST:event_buttonInscriptionMouseClicked
         
     	Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
-    	boolean result = laby.creerUtilisateur(nomUtilisateur.getText(), motDePasse.getText());
     	
-    	if (result == false) {
-    		System.out.println("Problème d'inscription");
-    		JOptionPane.showMessageDialog(null, "Problème d'inscription - Nom déjà existant ou autre erreur...");
+    	if (nomUtilisateur.getText().trim().length() <= 0) {
+    		System.out.println("Remplissez le nom d'utilisateur.");
+    		JOptionPane.showMessageDialog(null, "Remplissez le nom d'utilisateur.");
+    	} else if (motDePasse.getText().trim().length() <= 0) {
+    		System.out.println("Remplissez le mot de passe.");
+    		JOptionPane.showMessageDialog(null, "Remplissez le mot de passe.");
     	} else {
-    		System.out.println("Inscription réussie");
-    		this.setVisible(false);
-    		Utilisateur utilisateur = laby.se_connecter(nomUtilisateur.getText(), motDePasse.getText());
-            CreerPersonnage fenCreerPersonnage = new CreerPersonnage(utilisateur.getIdUser());
-            fenCreerPersonnage.setVisible(true);
+    		boolean result = laby.creerUtilisateur(nomUtilisateur.getText(), motDePasse.getText());
+        	
+        	if (result == false) {
+        		System.out.println("Problème d'inscription");
+        		JOptionPane.showMessageDialog(null, "Problème d'inscription - Nom déjà existant ou autre erreur...");
+        	} else {
+        		System.out.println("Inscription réussie");
+        		this.setVisible(false);
+        		Utilisateur utilisateur = laby.se_connecter(nomUtilisateur.getText(), motDePasse.getText());
+                CreerPersonnage fenCreerPersonnage = new CreerPersonnage(utilisateur.getIdUser());
+                fenCreerPersonnage.setVisible(true);
+        	}
     	}
         
     }//GEN-LAST:event_buttonInscriptionMouseClicked
