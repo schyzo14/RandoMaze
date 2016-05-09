@@ -251,6 +251,7 @@ public class Connexion extends javax.swing.JFrame {
             }
         });
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonConnexion;
     private javax.swing.JToggleButton buttonInscription;

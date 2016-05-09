@@ -148,8 +148,8 @@ public class Sauvegarder extends javax.swing.JFrame {
 			          System.exit(0);   	
 			      }else{
 			    	  this.setVisible(false);
-	        	      Maze fenMaze = new Maze(currentPerso);
-	        	      fenMaze.setVisible(true);
+	        	      //Maze fenMaze = new Maze(currentPerso);
+	        	      //fenMaze.setVisible(true);
 			      }
 			} else {
 				System.out.println("Sauvegarde réussie!");
