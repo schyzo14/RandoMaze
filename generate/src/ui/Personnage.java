@@ -73,7 +73,7 @@ public class Personnage extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         scrollPanel = new javax.swing.JScrollPane();
         list = new javax.swing.JList();
-        buttonValider = new javax.swing.JToggleButton();
+        buttonValider = new javax.swing.JButton();
         buttonNouveauPersonnage = new javax.swing.JButton();
         l_message = new javax.swing.JLabel();
 
@@ -185,12 +185,14 @@ public class Personnage extends javax.swing.JFrame {
 
     private void buttonValiderMouseClicked(java.awt.event.MouseEvent evt) throws MalformedURLException, RemoteException, NotBoundException {//GEN-FIRST:event_buttonValiderMouseClicked
         
-    	String nomPerso = (String) list.getSelectedValue();
     	
-    	if (nomPerso == null) {
+    	
+    	if (list.getSelectedIndex() == -1) {
     		System.out.println("Pas de personnage choisi");
-    		JOptionPane.showMessageDialog(null, "Veuillez choisir un personnage ou en créez un.");
+    		JOptionPane.showMessageDialog(null, "Veuillez choisir un personnage ou en crÃ©er un.");
     	} else {
+    		String nomPerso = (String) list.getSelectedValue();
+    		boolean trouve = false;
     		for (model.Personnage personnage : this.listPersonnages) {
         		if (personnage.getNomIndiv().equals(nomPerso)) {
         			System.out.println("Choix du personnage : " + personnage.getNomIndiv());
@@ -198,11 +200,13 @@ public class Personnage extends javax.swing.JFrame {
         			this.setVisible(false);
         	        Maze fenMaze = new Maze(choixPersonnage);
         	        fenMaze.setVisible(true);
-        		} else {
-        			System.out.println("Personnage inconnue");
-        			JOptionPane.showMessageDialog(null, "Veuillez choisir un personnage ou en créez un.");
+        	        trouve = true;
         		}
         	}
+    		if (!trouve) {
+     			System.out.println("Personnage inconnue");
+     			JOptionPane.showMessageDialog(null, "Veuillez choisir un personnage ou en crÃ©er un.");
+     		}
     	}
     	
         
@@ -217,7 +221,7 @@ public class Personnage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonNouveauPersonnage;
-    private javax.swing.JToggleButton buttonValider;
+    private javax.swing.JButton buttonValider;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel l_message;
     private javax.swing.JList list;
