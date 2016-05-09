@@ -153,7 +153,7 @@ public class CreerPersonnage extends javax.swing.JFrame {
     	boolean result = laby.creerPersonnage(tf_nomPers.getText(), idUtilisateur);
     	
     	if (result == false) {
-    		System.out.println("Problème de création de personnage");
+    		System.out.println("Problème de création de personnage - Nom de personnage déjà existant ou autre erreur... ");
     	} else {
     		System.out.println("Personnage créé !");
     		this.setVisible(false);

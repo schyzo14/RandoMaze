@@ -47,7 +47,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	private static final String reqSelectPersonnageByUtilisateur = "select idpersonnage, nompersonnage, idutilisateur, pointvie, idpiece from PERSONNAGE where idutilisateur=?";
 	private static final String reqInsertPersonnage = "insert into PERSONNAGE (nompersonnage, idutilisateur, pointvie, idpiece) values (?, ?, ?, ?) ";
 	private static final String reqUpdatePersonnage = "update PERSONNAGE set nompersonnage=?, pointvie=?, idpiece=? where idpersonnage=?";
-
+	
 	private PreparedStatement reqSelectPersonnageByUtilisateurSt = null;
 	private PreparedStatement reqInsertPersonnageSt = null;
 	private PreparedStatement reqUpdatePersonnageSt = null;
