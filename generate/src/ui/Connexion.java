@@ -13,6 +13,8 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import javax.swing.JOptionPane;
+
 import model.Labyrinthe;
 import model.Utilisateur;
 
@@ -196,6 +198,7 @@ public class Connexion extends javax.swing.JFrame {
 
     	if(utilisateur == null || !utilisateur.getMdpUser().equals(motDePasse.getText())) {
     		System.out.println("Erreur de nom d'utilisateur ou de mot de passe.");
+    		JOptionPane.showMessageDialog(null, "Erreur de nom d'utilisateur ou de mot de passe.");
         } else {
         	System.out.println("Nom d'utilisateur et mot de passe correct!");
         	this.setVisible(false);
