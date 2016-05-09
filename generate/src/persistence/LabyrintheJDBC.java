@@ -150,7 +150,9 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
         	else
         		return false;
 		} catch (SQLException e) {
-			//e.printStackTrace();
+			if (e.getErrorCode() != 23001) { // Contrainte unique nom d'utilisateur
+				e.printStackTrace();
+			}
 			return false;
 		}
 	}
@@ -186,7 +188,9 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
         	else
         		return false;
 		} catch (SQLException e) {
-			//e.printStackTrace();
+			if (e.getErrorCode() != 23001) { // Contrainte unique du nom de personnage
+				e.printStackTrace();
+			}
 			return false;
 		}
 	}
