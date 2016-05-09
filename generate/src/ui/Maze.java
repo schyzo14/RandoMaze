@@ -136,7 +136,12 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		b_quitter = new javax.swing.JButton();
 		jLabel4 = new javax.swing.JLabel();
 
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 		setTitle("RandoMaze - Jouer");
 
 		jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -874,6 +879,13 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		});
 		timer.start();
 	}
+	
+	private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
+        // TODO add your handling code here:
+    	this.setVisible(false);
+		Sauvegarder fenSauvegarder = new Sauvegarder(currentPerso);
+		fenSauvegarder.setVisible(true);
+    }
 	
 	private void sendMsgButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMsgButtonActionPerformed
 		listeMsg.addElement(currentPerso.getNomIndiv() + " : " + jTextArea1.getText());
