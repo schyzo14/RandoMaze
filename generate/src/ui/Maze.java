@@ -897,9 +897,11 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
     }
 	
 	private void sendMsgButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMsgButtonActionPerformed
-		listeMsg.addElement(currentPerso.getNomIndiv() + " : " + jTextArea1.getText());
-		jTextArea1.setText("");
-		System.out.println("Envoyer message Chat");
+		if(!jTextArea1.getText().equals("")) {	
+			listeMsg.addElement(currentPerso.getNomIndiv() + " : " + jTextArea1.getText());
+			jTextArea1.setText("");
+			System.out.println("Envoyer message Chat");
+		}
 	}//GEN-LAST:event_sendMsgButtonActionPerformed
 	
     private void jPanel2KeyPressed(java.awt.event.KeyEvent evt) {                                 
