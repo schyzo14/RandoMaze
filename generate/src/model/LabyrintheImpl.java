@@ -17,8 +17,10 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 	 */
 	private static final long serialVersionUID = 5382892920038127485L;
 	
-	public LabyrintheImpl() throws RemoteException {
-		//super();
+	persistence.Labyrinthe labyBD;
+	
+	public LabyrintheImpl() throws RemoteException, MalformedURLException, NotBoundException {
+		labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
 	}
 	
 	public static void main(String[] args) throws Exception {
@@ -32,34 +34,41 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 
 	@Override
 	public Utilisateur se_connecter(String id, String mdp) throws MalformedURLException, RemoteException, NotBoundException {
-		persistence.Labyrinthe labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
+		//persistence.Labyrinthe labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
         return labyBD.selectUtilisateurByNom(id);
 	}
 
 	@Override
 	public ArrayList<model.Personnage> getPersonnages(int idUtilisateur) throws MalformedURLException, RemoteException, NotBoundException {
-		persistence.Labyrinthe labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
+		//persistence.Labyrinthe labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
     	return labyBD.selectPersonnageByUtilisateur(idUtilisateur);
 	}
 
 	@Override
 	public boolean creerUtilisateur(String nom, String mdp) throws MalformedURLException, RemoteException, NotBoundException {
-		persistence.Labyrinthe labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
+		//persistence.Labyrinthe labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
 		boolean result = labyBD.creerUtilisateur(nom, mdp);
 		return result;
 	}
 	
 	@Override
 	public boolean creerPersonnage(String nom, int idUtilisateur) throws MalformedURLException, RemoteException, NotBoundException {
-		persistence.Labyrinthe labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
+		//persistence.Labyrinthe labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
 		boolean result = labyBD.creerPersonnage(nom, idUtilisateur);
 		return result;
 	}
 	
 	@Override
 	public boolean updatePersonnage(int id, String nom ,int pointvie, int idpiece) throws MalformedURLException, RemoteException, NotBoundException {
-		persistence.Labyrinthe labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
+		//persistence.Labyrinthe labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
 		boolean result = labyBD.updatePersonnage(id, nom , pointvie, idpiece);
 		return result;
+	}
+
+	@Override
+	public Piece getPieceById(int idPiece)
+			throws MalformedURLException, RemoteException, NotBoundException {
+		Piece piece = labyBD.selectPieceById(idPiece);
+		return piece;
 	}
 }

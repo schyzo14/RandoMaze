@@ -6,6 +6,7 @@
 //package ui;
 package ui;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -18,10 +19,12 @@ import java.util.HashMap;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import model.Labyrinthe;
 import model.Personnage;
+import model.Piece;
 
 /**
  *
@@ -47,6 +50,21 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
+        
+        //Chargement de la pièce
+        Piece piece = laby.getPieceById(choixPersonnage.getIdPiece());
+        if(piece.getNomServer().equals("beta")) {
+        	laby = (Labyrinthe) Naming.lookup("MonServeur2"); 
+        }
+        
+        //Positionnement du personnage dans la bonne pièce
+        //Récupération du bon panel
+        //JLabel positionPerso = new JLabel("X");
+        jLabel11.setText("X");
+        System.out.println("jPanel"+piece.getPosX()+piece.getPosY());
+        listePanels.get("jPanel"+piece.getPosX()+piece.getPosY()).setBackground(Color.white);
+        //listePanels.get("jPanel"+piece.getPosX()+piece.getPosY()).add(positionPerso);
+        this.repaint();
     }
 
 	/**
@@ -68,6 +86,7 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		sendMsgButton = new javax.swing.JButton();
 		jPanel1 = new javax.swing.JPanel();
 		jPanel11 = new javax.swing.JPanel();
+		jLabel11 = new javax.swing.JLabel();
 		jPanel12 = new javax.swing.JPanel();
 		jPanel13 = new javax.swing.JPanel();
 		jPanel14 = new javax.swing.JPanel();
@@ -187,6 +206,9 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 		jPanel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
+		jLabel11.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel11.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel11.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -194,11 +216,11 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel11.setLayout(jPanel11Layout);
 		jPanel11Layout.setHorizontalGroup(
 				jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel11Layout.setVerticalGroup(
 				jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
 		jPanel12.setBackground(new java.awt.Color(0, 0, 0));
@@ -936,6 +958,7 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 	private javax.swing.JLabel jLabel4;
 	private javax.swing.JPanel jPanel1;
 	private javax.swing.JPanel jPanel11;
+	private javax.swing.JLabel jLabel11;
 	private javax.swing.JPanel jPanel12;
 	private javax.swing.JPanel jPanel13;
 	private javax.swing.JPanel jPanel14;

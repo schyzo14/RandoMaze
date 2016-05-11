@@ -28,8 +28,10 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	
 	// Piece
 	private static final String reqSelectPiece = "select idpiece, nomserveur, positionX, positionY from PIECE";
+	private static final String reqSelectPieceById = "select idpiece, nomserveur, positionX, positionY from PIECE where idpiece=?";
 	
 	private PreparedStatement reqSelectPieceSt = null;
+	private PreparedStatement reqSelectPieceByIdSt = null; 
 	
 	// Porte
 	private static final String reqSelectPorteByIdPiece = "select idporte, situationporte, idpiece from PORTE where idpiece=?";
@@ -62,6 +64,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	        // construction des prepared statement
 		    // Piece
 		    reqSelectPieceSt = conn.prepareStatement(reqSelectPiece);
+		    reqSelectPieceByIdSt = conn.prepareStatement(reqSelectPieceById);
 		    // Porte
 		    reqSelectPorteByIdPieceSt = conn.prepareStatement(reqSelectPorteByIdPiece);
 		    // Utilisateur
@@ -90,6 +93,22 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 			}
 			return listPieces;
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@Override
+	public Piece selectPieceById(int idPiece) throws RemoteException {
+		try {
+			reqSelectPieceByIdSt.setInt(1, idPiece);
+			ResultSet rs = reqSelectPieceByIdSt.executeQuery();
+			rs.next();
+			Piece piece = new Piece(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
+			piece.setListePortes(selectPorteByIdPiece(rs.getInt(1)));
+			
+			return piece;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -252,5 +271,4 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 		}		*/
 		
 	}
-
 }

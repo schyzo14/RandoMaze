@@ -22,4 +22,7 @@ public interface Labyrinthe extends Remote {
 	
 	public boolean updatePersonnage (int id, String nom ,int pointvie, int idpiece)
 			throws MalformedURLException, RemoteException, NotBoundException;
+	
+	public Piece getPieceById(int idPiece)
+			throws MalformedURLException, RemoteException, NotBoundException;
 }
