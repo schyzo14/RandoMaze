@@ -14,8 +14,10 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,6 +27,7 @@ import javax.swing.Timer;
 import model.Labyrinthe;
 import model.Personnage;
 import model.Piece;
+import model.Porte;
 
 /**
  *
@@ -64,6 +67,29 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         System.out.println("jPanel"+piece.getPosX()+piece.getPosY());
         listePanels.get("jPanel"+piece.getPosX()+piece.getPosY()).setBackground(Color.white);
         //listePanels.get("jPanel"+piece.getPosX()+piece.getPosY()).add(positionPerso);
+        
+        // Dessin des portes
+        ArrayList<Porte> listPortes = piece.getListePortes();
+        int a=5, b=5, c=5, d=5;
+        for (Porte porte : listPortes) {
+        	System.out.println(porte.getPositionPorte());
+        	switch (porte.getPositionPorte()) {
+        		case "NORD" : // Haut
+        			a = 1;
+        			break;
+        		case "EST" : // Droite
+        			d = 1;
+        			break;
+        		case "SUD" : // Bas
+        			c = 1;
+        			break;
+        		case "OUEST" : // Gauche
+        			b = 1;
+        			break;
+        	}
+        }
+        listePanels.get("jPanel"+piece.getPosX()+piece.getPosY()).setBorder(BorderFactory.createMatteBorder(a, b, c, d, Color.BLACK));
+        
         this.repaint();
     }
 
