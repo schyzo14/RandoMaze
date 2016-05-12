@@ -72,7 +72,6 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         ArrayList<Porte> listPortes = piece.getListePortes();
         int a=5, b=5, c=5, d=5;
         for (Porte porte : listPortes) {
-        	System.out.println(porte.getPositionPorte());
         	switch (porte.getPositionPorte()) {
         		case "NORD" : // Haut
         			a = 1;
