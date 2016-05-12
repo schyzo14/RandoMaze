@@ -8,6 +8,7 @@ public class Game {
 		LabyrintheJDBC.main(args);
 		LabyrintheImpl.main(args);
 		
-		Connexion.main(args);
+		Connexion connexion = new Connexion();
+		connexion.demarrer();
 	}
 }
