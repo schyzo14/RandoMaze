@@ -20,6 +20,7 @@ import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
@@ -38,6 +39,7 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 	private HashMap<String, JPanel> listePanels = new HashMap<String, JPanel>();
 	private Personnage currentPerso;
 	private DefaultListModel<String> listeMsg = new DefaultListModel<String>();
+	private Piece currentPiece;
 
     /**
      * Creates new form Maze
@@ -56,6 +58,7 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         
         //Chargement de la pièce
         Piece piece = laby.getPieceById(choixPersonnage.getIdPiece());
+        currentPiece = piece;
         if(piece.getNomServer().equals("beta")) {
         	laby = (Labyrinthe) Naming.lookup("MonServeur2"); 
         }
@@ -951,20 +954,48 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		}
 	}//GEN-LAST:event_sendMsgButtonActionPerformed
 	
-    private void jPanel2KeyPressed(java.awt.event.KeyEvent evt) {                                 
+    private void jPanel2KeyPressed(java.awt.event.KeyEvent evt) {
+        // On récupère les portes
+        ArrayList<Porte> listPortes = currentPiece.getListePortes();
+        ArrayList<String> listPosition = new ArrayList<String>();
+        for (Porte porte : listPortes) {
+        	listPosition.add(porte.getPositionPorte());
+        }
+        
+        // Touche clavier
         int keyCode = evt.getKeyCode();
         switch(keyCode) {
-        case KeyEvent.VK_UP:
-        	//
+        case KeyEvent.VK_UP: // Flèche Haut
+        	if (listPosition.contains("NORD")) {
+        		// Change de pièce
+        	} else {
+        		System.out.println("Pas de porte au Nord.");
+        		JOptionPane.showMessageDialog(null, "Pas de porte au Nord.");
+        	}
         	break;
-        case KeyEvent.VK_DOWN:
-        	//
+        case KeyEvent.VK_DOWN: // Flèche Bas
+        	if (listPosition.contains("SUD")) {
+        		// Change de pièce
+        	} else {
+        		System.out.println("Pas de porte au Sud.");
+        		JOptionPane.showMessageDialog(null, "Pas de porte au Sud.");
+        	}
         	break;
-        case KeyEvent.VK_LEFT:
-        	//
+        case KeyEvent.VK_LEFT: // Flèche Gauche 
+        	if (listPosition.contains("OUEST")) {
+        		// Change de pièce
+        	} else {
+        		System.out.println("Pas de porte à l'Ouest.");
+        		JOptionPane.showMessageDialog(null, "Pas de porte à l'Ouest.");
+        	}
         	break;
-        case KeyEvent.VK_RIGHT:
-        	//
+        case KeyEvent.VK_RIGHT: // Flèche Droite
+        	if (listPosition.contains("EST")) {
+        		// Change de pièce
+        	} else {
+        		System.out.println("Pas de porte à l'Est.");
+        		JOptionPane.showMessageDialog(null, "Pas de porte à l'Est.");
+        	}
         	break;
         }
     }
