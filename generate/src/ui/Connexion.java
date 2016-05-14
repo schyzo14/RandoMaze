@@ -5,7 +5,6 @@
 //package ui;
 package ui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
@@ -18,8 +17,6 @@ import model.Labyrinthe;
 import model.LabyrintheImpl;
 import model.Utilisateur;
 
-//import model.Labyrinthe;
-
 /**
  *
  * @author Aurore
@@ -30,6 +27,7 @@ public class Connexion extends javax.swing.JFrame {
      * Creates new form Connexion
      */
     public Connexion() {
+    	// Initialisation de la fenêtre Connexion
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -191,17 +189,19 @@ public class Connexion extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonInscriptionActionPerformed
 
     private void buttonConnexionActionPerformed(java.awt.event.ActionEvent evt) throws MalformedURLException, RemoteException, NotBoundException {//GEN-FIRST:event_buttonConnexionActionPerformed
-        
+        // La connexion se fait sur le serveur 1
     	Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
-
+    	// On essaye de se connecter
     	Utilisateur utilisateur = laby.se_connecter(nomUtilisateur.getText(), motDePasse.getText());
-    	
+    	// Si l'utilisateur est inconnu ou le mot de passe incorrect
     	if(utilisateur == null || !utilisateur.getMdpUser().equals(motDePasse.getText())) {
     		System.out.println("Erreur de nom d'utilisateur ou de mot de passe.");
     		LabyrintheImpl.afficherPopUp("Erreur de nom d'utilisateur ou de mot de passe.");
         } else {
         	System.out.println("Nom d'utilisateur et mot de passe correct!");
+        	// On ferme la fenêtre de Connexion
         	this.setVisible(false);
+        	// On ouvre la fenêtre de Personnage pour choisir son Personnage
         	Personnage fenPersonnage = new Personnage(utilisateur.getIdUser());
         	fenPersonnage.setVisible(true);
         }
@@ -214,8 +214,9 @@ public class Connexion extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonConnexionMouseClicked
 
     private void buttonInscriptionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonInscriptionMouseClicked
-        // TODO add your handling code here:
-        this.setVisible(false);
+        // On ferme la fenêtre Connexion
+    	this.setVisible(false);
+    	// On ouvre la fenêtre Inscription
         Inscription fenInscription = new Inscription();
         fenInscription.setVisible(true);
     }//GEN-LAST:event_buttonInscriptionMouseClicked
