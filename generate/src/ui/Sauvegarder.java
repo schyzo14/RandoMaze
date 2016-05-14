@@ -16,6 +16,7 @@ import java.rmi.RemoteException;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.ColorUIResource;
 
 import persistence.LabyrintheJDBC;
@@ -143,19 +144,26 @@ public class Sauvegarder extends javax.swing.JFrame {
 			if (result == false) {
 				System.out.println("Problème de sauvegarde dans la BDD!");
 		
-				int option = JOptionPane.showConfirmDialog(null, 
-			        "Erreur de sauvegarde. Voulez-vous quand même quitter ?", 
-			        "Erreur de sauvegarde", 
-			        JOptionPane.YES_NO_OPTION, 
-			        JOptionPane.QUESTION_MESSAGE);
-			      
-			      if(option == JOptionPane.OK_OPTION){
-			          System.exit(0);   	
-			      }else{
-			    	  this.setVisible(false);
-	        	      //Maze fenMaze = new Maze(currentPerso);
-	        	      //fenMaze.setVisible(true);
-			      }
+				try {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					UIManager.put("OptionPane.background", Color.WHITE);
+		            UIManager.put("Panel.background", Color.WHITE);
+		            UIManager.put("OptionPane.messageForeground", Color.BLACK);
+		            int option = JOptionPane.showConfirmDialog(null, 
+					        "Erreur de sauvegarde. Voulez-vous quand même quitter ?", 
+					        "Erreur de sauvegarde", 
+					        JOptionPane.YES_NO_OPTION, 
+					        JOptionPane.QUESTION_MESSAGE);
+		            if(option == JOptionPane.OK_OPTION){
+				          System.exit(0);   	
+				      }else{
+				    	  this.setVisible(false);
+		        	      //Maze fenMaze = new Maze(currentPerso);
+		        	      //fenMaze.setVisible(true);
+				      }
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+					e.printStackTrace();
+				}
 			} else {
 				System.out.println("Sauvegarde réussie!");
 				System.exit(0);

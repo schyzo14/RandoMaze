@@ -14,11 +14,8 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 import model.Labyrinthe;
+import model.LabyrintheImpl;
 
 /**
  *
@@ -158,29 +155,13 @@ public class CreerPersonnage extends javax.swing.JFrame {
     	
     	if (tf_nomPers.getText().trim().length() <= 0) {
     		System.out.println("Remplissez le nom du personnage.");
-    		try {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				UIManager.put("OptionPane.background", Color.WHITE);
-	            UIManager.put("Panel.background", Color.WHITE);
-	            UIManager.put("OptionPane.messageForeground", Color.BLACK);
-	    		JOptionPane.showMessageDialog(null, "Remplissez le nom du personnage.");
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-				e.printStackTrace();
-			}
+    		LabyrintheImpl.afficherPopUp("Remplissez le nom du personnage.");
     	} else {
         	boolean result = laby.creerPersonnage(tf_nomPers.getText(), idUtilisateur);
         	
         	if (result == false) {
         		System.out.println("Problème de création de personnage - Nom de personnage déjà existant ou autre erreur... ");
-        		try {
-    				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-    				UIManager.put("OptionPane.background", Color.WHITE);
-    	            UIManager.put("Panel.background", Color.WHITE);
-    	            UIManager.put("OptionPane.messageForeground", Color.BLACK);
-    	            JOptionPane.showMessageDialog(null, "Problème de création de personnage - Nom de personnage déjà existant ou autre erreur...");
-    			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-    				e.printStackTrace();
-    			}
+        		LabyrintheImpl.afficherPopUp("Problème de création de personnage - Nom de personnage déjà existant ou autre erreur...");
         	} else {
         		System.out.println("Personnage créé !");
         		this.setVisible(false);

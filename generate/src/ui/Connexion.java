@@ -14,11 +14,8 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 import model.Labyrinthe;
+import model.LabyrintheImpl;
 import model.Utilisateur;
 
 //import model.Labyrinthe;
@@ -201,15 +198,7 @@ public class Connexion extends javax.swing.JFrame {
     	
     	if(utilisateur == null || !utilisateur.getMdpUser().equals(motDePasse.getText())) {
     		System.out.println("Erreur de nom d'utilisateur ou de mot de passe.");
-    		try {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				UIManager.put("OptionPane.background", Color.WHITE);
-	            UIManager.put("Panel.background", Color.WHITE);
-	            UIManager.put("OptionPane.messageForeground", Color.BLACK);
-	    		JOptionPane.showMessageDialog(null, "Erreur de nom d'utilisateur ou de mot de passe.");
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-				e.printStackTrace();
-			}
+    		LabyrintheImpl.afficherPopUp("Erreur de nom d'utilisateur ou de mot de passe.");
         } else {
         	System.out.println("Nom d'utilisateur et mot de passe correct!");
         	this.setVisible(false);

@@ -14,11 +14,8 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 import model.Labyrinthe;
+import model.LabyrintheImpl;
 import model.Utilisateur;
 
 /**
@@ -175,40 +172,16 @@ public class Inscription extends javax.swing.JFrame {
     	
     	if (nomUtilisateur.getText().trim().length() <= 0) {
     		System.out.println("Remplissez le nom d'utilisateur.");
-    		try {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				UIManager.put("OptionPane.background", Color.WHITE);
-	            UIManager.put("Panel.background", Color.WHITE);
-	            UIManager.put("OptionPane.messageForeground", Color.BLACK);
-	            JOptionPane.showMessageDialog(null, "Remplissez le nom d'utilisateur.");
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-				e.printStackTrace();
-			}
+    		LabyrintheImpl.afficherPopUp("Remplissez le nom d'utilisateur.");
     	} else if (motDePasse.getText().trim().length() <= 0) {
     		System.out.println("Remplissez le mot de passe.");
-    		try {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				UIManager.put("OptionPane.background", Color.WHITE);
-	            UIManager.put("Panel.background", Color.WHITE);
-	            UIManager.put("OptionPane.messageForeground", Color.BLACK);
-	            JOptionPane.showMessageDialog(null, "Remplissez le mot de passe.");
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-				e.printStackTrace();
-			}
+    		LabyrintheImpl.afficherPopUp("Remplissez le mot de passe.");
     	} else {
     		boolean result = laby.creerUtilisateur(nomUtilisateur.getText(), motDePasse.getText());
         	
         	if (result == false) {
         		System.out.println("Problème d'inscription");
-        		try {
-    				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-    				UIManager.put("OptionPane.background", Color.WHITE);
-    	            UIManager.put("Panel.background", Color.WHITE);
-    	            UIManager.put("OptionPane.messageForeground", Color.BLACK);
-    	            JOptionPane.showMessageDialog(null, "Problème d'inscription - Nom déjà existant ou autre erreur...");
-    			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-    				e.printStackTrace();
-    			}
+        		LabyrintheImpl.afficherPopUp("Problème d'inscription - Nom déjà existant ou autre erreur...");
         	} else {
         		System.out.println("Inscription réussie");
         		this.setVisible(false);

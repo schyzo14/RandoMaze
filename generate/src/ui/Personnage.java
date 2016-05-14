@@ -15,11 +15,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 import model.Labyrinthe;
+import model.LabyrintheImpl;
 
 /**
  *
@@ -192,15 +189,7 @@ public class Personnage extends javax.swing.JFrame {
     	
     	if (list.getSelectedIndex() == -1) {
     		System.out.println("Pas de personnage choisi");
-    		try {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				UIManager.put("OptionPane.background", Color.WHITE);
-	            UIManager.put("Panel.background", Color.WHITE);
-	            UIManager.put("OptionPane.messageForeground", Color.BLACK);
-	            JOptionPane.showMessageDialog(null, "Veuillez choisir un personnage ou en créer un.");
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-				e.printStackTrace();
-			}
+    		LabyrintheImpl.afficherPopUp("Veuillez choisir un personnage ou en créer un.");
     	} else {
     		String nomPerso = (String) list.getSelectedValue();
     		boolean trouve = false;
@@ -216,15 +205,7 @@ public class Personnage extends javax.swing.JFrame {
         	}
     		if (!trouve) {
      			System.out.println("Personnage inconnue");
-     			try {
-    				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-    				UIManager.put("OptionPane.background", Color.WHITE);
-    	            UIManager.put("Panel.background", Color.WHITE);
-    	            UIManager.put("OptionPane.messageForeground", Color.BLACK);
-    	            JOptionPane.showMessageDialog(null, "Veuillez choisir un personnage ou en créer un.");
-    			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-    				e.printStackTrace();
-    			}
+     			LabyrintheImpl.afficherPopUp("Veuillez choisir un personnage ou en créer un.");
      		}
     	}
     	
