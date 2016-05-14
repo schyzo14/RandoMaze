@@ -20,7 +20,7 @@ public class Combat extends javax.swing.JFrame {
     /**
      * Creates new form Combat
      */
-    public Combat() {
+    public Combat(model.Personnage currentPerso) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);

@@ -960,11 +960,11 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 	}//GEN-LAST:event_sendMsgButtonActionPerformed
 	
     private void jPanel2KeyPressed(java.awt.event.KeyEvent evt) throws RemoteException, MalformedURLException, NotBoundException {
-        // On récupère la position de la pièce
+        // On récupère la position de la Pièce courante
     	int x = currentPiece.getPosX();
         int y = currentPiece.getPosY();
     	
-    	// On récupère les portes
+    	// On récupère les portes de la Piece courante
         ArrayList<Porte> listPortes = currentPiece.getListePortes();
         ArrayList<String> listPosition = new ArrayList<String>();
         for (Porte porte : listPortes) {
@@ -1028,16 +1028,15 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         			currentPiece = piece;
         		}
         	}
-        	// On raffraichit l'écran
+        	// On raffraichit la position sur l'écran
         	this.setVisible(false);
 	        Maze fenMaze = new Maze(currentPerso);
 	        fenMaze.setVisible(true);
         	
         	// On affiche le combat
-        	
-        	
-        	
-        	
+	        this.setVisible(false);
+        	Combat fenCombat = new Combat(currentPerso);
+        	fenCombat.setVisible(true);
         }
         
     }
