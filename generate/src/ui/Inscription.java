@@ -5,7 +5,6 @@
 //package ui;
 package ui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
@@ -28,6 +27,7 @@ public class Inscription extends javax.swing.JFrame {
      * Creates new form Inscription
      */
     public Inscription() {
+    	// Initialisation de la fenêtre Inscription
         initComponents();
         
         //Dimensionnement Fenetre
@@ -167,25 +167,33 @@ public class Inscription extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonInscriptionActionPerformed
 
     private void buttonInscriptionMouseClicked(java.awt.event.MouseEvent evt) throws MalformedURLException, RemoteException, NotBoundException {//GEN-FIRST:event_buttonInscriptionMouseClicked
-        
+        // L'Inscription est sur le Serveur1
     	Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
     	
+    	// Si le nom d'utilisateur est vide
     	if (nomUtilisateur.getText().trim().length() <= 0) {
     		System.out.println("Remplissez le nom d'utilisateur.");
     		LabyrintheImpl.afficherPopUp("Remplissez le nom d'utilisateur.");
+    	// Sinon si le mot de passe est vide
     	} else if (motDePasse.getText().trim().length() <= 0) {
     		System.out.println("Remplissez le mot de passe.");
     		LabyrintheImpl.afficherPopUp("Remplissez le mot de passe.");
+    	// Les deux champs ne sont pas vide
     	} else {
+    		// Création de l'utilisateur
     		boolean result = laby.creerUtilisateur(nomUtilisateur.getText(), motDePasse.getText());
-        	
+        	// Si erreur lors de la création
         	if (result == false) {
         		System.out.println("ProblÃ¨me d'inscription");
         		LabyrintheImpl.afficherPopUp("ProblÃ¨me d'inscription - Nom dÃ©jÃ  existant ou autre erreur...");
+        	// Si inscription réussie
         	} else {
         		System.out.println("Inscription rÃ©ussie");
+        		// On ferme la fenêtre Inscription
         		this.setVisible(false);
+        		// On se connecte au compte qui vient d'être créé
         		Utilisateur utilisateur = laby.se_connecter(nomUtilisateur.getText(), motDePasse.getText());
+        		// On ouvre la fenêtre CreerPersonnage
                 CreerPersonnage fenCreerPersonnage = new CreerPersonnage(utilisateur.getIdUser());
                 fenCreerPersonnage.setVisible(true);
         	}
