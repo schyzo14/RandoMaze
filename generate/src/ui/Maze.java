@@ -24,6 +24,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import model.Labyrinthe;
 import model.Personnage;
@@ -970,7 +972,15 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         		// Change de pièce
         	} else {
         		System.out.println("Pas de porte au Nord.");
-        		JOptionPane.showMessageDialog(null, "Pas de porte au Nord.");
+        		try {
+    				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    				UIManager.put("OptionPane.background", Color.WHITE);
+    	            UIManager.put("Panel.background", Color.WHITE);
+    	            UIManager.put("OptionPane.messageForeground", Color.BLACK);
+    	            JOptionPane.showMessageDialog(null, "Pas de porte au Nord.");
+    			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+    				e.printStackTrace();
+    			}
         	}
         	break;
         case KeyEvent.VK_DOWN: // Flèche Bas
@@ -978,7 +988,15 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         		// Change de pièce
         	} else {
         		System.out.println("Pas de porte au Sud.");
-        		JOptionPane.showMessageDialog(null, "Pas de porte au Sud.");
+        		try {
+    				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    				UIManager.put("OptionPane.background", Color.WHITE);
+    	            UIManager.put("Panel.background", Color.WHITE);
+    	            UIManager.put("OptionPane.messageForeground", Color.BLACK);
+    	            JOptionPane.showMessageDialog(null, "Pas de porte au Sud.");
+    			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+    				e.printStackTrace();
+    			}
         	}
         	break;
         case KeyEvent.VK_LEFT: // Flèche Gauche 
@@ -986,7 +1004,15 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         		// Change de pièce
         	} else {
         		System.out.println("Pas de porte à l'Ouest.");
-        		JOptionPane.showMessageDialog(null, "Pas de porte à l'Ouest.");
+        		try {
+    				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    				UIManager.put("OptionPane.background", Color.WHITE);
+    	            UIManager.put("Panel.background", Color.WHITE);
+    	            UIManager.put("OptionPane.messageForeground", Color.BLACK);
+    	            JOptionPane.showMessageDialog(null, "Pas de porte à l'Ouest.");
+    			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+    				e.printStackTrace();
+    			}
         	}
         	break;
         case KeyEvent.VK_RIGHT: // Flèche Droite
@@ -994,7 +1020,15 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         		// Change de pièce
         	} else {
         		System.out.println("Pas de porte à l'Est.");
-        		JOptionPane.showMessageDialog(null, "Pas de porte à l'Est.");
+        		try {
+    				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    				UIManager.put("OptionPane.background", Color.WHITE);
+    	            UIManager.put("Panel.background", Color.WHITE);
+    	            UIManager.put("OptionPane.messageForeground", Color.BLACK);
+    	            JOptionPane.showMessageDialog(null, "Pas de porte à l'Est.");
+    			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+    				e.printStackTrace();
+    			}
         	}
         	break;
         }

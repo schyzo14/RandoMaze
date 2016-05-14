@@ -5,6 +5,7 @@
 //package ui;
 package ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
@@ -15,6 +16,8 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import model.Labyrinthe;
 
@@ -189,7 +192,15 @@ public class Personnage extends javax.swing.JFrame {
     	
     	if (list.getSelectedIndex() == -1) {
     		System.out.println("Pas de personnage choisi");
-    		JOptionPane.showMessageDialog(null, "Veuillez choisir un personnage ou en créer un.");
+    		try {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				UIManager.put("OptionPane.background", Color.WHITE);
+	            UIManager.put("Panel.background", Color.WHITE);
+	            UIManager.put("OptionPane.messageForeground", Color.BLACK);
+	            JOptionPane.showMessageDialog(null, "Veuillez choisir un personnage ou en créer un.");
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+				e.printStackTrace();
+			}
     	} else {
     		String nomPerso = (String) list.getSelectedValue();
     		boolean trouve = false;
@@ -205,7 +216,15 @@ public class Personnage extends javax.swing.JFrame {
         	}
     		if (!trouve) {
      			System.out.println("Personnage inconnue");
-     			JOptionPane.showMessageDialog(null, "Veuillez choisir un personnage ou en créer un.");
+     			try {
+    				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    				UIManager.put("OptionPane.background", Color.WHITE);
+    	            UIManager.put("Panel.background", Color.WHITE);
+    	            UIManager.put("OptionPane.messageForeground", Color.BLACK);
+    	            JOptionPane.showMessageDialog(null, "Veuillez choisir un personnage ou en créer un.");
+    			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+    				e.printStackTrace();
+    			}
      		}
     	}
     	

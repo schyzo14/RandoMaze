@@ -5,6 +5,7 @@
 //package ui;
 package ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
@@ -14,6 +15,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import model.Labyrinthe;
 import model.Utilisateur;
@@ -195,10 +198,18 @@ public class Connexion extends javax.swing.JFrame {
     	Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
 
     	Utilisateur utilisateur = laby.se_connecter(nomUtilisateur.getText(), motDePasse.getText());
-
+    	
     	if(utilisateur == null || !utilisateur.getMdpUser().equals(motDePasse.getText())) {
     		System.out.println("Erreur de nom d'utilisateur ou de mot de passe.");
-    		JOptionPane.showMessageDialog(null, "Erreur de nom d'utilisateur ou de mot de passe.");
+    		try {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				UIManager.put("OptionPane.background", Color.WHITE);
+	            UIManager.put("Panel.background", Color.WHITE);
+	            UIManager.put("OptionPane.messageForeground", Color.BLACK);
+	    		JOptionPane.showMessageDialog(null, "Erreur de nom d'utilisateur ou de mot de passe.");
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+				e.printStackTrace();
+			}
         } else {
         	System.out.println("Nom d'utilisateur et mot de passe correct!");
         	this.setVisible(false);
