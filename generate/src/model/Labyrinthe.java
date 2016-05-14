@@ -25,4 +25,6 @@ public interface Labyrinthe extends Remote {
 	
 	public Piece getPieceById(int idPiece)
 			throws MalformedURLException, RemoteException, NotBoundException;
+	
+	public ArrayList<Piece> getPiece () throws RemoteException;
 }

@@ -187,7 +187,13 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jPanel2KeyPressed(evt);
+                try {
+					jPanel2KeyPressed(evt);
+				} catch (RemoteException | MalformedURLException
+						| NotBoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -953,8 +959,12 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		}
 	}//GEN-LAST:event_sendMsgButtonActionPerformed
 	
-    private void jPanel2KeyPressed(java.awt.event.KeyEvent evt) {
-        // On récupère les portes
+    private void jPanel2KeyPressed(java.awt.event.KeyEvent evt) throws RemoteException, MalformedURLException, NotBoundException {
+        // On récupère la position de la pièce
+    	int x = currentPiece.getPosX();
+        int y = currentPiece.getPosY();
+    	
+    	// On récupère les portes
         ArrayList<Porte> listPortes = currentPiece.getListePortes();
         ArrayList<String> listPosition = new ArrayList<String>();
         for (Porte porte : listPortes) {
@@ -966,7 +976,8 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         switch(keyCode) {
         case KeyEvent.VK_UP: // Flèche Haut
         	if (listPosition.contains("NORD")) {
-        		// Change de pièce
+        		// Change de pièce : On monte
+        		x = x-1;
         	} else {
         		System.out.println("Pas de porte au Nord.");
         		LabyrintheImpl.afficherPopUp("Pas de porte au Nord.");
@@ -974,7 +985,8 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         	break;
         case KeyEvent.VK_DOWN: // Flèche Bas
         	if (listPosition.contains("SUD")) {
-        		// Change de pièce
+        		// Change de pièce : On descend
+        		x = x+1;
         	} else {
         		System.out.println("Pas de porte au Sud.");
         		LabyrintheImpl.afficherPopUp("Pas de porte au Sud.");
@@ -982,7 +994,8 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         	break;
         case KeyEvent.VK_LEFT: // Flèche Gauche 
         	if (listPosition.contains("OUEST")) {
-        		// Change de pièce
+        		// Change de pièce : A gauche
+        		y = y-1;
         	} else {
         		System.out.println("Pas de porte à l'Ouest.");
         		LabyrintheImpl.afficherPopUp("Pas de porte à l'Ouest.");
@@ -990,13 +1003,43 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         	break;
         case KeyEvent.VK_RIGHT: // Flèche Droite
         	if (listPosition.contains("EST")) {
-        		// Change de pièce
+        		// Change de pièce : A droite
+        		y = y+1;
         	} else {
         		System.out.println("Pas de porte à l'Est.");
         		LabyrintheImpl.afficherPopUp("Pas de porte à l'Est.");
         	}
         	break;
         }
+        
+        // Si on change de Piece
+        if (currentPiece.getPosX() != x || currentPiece.getPosY() != y) {
+        	// Si récupère le serveur
+    		 Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
+    		 if(currentPiece.getNomServer().equals("beta")) {
+             	laby = (Labyrinthe) Naming.lookup("MonServeur2"); 
+             }
+    		// On récupère toutes les Pieces
+        	ArrayList<Piece> listPiece = laby.getPiece();
+        	for (Piece piece : listPiece) {
+        		// Si même X et Y -> on récupère la nouvelle Piece
+        		if (piece.getPosX() == x && piece.getPosY() == y) {
+        			currentPerso.setIdPiece(piece.getIdPiece());
+        			currentPiece = piece;
+        		}
+        	}
+        	// On raffraichit l'écran
+        	this.setVisible(false);
+	        Maze fenMaze = new Maze(currentPerso);
+	        fenMaze.setVisible(true);
+        	
+        	// On affiche le combat
+        	
+        	
+        	
+        	
+        }
+        
     }
 
 	@Override

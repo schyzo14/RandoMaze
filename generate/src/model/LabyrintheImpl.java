@@ -77,6 +77,12 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 		return piece;
 	}
 	
+	@Override
+	public ArrayList<Piece> getPiece() throws RemoteException {
+		ArrayList<Piece> listPiece = labyBD.selectPiece();
+		return listPiece;
+	}
+	
 	public static void afficherPopUp(String mess) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -88,4 +94,5 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 			e.printStackTrace();
 		}
 	}
+
 }
