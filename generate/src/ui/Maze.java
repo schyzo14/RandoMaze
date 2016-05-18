@@ -1176,16 +1176,13 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         			currentPiece = piece;
         		}
         	}
-        	// On raffraichit la position sur l'écran
-        	//this.setVisible(false);
-	        //Maze fenMaze = new Maze(currentPerso);
-	        //fenMaze.setVisible(true);
+        	
         	afficherCase(currentPiece);
         	
         	// On affiche le combat
-	        /*this.setVisible(false);
+	        //this.setVisible(false);
         	Combat fenCombat = new Combat(currentPerso);
-        	fenCombat.setVisible(true);*/
+        	fenCombat.setVisible(true);
         }
         
     }
