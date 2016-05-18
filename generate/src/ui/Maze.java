@@ -1107,6 +1107,8 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         // On récupère la position de la Pièce courante
     	int x = currentPiece.getPosX();
         int y = currentPiece.getPosY();
+        int exX = x;
+        int exY = y;
     	
     	// On récupère les portes de la Piece courante
         ArrayList<Porte> listPortes = currentPiece.getListePortes();
@@ -1114,9 +1116,6 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         for (Porte porte : listPortes) {
         	listPosition.add(porte.getPositionPorte());
         }
-        
-        // On retire le perso de la salle
-        listeLabels.get("jLabel"+x+y).setText(null);
         
         // Touche clavier
         int keyCode = evt.getKeyCode();
@@ -1167,6 +1166,10 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         	} else if (currentPiece.getNomServer().equals("beta")) {
              	laby = (Labyrinthe) Naming.lookup("MonServeur2"); 
             }
+        	
+            // On retire le perso de la salle
+            listeLabels.get("jLabel"+exX+exY).setText(null);
+        	
     		// On récupère toutes les Pieces
         	ArrayList<Piece> listPiece = laby.getPiece();
         	for (Piece piece : listPiece) {
