@@ -36,8 +36,8 @@ import model.Porte;
  */
 public class Maze extends javax.swing.JFrame implements ActionListener {
 	private static final long serialVersionUID = -5693706248417459444L;
-	public static ArrayList<Piece> pieceVisitees = new ArrayList<Piece>();
 	private HashMap<String, JPanel> listePanels = new HashMap<String, JPanel>();
+	private HashMap<String, JLabel> listeLabels = new HashMap<String, JLabel>();
 	private Personnage currentPerso;
 	private DefaultListModel<String> listeMsg = new DefaultListModel<String>();
 	private Piece currentPiece;
@@ -67,8 +67,8 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         
         //Positionnement du personnage dans la bonne pièce
         //Récupération du bon panel
-        //JLabel positionPerso = new JLabel("X");
         //jLabel11.setText("X");
+        listeLabels.get("jLabel"+piece.getPosX()+piece.getPosY()).setText("X");
 
         afficherCase(piece);
     }
@@ -91,39 +91,78 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jLabel3 = new javax.swing.JLabel();
 		sendMsgButton = new javax.swing.JButton();
 		jPanel1 = new javax.swing.JPanel();
+		
+		//LIGNE 1
 		jPanel11 = new javax.swing.JPanel();
 		jLabel11 = new javax.swing.JLabel();
 		jPanel12 = new javax.swing.JPanel();
+		jLabel12 = new javax.swing.JLabel();
 		jPanel13 = new javax.swing.JPanel();
+		jLabel13 = new javax.swing.JLabel();
 		jPanel14 = new javax.swing.JPanel();
+		jLabel14 = new javax.swing.JLabel();
 		jPanel15 = new javax.swing.JPanel();
-		jPanel21 = new javax.swing.JPanel();
+		jLabel15 = new javax.swing.JLabel();
 		jPanel16 = new javax.swing.JPanel();
+		jLabel16 = new javax.swing.JLabel();
 		jPanel17 = new javax.swing.JPanel();
+		jLabel17 = new javax.swing.JLabel();
 		jPanel18 = new javax.swing.JPanel();
-		jPanel31 = new javax.swing.JPanel();
-		jPanel41 = new javax.swing.JPanel();
+		jLabel18 = new javax.swing.JLabel();
+		
+		//LIGNE 2
+		jPanel21 = new javax.swing.JPanel();
+		jLabel21 = new javax.swing.JLabel();
 		jPanel22 = new javax.swing.JPanel();
+		jLabel22 = new javax.swing.JLabel();
 		jPanel23 = new javax.swing.JPanel();
+		jLabel23 = new javax.swing.JLabel();
 		jPanel24 = new javax.swing.JPanel();
+		jLabel24 = new javax.swing.JLabel();
 		jPanel25 = new javax.swing.JPanel();
+		jLabel25 = new javax.swing.JLabel();
 		jPanel26 = new javax.swing.JPanel();
+		jLabel26 = new javax.swing.JLabel();
 		jPanel27 = new javax.swing.JPanel();
+		jLabel27 = new javax.swing.JLabel();
 		jPanel28 = new javax.swing.JPanel();
+		jLabel28 = new javax.swing.JLabel();
+		
+		//LIGNE 3
+		jPanel31 = new javax.swing.JPanel();
+		jLabel31 = new javax.swing.JLabel();
 		jPanel32 = new javax.swing.JPanel();
+		jLabel32 = new javax.swing.JLabel();
 		jPanel33 = new javax.swing.JPanel();
+		jLabel33 = new javax.swing.JLabel();
 		jPanel34 = new javax.swing.JPanel();
+		jLabel34 = new javax.swing.JLabel();
 		jPanel35 = new javax.swing.JPanel();
+		jLabel35 = new javax.swing.JLabel();
 		jPanel36 = new javax.swing.JPanel();
+		jLabel36 = new javax.swing.JLabel();
 		jPanel37 = new javax.swing.JPanel();
+		jLabel37 = new javax.swing.JLabel();
 		jPanel38 = new javax.swing.JPanel();
+		jLabel38 = new javax.swing.JLabel();
+		
+		//LIGNE 4
+		jPanel41 = new javax.swing.JPanel();
+		jLabel41 = new javax.swing.JLabel();
 		jPanel42 = new javax.swing.JPanel();
+		jLabel42 = new javax.swing.JLabel();
 		jPanel43 = new javax.swing.JPanel();
+		jLabel43 = new javax.swing.JLabel();
 		jPanel44 = new javax.swing.JPanel();
+		jLabel44 = new javax.swing.JLabel();
 		jPanel45 = new javax.swing.JPanel();
+		jLabel45 = new javax.swing.JLabel();
 		jPanel46 = new javax.swing.JPanel();
+		jLabel46 = new javax.swing.JLabel();
 		jPanel47 = new javax.swing.JPanel();
+		jLabel47 = new javax.swing.JLabel();
 		jPanel48 = new javax.swing.JPanel();
+		jLabel48 = new javax.swing.JLabel();
 
 		listePanels.put("jPanel11", jPanel11);
 		listePanels.put("jPanel12", jPanel12);
@@ -157,6 +196,39 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		listePanels.put("jPanel46", jPanel46);
 		listePanels.put("jPanel47", jPanel47);
 		listePanels.put("jPanel48", jPanel48);
+		
+		listeLabels.put("jLabel11", jLabel11);
+		listeLabels.put("jLabel12", jLabel12);
+		listeLabels.put("jLabel13", jLabel13);
+		listeLabels.put("jLabel14", jLabel14);
+		listeLabels.put("jLabel15", jLabel15);
+		listeLabels.put("jLabel16", jLabel16);
+		listeLabels.put("jLabel17", jLabel17);
+		listeLabels.put("jLabel18", jLabel18);
+		listeLabels.put("jLabel21", jLabel21);
+		listeLabels.put("jLabel22", jLabel22);
+		listeLabels.put("jLabel23", jLabel23);
+		listeLabels.put("jLabel24", jLabel24);
+		listeLabels.put("jLabel25", jLabel25);
+		listeLabels.put("jLabel26", jLabel26);
+		listeLabels.put("jLabel27", jLabel27);
+		listeLabels.put("jLabel28", jLabel28);
+		listeLabels.put("jLabel31", jLabel31);
+		listeLabels.put("jLabel32", jLabel32);
+		listeLabels.put("jLabel33", jLabel33);
+		listeLabels.put("jLabel34", jLabel34);
+		listeLabels.put("jLabel35", jLabel35);
+		listeLabels.put("jLabel36", jLabel36);
+		listeLabels.put("jLabel37", jLabel37);
+		listeLabels.put("jLabel38", jLabel38);
+		listeLabels.put("jLabel41", jLabel41);
+		listeLabels.put("jLabel42", jLabel42);
+		listeLabels.put("jLabel43", jLabel43);
+		listeLabels.put("jLabel44", jLabel44);
+		listeLabels.put("jLabel45", jLabel45);
+		listeLabels.put("jLabel46", jLabel46);
+		listeLabels.put("jLabel47", jLabel47);
+		listeLabels.put("jLabel48", jLabel48);
 
 		b_sauvegarder = new javax.swing.JButton();
 		l_textSave = new javax.swing.JLabel();
@@ -235,6 +307,9 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 				.addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel12.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel12.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel12.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -242,13 +317,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel12.setLayout(jPanel12Layout);
 		jPanel12Layout.setHorizontalGroup(
 				jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel12Layout.setVerticalGroup(
 				jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel13.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel13.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel13.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -256,13 +334,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel13.setLayout(jPanel13Layout);
 		jPanel13Layout.setHorizontalGroup(
 				jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel13Layout.setVerticalGroup(
 				jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel14.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel14.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel14.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -270,13 +351,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel14.setLayout(jPanel14Layout);
 		jPanel14Layout.setHorizontalGroup(
 				jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel14Layout.setVerticalGroup(
 				jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel15.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel15.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel15.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -284,27 +368,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel15.setLayout(jPanel15Layout);
 		jPanel15Layout.setHorizontalGroup(
 				jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel15Layout.setVerticalGroup(
 				jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
-		jPanel21.setBackground(new java.awt.Color(0, 0, 0));
-		jPanel21.setPreferredSize(new java.awt.Dimension(60, 60));
-
-		javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
-		jPanel21.setLayout(jPanel21Layout);
-		jPanel21Layout.setHorizontalGroup(
-				jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
-				);
-		jPanel21Layout.setVerticalGroup(
-				jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
-				);
-
+		jLabel16.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel16.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel16.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -312,13 +385,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel16.setLayout(jPanel16Layout);
 		jPanel16Layout.setHorizontalGroup(
 				jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel16Layout.setVerticalGroup(
 				jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel17.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel17.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel17.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -326,13 +402,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel17.setLayout(jPanel17Layout);
 		jPanel17Layout.setHorizontalGroup(
 				jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel17Layout.setVerticalGroup(
 				jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel18.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel18.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel18.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -340,41 +419,33 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel18.setLayout(jPanel18Layout);
 		jPanel18Layout.setHorizontalGroup(
 				jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel18Layout.setVerticalGroup(
 				jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+				);
+		
+		jLabel21.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
+		jPanel21.setBackground(new java.awt.Color(0, 0, 0));
+		jPanel21.setPreferredSize(new java.awt.Dimension(60, 60));
+
+		javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+		jPanel21.setLayout(jPanel21Layout);
+		jPanel21Layout.setHorizontalGroup(
+				jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+				);
+		jPanel21Layout.setVerticalGroup(
+				jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
-		jPanel31.setBackground(new java.awt.Color(0, 0, 0));
-		jPanel31.setPreferredSize(new java.awt.Dimension(60, 60));
-
-		javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
-		jPanel31.setLayout(jPanel31Layout);
-		jPanel31Layout.setHorizontalGroup(
-				jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
-				);
-		jPanel31Layout.setVerticalGroup(
-				jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
-				);
-
-		jPanel41.setBackground(new java.awt.Color(0, 0, 0));
-		jPanel41.setPreferredSize(new java.awt.Dimension(60, 60));
-
-		javax.swing.GroupLayout jPanel41Layout = new javax.swing.GroupLayout(jPanel41);
-		jPanel41.setLayout(jPanel41Layout);
-		jPanel41Layout.setHorizontalGroup(
-				jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
-				);
-		jPanel41Layout.setVerticalGroup(
-				jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
-				);
-
+		jLabel22.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel22.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel22.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -382,13 +453,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel22.setLayout(jPanel22Layout);
 		jPanel22Layout.setHorizontalGroup(
 				jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel22Layout.setVerticalGroup(
 				jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel23.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel23.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel23.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -396,13 +470,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel23.setLayout(jPanel23Layout);
 		jPanel23Layout.setHorizontalGroup(
 				jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel23Layout.setVerticalGroup(
 				jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel24.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel24.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel24.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -410,13 +487,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel24.setLayout(jPanel24Layout);
 		jPanel24Layout.setHorizontalGroup(
 				jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel24Layout.setVerticalGroup(
 				jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel25.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel25.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel25.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -424,13 +504,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel25.setLayout(jPanel25Layout);
 		jPanel25Layout.setHorizontalGroup(
 				jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel25Layout.setVerticalGroup(
 				jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel26.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel26.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel26.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -438,13 +521,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel26.setLayout(jPanel26Layout);
 		jPanel26Layout.setHorizontalGroup(
 				jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel26Layout.setVerticalGroup(
 				jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel27.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel27.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel27.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -452,13 +538,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel27.setLayout(jPanel27Layout);
 		jPanel27Layout.setHorizontalGroup(
 				jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel27Layout.setVerticalGroup(
 				jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel28.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel28.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel28.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -466,13 +555,33 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel28.setLayout(jPanel28Layout);
 		jPanel28Layout.setHorizontalGroup(
 				jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel28Layout.setVerticalGroup(
 				jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+				);
+		
+		jLabel31.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
+		jPanel31.setBackground(new java.awt.Color(0, 0, 0));
+		jPanel31.setPreferredSize(new java.awt.Dimension(60, 60));
+
+		javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
+		jPanel31.setLayout(jPanel31Layout);
+		jPanel31Layout.setHorizontalGroup(
+				jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+				);
+		jPanel31Layout.setVerticalGroup(
+				jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addComponent(jLabel31, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel32.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel32.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel32.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -480,13 +589,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel32.setLayout(jPanel32Layout);
 		jPanel32Layout.setHorizontalGroup(
 				jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel32Layout.setVerticalGroup(
 				jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel32, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel33.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel33.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel33.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -494,13 +606,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel33.setLayout(jPanel33Layout);
 		jPanel33Layout.setHorizontalGroup(
 				jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel33Layout.setVerticalGroup(
 				jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel33, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel34.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel34.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel34.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -508,13 +623,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel34.setLayout(jPanel34Layout);
 		jPanel34Layout.setHorizontalGroup(
 				jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel34Layout.setVerticalGroup(
 				jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel34, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel35.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel35.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel35.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -522,13 +640,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel35.setLayout(jPanel35Layout);
 		jPanel35Layout.setHorizontalGroup(
 				jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel35Layout.setVerticalGroup(
 				jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel35, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel36.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel36.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel36.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -536,13 +657,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel36.setLayout(jPanel36Layout);
 		jPanel36Layout.setHorizontalGroup(
 				jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel36Layout.setVerticalGroup(
 				jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel36, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel37.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel37.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel37.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -550,13 +674,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel37.setLayout(jPanel37Layout);
 		jPanel37Layout.setHorizontalGroup(
 				jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel37Layout.setVerticalGroup(
 				jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel37, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel38.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel38.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel38.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -564,13 +691,33 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel38.setLayout(jPanel38Layout);
 		jPanel38Layout.setHorizontalGroup(
 				jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel38Layout.setVerticalGroup(
 				jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel38, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel41.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
+		jPanel41.setBackground(new java.awt.Color(0, 0, 0));
+		jPanel41.setPreferredSize(new java.awt.Dimension(60, 60));
+
+		javax.swing.GroupLayout jPanel41Layout = new javax.swing.GroupLayout(jPanel41);
+		jPanel41.setLayout(jPanel41Layout);
+		jPanel41Layout.setHorizontalGroup(
+				jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+				);
+		jPanel41Layout.setVerticalGroup(
+				jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addComponent(jLabel41, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+				);
+		
+		jLabel42.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel42.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel42.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -578,13 +725,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel42.setLayout(jPanel42Layout);
 		jPanel42Layout.setHorizontalGroup(
 				jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel42Layout.setVerticalGroup(
 				jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel42, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel43.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel43.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel43.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -592,13 +742,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel43.setLayout(jPanel43Layout);
 		jPanel43Layout.setHorizontalGroup(
 				jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel43, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel43Layout.setVerticalGroup(
 				jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel43, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel44.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel44.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel44.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -606,13 +759,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel44.setLayout(jPanel44Layout);
 		jPanel44Layout.setHorizontalGroup(
 				jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel44, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel44Layout.setVerticalGroup(
 				jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel44, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel45.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel45.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel45.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -620,13 +776,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel45.setLayout(jPanel45Layout);
 		jPanel45Layout.setHorizontalGroup(
 				jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel45, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel45Layout.setVerticalGroup(
 				jPanel45Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel45, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel46.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel46.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel46.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -634,13 +793,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel46.setLayout(jPanel46Layout);
 		jPanel46Layout.setHorizontalGroup(
 				jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel46Layout.setVerticalGroup(
 				jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel46, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel47.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel47.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel47.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel47.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -648,13 +810,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel47.setLayout(jPanel47Layout);
 		jPanel47Layout.setHorizontalGroup(
 				jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel47Layout.setVerticalGroup(
 				jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel47, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
+		jLabel48.setFont(new java.awt.Font("Arial", 0, 32)); // NOI18N
+		jLabel48.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		
 		jPanel48.setBackground(new java.awt.Color(0, 0, 0));
 		jPanel48.setPreferredSize(new java.awt.Dimension(60, 60));
 
@@ -662,11 +827,11 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		jPanel48.setLayout(jPanel48Layout);
 		jPanel48Layout.setHorizontalGroup(
 				jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 70, Short.MAX_VALUE)
+				.addComponent(jLabel48, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
 				);
 		jPanel48Layout.setVerticalGroup(
 				jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 57, Short.MAX_VALUE)
+				.addComponent(jLabel48, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
 				);
 
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -950,6 +1115,9 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         	listPosition.add(porte.getPositionPorte());
         }
         
+        // On retire le perso de la salle
+        listeLabels.get("jLabel"+x+y).setText(null);
+        
         // Touche clavier
         int keyCode = evt.getKeyCode();
         switch(keyCode) {
@@ -1023,8 +1191,12 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
     }
     
     public void afficherCase(Piece p) {
+    	// On récupère la position de la Pièce courante
+    	int x = p.getPosX();
+        int y = p.getPosY();
+        
     	//fond blanc pour la pièce courante
-    	listePanels.get("jPanel"+p.getPosX()+p.getPosY()).setBackground(Color.white);
+    	listePanels.get("jPanel"+x+y).setBackground(Color.white);
     	
     	// Dessin des portes
         ArrayList<Porte> listPortes = p.getListePortes();
@@ -1045,9 +1217,13 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         			break;
         	}
         }
-        listePanels.get("jPanel"+p.getPosX()+p.getPosY()).setBorder(BorderFactory.createMatteBorder(a, b, c, d, Color.BLACK));
-        listePanels.get("jPanel"+p.getPosX()+p.getPosY()).revalidate();
-        listePanels.get("jPanel"+p.getPosX()+p.getPosY()).repaint();
+        
+        // Dessin du perso
+        listeLabels.get("jLabel"+x+y).setText("X");
+        
+        listePanels.get("jPanel"+x+y).setBorder(BorderFactory.createMatteBorder(a, b, c, d, Color.BLACK));
+        listePanels.get("jPanel"+x+y).revalidate();
+        listePanels.get("jPanel"+x+y).repaint();
     }
 
 	@Override
@@ -1066,37 +1242,68 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 	private javax.swing.JPanel jPanel11;
 	private javax.swing.JLabel jLabel11;
 	private javax.swing.JPanel jPanel12;
+	private javax.swing.JLabel jLabel12;
 	private javax.swing.JPanel jPanel13;
+	private javax.swing.JLabel jLabel13;
 	private javax.swing.JPanel jPanel14;
+	private javax.swing.JLabel jLabel14;
 	private javax.swing.JPanel jPanel15;
+	private javax.swing.JLabel jLabel15;
 	private javax.swing.JPanel jPanel16;
+	private javax.swing.JLabel jLabel16;
 	private javax.swing.JPanel jPanel17;
+	private javax.swing.JLabel jLabel17;
 	private javax.swing.JPanel jPanel18;
+	private javax.swing.JLabel jLabel18;
 	private javax.swing.JPanel jPanel2;
 	private javax.swing.JPanel jPanel21;
+	private javax.swing.JLabel jLabel21;
 	private javax.swing.JPanel jPanel22;
+	private javax.swing.JLabel jLabel22;
 	private javax.swing.JPanel jPanel23;
+	private javax.swing.JLabel jLabel23;
 	private javax.swing.JPanel jPanel24;
+	private javax.swing.JLabel jLabel24;
 	private javax.swing.JPanel jPanel25;
+	private javax.swing.JLabel jLabel25;
 	private javax.swing.JPanel jPanel26;
+	private javax.swing.JLabel jLabel26;
 	private javax.swing.JPanel jPanel27;
+	private javax.swing.JLabel jLabel27;
 	private javax.swing.JPanel jPanel28;
+	private javax.swing.JLabel jLabel28;
 	private javax.swing.JPanel jPanel31;
+	private javax.swing.JLabel jLabel31;
 	private javax.swing.JPanel jPanel32;
+	private javax.swing.JLabel jLabel32;
 	private javax.swing.JPanel jPanel33;
+	private javax.swing.JLabel jLabel33;
 	private javax.swing.JPanel jPanel34;
+	private javax.swing.JLabel jLabel34;
 	private javax.swing.JPanel jPanel35;
+	private javax.swing.JLabel jLabel35;
 	private javax.swing.JPanel jPanel36;
+	private javax.swing.JLabel jLabel36;
 	private javax.swing.JPanel jPanel37;
+	private javax.swing.JLabel jLabel37;
 	private javax.swing.JPanel jPanel38;
+	private javax.swing.JLabel jLabel38;
 	private javax.swing.JPanel jPanel41;
+	private javax.swing.JLabel jLabel41;
 	private javax.swing.JPanel jPanel42;
+	private javax.swing.JLabel jLabel42;
 	private javax.swing.JPanel jPanel43;
+	private javax.swing.JLabel jLabel43;
 	private javax.swing.JPanel jPanel44;
+	private javax.swing.JLabel jLabel44;
 	private javax.swing.JPanel jPanel45;
+	private javax.swing.JLabel jLabel45;
 	private javax.swing.JPanel jPanel46;
+	private javax.swing.JLabel jLabel46;
 	private javax.swing.JPanel jPanel47;
+	private javax.swing.JLabel jLabel47;
 	private javax.swing.JPanel jPanel48;
+	private javax.swing.JLabel jLabel48;
 	private javax.swing.JProgressBar jProgressBar1;
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JList jList;
