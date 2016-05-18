@@ -21,6 +21,7 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import model.Labyrinthe;
@@ -35,10 +36,12 @@ import model.Porte;
  */
 public class Maze extends javax.swing.JFrame implements ActionListener {
 	private static final long serialVersionUID = -5693706248417459444L;
+	public static ArrayList<Piece> pieceVisitees = new ArrayList<Piece>();
 	private HashMap<String, JPanel> listePanels = new HashMap<String, JPanel>();
 	private Personnage currentPerso;
 	private DefaultListModel<String> listeMsg = new DefaultListModel<String>();
 	private Piece currentPiece;
+	private Labyrinthe laby;
 
     /**
      * Creates new form Maze
@@ -53,7 +56,7 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
     	jPanel2.requestFocus();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
+        laby = (Labyrinthe) Naming.lookup("MonServeur1");
         
         //Chargement de la pièce
         Piece piece = laby.getPieceById(choixPersonnage.getIdPiece());
@@ -65,33 +68,9 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         //Positionnement du personnage dans la bonne pièce
         //Récupération du bon panel
         //JLabel positionPerso = new JLabel("X");
-        jLabel11.setText("X");
-        System.out.println("jPanel"+piece.getPosX()+piece.getPosY());
-        listePanels.get("jPanel"+piece.getPosX()+piece.getPosY()).setBackground(Color.white);
-        //listePanels.get("jPanel"+piece.getPosX()+piece.getPosY()).add(positionPerso);
-        
-        // Dessin des portes
-        ArrayList<Porte> listPortes = piece.getListePortes();
-        int a=5, b=5, c=5, d=5;
-        for (Porte porte : listPortes) {
-        	switch (porte.getPositionPorte()) {
-        		case "NORD" : // Haut
-        			a = 1;
-        			break;
-        		case "EST" : // Droite
-        			d = 1;
-        			break;
-        		case "SUD" : // Bas
-        			c = 1;
-        			break;
-        		case "OUEST" : // Gauche
-        			b = 1;
-        			break;
-        	}
-        }
-        listePanels.get("jPanel"+piece.getPosX()+piece.getPosY()).setBorder(BorderFactory.createMatteBorder(a, b, c, d, Color.BLACK));
-        
-        this.repaint();
+        //jLabel11.setText("X");
+
+        afficherCase(piece);
     }
 
 	/**
@@ -1015,10 +994,11 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         // Si on change de Piece
         if (currentPiece.getPosX() != x || currentPiece.getPosY() != y) {
         	// Si récupère le serveur
-    		 Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
-    		 if(currentPiece.getNomServer().equals("beta")) {
+        	if(currentPiece.getNomServer().equals("alpha")) {
+    		 	laby = (Labyrinthe) Naming.lookup("MonServeur1");
+        	} else if (currentPiece.getNomServer().equals("beta")) {
              	laby = (Labyrinthe) Naming.lookup("MonServeur2"); 
-             }
+            }
     		// On récupère toutes les Pieces
         	ArrayList<Piece> listPiece = laby.getPiece();
         	for (Piece piece : listPiece) {
@@ -1029,16 +1009,45 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         		}
         	}
         	// On raffraichit la position sur l'écran
-        	this.setVisible(false);
-	        Maze fenMaze = new Maze(currentPerso);
-	        fenMaze.setVisible(true);
+        	//this.setVisible(false);
+	        //Maze fenMaze = new Maze(currentPerso);
+	        //fenMaze.setVisible(true);
+        	afficherCase(currentPiece);
         	
         	// On affiche le combat
-	        this.setVisible(false);
+	        /*this.setVisible(false);
         	Combat fenCombat = new Combat(currentPerso);
-        	fenCombat.setVisible(true);
+        	fenCombat.setVisible(true);*/
         }
         
+    }
+    
+    public void afficherCase(Piece p) {
+    	//fond blanc pour la pièce courante
+    	listePanels.get("jPanel"+p.getPosX()+p.getPosY()).setBackground(Color.white);
+    	
+    	// Dessin des portes
+        ArrayList<Porte> listPortes = p.getListePortes();
+        int a=5, b=5, c=5, d=5;
+        for (Porte porte : listPortes) {
+        	switch (porte.getPositionPorte()) {
+        		case "NORD" : // Haut
+        			a = 1;
+        			break;
+        		case "EST" : // Droite
+        			d = 1;
+        			break;
+        		case "SUD" : // Bas
+        			c = 1;
+        			break;
+        		case "OUEST" : // Gauche
+        			b = 1;
+        			break;
+        	}
+        }
+        listePanels.get("jPanel"+p.getPosX()+p.getPosY()).setBorder(BorderFactory.createMatteBorder(a, b, c, d, Color.BLACK));
+        listePanels.get("jPanel"+p.getPosX()+p.getPosY()).revalidate();
+        listePanels.get("jPanel"+p.getPosX()+p.getPosY()).repaint();
     }
 
 	@Override

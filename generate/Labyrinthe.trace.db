@@ -219,3 +219,23 @@ java.lang.Exception: Stack Trace
 	at persistence.LabyrintheJDBC.<init>(LabyrintheJDBC.java:61)
 	at persistence.LabyrintheJDBC.main(LabyrintheJDBC.java:222)
 	at Game.main(Game.java:8)
+05-18 19:01:14 jdbc[2]: connection not closed
+java.lang.Exception: Stack Trace
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:121)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:94)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at persistence.LabyrintheJDBC.<init>(LabyrintheJDBC.java:63)
+	at persistence.LabyrintheJDBC.main(LabyrintheJDBC.java:245)
+	at Game.main(Game.java:8)
+05-18 19:02:57 jdbc[2]: connection not closed
+java.lang.Exception: Stack Trace
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:121)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:94)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at persistence.LabyrintheJDBC.<init>(LabyrintheJDBC.java:63)
+	at persistence.LabyrintheJDBC.main(LabyrintheJDBC.java:245)
+	at Game.main(Game.java:8)
