@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -21,7 +22,6 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import model.Labyrinthe;
@@ -34,7 +34,7 @@ import model.Porte;
  *
  * @author Schyzo
  */
-public class Maze extends javax.swing.JFrame implements ActionListener {
+public class Maze extends javax.swing.JFrame implements ActionListener, Serializable {
 	private static final long serialVersionUID = -5693706248417459444L;
 	private HashMap<String, JPanel> listePanels = new HashMap<String, JPanel>();
 	private HashMap<String, JLabel> listeLabels = new HashMap<String, JLabel>();
@@ -57,12 +57,13 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         laby = (Labyrinthe) Naming.lookup("MonServeur1");
+        LabyrintheImpl.listeMap.put(currentPerso.getNomIndiv(), this);
         
         //Chargement de la pièce
         Piece piece = laby.getPieceById(choixPersonnage.getIdPiece());
         currentPiece = piece;
         if(piece.getNomServer().equals("beta")) {
-        	laby = (Labyrinthe) Naming.lookup("MonServeur2"); 
+        	laby = (Labyrinthe) Naming.lookup("MonServeur2");
         }
         
         //Positionnement du personnage dans la bonne pièce
@@ -283,7 +284,12 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 		sendMsgButton.setText("Envoyer");
 		sendMsgButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				sendMsgButtonActionPerformed(evt);
+				try {
+					sendMsgButtonActionPerformed(evt);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -1089,19 +1095,25 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 	}
 	
 	private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
-        // TODO add your handling code here:
     	//this.setVisible(true);
 		Sauvegarder fenSauvegarder = new Sauvegarder(currentPerso);
 		fenSauvegarder.setVisible(true);
     }
 	
-	private void sendMsgButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMsgButtonActionPerformed
-		if(!jTextArea1.getText().equals("")) {	
-			listeMsg.addElement(currentPerso.getNomIndiv() + " : " + jTextArea1.getText());
+	private void sendMsgButtonActionPerformed(java.awt.event.ActionEvent evt) throws RemoteException {//GEN-FIRST:event_sendMsgButtonActionPerformed
+		if(!jTextArea1.getText().equals("")) {
+			String msg = currentPerso.getNomIndiv() + " : " + jTextArea1.getText();
+			listeMsg.addElement(msg);
 			jTextArea1.setText("");
+			callChat(msg);
 			System.out.println("Envoyer message Chat");
+			jPanel2.requestFocus();
 		}
 	}//GEN-LAST:event_sendMsgButtonActionPerformed
+	
+	public void callChat(String msg) throws RemoteException {
+		laby.notifyChat(currentPerso.getNomIndiv(), msg);
+	}
 	
     private void jPanel2KeyPressed(java.awt.event.KeyEvent evt) throws RemoteException, MalformedURLException, NotBoundException {
         // On récupère la position de la Pièce courante
@@ -1183,11 +1195,9 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         	afficherCase(currentPiece);
         	
         	// On affiche le combat
-	        //this.setVisible(false);
         	Combat fenCombat = new Combat(currentPerso);
         	fenCombat.setVisible(true);
         }
-        
     }
     
     public void afficherCase(Piece p) {
@@ -1226,11 +1236,49 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
         listePanels.get("jPanel"+x+y).repaint();
     }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
+	/**
+	 * @return the listeMsg
+	 */
+	public DefaultListModel<String> getListeMsg() {
+		return listeMsg;
 	}
+
+	/**
+	 * @param listeMsg the listeMsg to set
+	 */
+	public void setListeMsg(DefaultListModel<String> listeMsg) {
+		this.listeMsg = listeMsg;
+	}
+
+	/**
+	 * @return the currentPiece
+	 */
+	public Piece getCurrentPiece() {
+		return currentPiece;
+	}
+
+	/**
+	 * @param currentPiece the currentPiece to set
+	 */
+	public void setCurrentPiece(Piece currentPiece) {
+		this.currentPiece = currentPiece;
+	}
+
+	/**
+	 * @return the currentPerso
+	 */
+	public Personnage getCurrentPerso() {
+		return currentPerso;
+	}
+
+	/**
+	 * @param currentPerso the currentPerso to set
+	 */
+	public void setCurrentPerso(Personnage currentPerso) {
+		this.currentPerso = currentPerso;
+	}
+
+
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton b_quitter;
@@ -1312,4 +1360,10 @@ public class Maze extends javax.swing.JFrame implements ActionListener {
 	private javax.swing.JLabel l_textSave;
 	private javax.swing.JButton sendMsgButton;
 	// End of variables declaration//GEN-END:variables
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }

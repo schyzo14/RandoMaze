@@ -8,12 +8,13 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import ui.Personnage;
+import ui.Maze;
 
 public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 
@@ -23,6 +24,7 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 	private static final long serialVersionUID = 5382892920038127485L;
 	
 	persistence.Labyrinthe labyBD;
+	public static HashMap<String, Maze> listeMap = new HashMap<String, Maze>();
 	
 	public LabyrintheImpl() throws RemoteException, MalformedURLException, NotBoundException {
 		labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
@@ -95,4 +97,28 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 		}
 	}
 
+	/**
+	 * @return the listeMap
+	 */
+	public HashMap<String, Maze> getListeMap() throws RemoteException {
+		return listeMap;
+	}
+
+	/**
+	 * @param listeMap the listeMap to set
+	 */
+	public void setListeMap(HashMap<String, Maze> listeMap) throws RemoteException {
+		this.listeMap = listeMap;
+	}
+
+	@Override
+	public void notifyChat(String nomPerso, String msg) throws RemoteException {
+		int piece = listeMap.get(nomPerso).getCurrentPiece().getIdPiece();
+		for(Maze cl : listeMap.values()) {
+			if(cl.getCurrentPiece().getIdPiece() == piece &&
+					!cl.getCurrentPerso().getNomIndiv().equals(nomPerso)) {
+				cl.getListeMsg().addElement(msg);
+			}
+		}
+	}
 }

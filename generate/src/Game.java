@@ -9,6 +9,8 @@ public class Game {
 		LabyrintheImpl.main(args);
 		
 		Connexion connexion = new Connexion();
+		Connexion connexion2 = new Connexion();
 		connexion.demarrer();
+		connexion2.demarrer();
 	}
 }
