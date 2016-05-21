@@ -20,7 +20,9 @@ import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -1195,7 +1197,15 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
         	afficherCase(currentPiece);
         	
         	// On affiche le combat
-        	Combat fenCombat = new Combat(currentPerso);
+        	ArrayList<String> listP = new ArrayList<String>(laby.getPersonnagesSamePiece(currentPerso.getNomIndiv()));
+        	JComboBox jcb = new JComboBox(listP.toArray());
+        	Combat fenCombat = null;
+        	if(listP.size() > 1) {
+        		JOptionPane.showMessageDialog(null, jcb, "Choix d'un ennemi", JOptionPane.QUESTION_MESSAGE);
+        		fenCombat = new Combat(currentPerso, jcb.getSelectedItem().toString());
+        	} else {
+        		fenCombat = new Combat(currentPerso);
+        	}
         	fenCombat.setVisible(true);
         }
     }

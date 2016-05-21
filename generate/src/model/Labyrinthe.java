@@ -35,4 +35,7 @@ public interface Labyrinthe extends Remote {
 	public void setListeMap(HashMap<String, Maze> listeMap) throws RemoteException;
 	
 	public void notifyChat(String nomPerso, String msg) throws RemoteException;
+	
+	public ArrayList<String> getPersonnagesSamePiece (String persoName)
+			throws MalformedURLException, RemoteException, NotBoundException;
 }

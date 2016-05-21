@@ -121,4 +121,19 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 			}
 		}
 	}
+
+	@Override
+	public ArrayList<String> getPersonnagesSamePiece(String persoName)
+			throws MalformedURLException, RemoteException, NotBoundException {
+		int idPiece = listeMap.get(persoName).getCurrentPiece().getIdPiece();
+		ArrayList<String> persosSamePiece = new ArrayList<String>();
+		persosSamePiece.add("Monstre");
+		for(Maze m : listeMap.values()) {
+			if(m.getCurrentPiece().getIdPiece() == idPiece &&
+					!m.getCurrentPerso().getNomIndiv().equals(persoName)) {
+				persosSamePiece.add(m.getCurrentPerso().getNomIndiv());
+			}
+		}
+		return persosSamePiece;
+	}
 }

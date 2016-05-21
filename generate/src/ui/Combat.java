@@ -33,6 +33,10 @@ public class Combat extends javax.swing.JFrame {
         int height = (int) (568 - insets.top - insets.bottom);
         setSize(width, height);
     }
+    
+    public Combat(model.Personnage currentPerso, String persoCombat) {
+    	
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
