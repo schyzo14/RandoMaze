@@ -6,10 +6,15 @@
 //package ui;
 package ui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+
+import model.Individu;
+import model.Monstre;
 
 /**
  *
@@ -20,8 +25,9 @@ public class Combat extends javax.swing.JFrame {
     /**
      * Creates new form Combat
      */
-    public Combat(model.Personnage currentPerso) {
-        initComponents();
+	//init fenêtre
+	public void initialisationFenetre(){
+		initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         
@@ -32,11 +38,64 @@ public class Combat extends javax.swing.JFrame {
         int width = (int) (824 - insets.left - insets.right);
         int height = (int) (568 - insets.top - insets.bottom);
         setSize(width, height);
+	}
+	
+	//Combat contre un monstre
+    public Combat(model.Personnage currentPerso) {
+        //Initialisation Fenetre
+    	initialisationFenetre();
+        
+    	System.out.println("Combat contre un monstre");
+        //Appel méthode génération combat
+        model.Monstre monstreCombat = new Monstre(1, "mechant");
+        monstreCombat.createMonstre();
+        
+        //Tant que le joueur ne clique pas sur Fuir ou PV=0, le combat continue
+    	this.addComponentListener(new ComponentAdapter() {
+    	    public void componentShown(ComponentEvent e) {
+    	    	int pvJoueur = 10;
+    	        int pvMonstre = 5;
+    	        monsterPV.setValue(pvMonstre);
+    	        monsterPV.repaint();
+    	        playerPV.setValue(pvJoueur);
+    	        playerPV.repaint();
+    	        
+    	        while(pvMonstre!=0 && pvJoueur!=0)
+    	        {      	
+    	        	//Toute les secondes, un des deux perd 1 point
+    	        	if(Individu.retirerPV()==false){
+    	        		pvMonstre-=1;
+    	        		monstreCombat.setNbPVIndiv(pvMonstre);
+    	        		monsterPV.setValue(pvMonstre);
+    	        		monsterPV.repaint();
+        	        	System.out.println("PV Monstre : "+pvMonstre);
+    	        	}else{
+    	        		pvJoueur-=1;
+    	        		currentPerso.setNbPVIndiv(pvJoueur);
+    	        		playerPV.setValue(pvJoueur);
+    	        		playerPV.repaint();
+        	        	System.out.println("PV Joueur : "+pvJoueur);
+    	        	}
+    	        }
+    	        //Test si perso ou monstre meurt
+    	        if(pvJoueur==0)
+    	        {
+    	        	System.out.println("Mort du joueur");
+    	        }else if(pvMonstre==0)
+    	        {
+    	        	System.out.println("Mort du monstre");
+    	        }
+    	    }
+    	});        
     }
     
+    //Combat entre joueur
     public Combat(model.Personnage currentPerso, String persoCombat) {
-    	
+    	//Initialisation Fenetre
+    	initialisationFenetre();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -169,6 +228,8 @@ public class Combat extends javax.swing.JFrame {
 
     private void buttonRunActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
+    	//Quitte le combat
+    	
         this.setVisible(false); 
     }   
 
