@@ -2,7 +2,7 @@ import model.LabyrintheImpl;
 import persistence.LabyrintheJDBC;
 import ui.Connexion;
 
-public class Game {
+public class Partie {
 
 	public static void main(String[] args) throws Exception {
 		LabyrintheJDBC.main(args);
