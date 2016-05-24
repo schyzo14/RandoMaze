@@ -127,6 +127,7 @@ public class Combat extends javax.swing.JFrame {
 	    	        	Piece piece;
 						piece = laby.getPieceById(currentPerso.getIdPiece());
 						
+						currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv()+1);
 						if(piece.getNomServer().equals("alpha")) {
 	    	    		 	laby = (Labyrinthe) Naming.lookup("MonServeur1");
 	    	    		 	boolean result = laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv() ,currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
@@ -134,6 +135,8 @@ public class Combat extends javax.swing.JFrame {
 	    	             	laby = (Labyrinthe) Naming.lookup("MonServeur2"); 
 	    	             	boolean result = laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv() ,currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
 		    	        }
+
+						System.out.println("Nombre de PV après combat : "+currentPerso.getNbPVIndiv());
 					} catch (MalformedURLException | RemoteException
 							| NotBoundException e1) {
 						// TODO Auto-generated catch block
