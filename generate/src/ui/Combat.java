@@ -20,6 +20,7 @@ import java.rmi.RemoteException;
 import model.Individu;
 import model.Labyrinthe;
 import model.Monstre;
+import model.Personnage;
 import model.Piece;
 
 /**
@@ -27,6 +28,8 @@ import model.Piece;
  * @author Schyzo
  */
 public class Combat extends javax.swing.JFrame {
+	private Personnage currentPerso;
+	private model.Monstre monstreCombat;
 
     /**
      * Creates new form Combat
@@ -47,13 +50,15 @@ public class Combat extends javax.swing.JFrame {
 	}
 	
 	//Combat contre un monstre
-    public Combat(model.Personnage currentPerso) {
+    public Combat(model.Personnage personnage) {
         //Initialisation Fenetre
     	initialisationFenetre();
         
+    	currentPerso = personnage;
     	System.out.println("Combat contre un monstre");
         //Appel méthode génération combat
-        model.Monstre monstreCombat = new Monstre(1, "mechant");
+    	int numPiece = currentPerso.getIdPiece();
+        monstreCombat = new Monstre(1, "mechant");
         monstreCombat.createMonstre();
         
         //Tant que le joueur ne clique pas sur Fuir ou PV=0, le combat continue
@@ -140,7 +145,7 @@ public class Combat extends javax.swing.JFrame {
     }
     
     //Combat entre joueur
-    public Combat(model.Personnage currentPerso, String persoCombat) {
+    public Combat(model.Personnage monPersonnage, String personnageCombattre) {
     	//Initialisation Fenetre
     	initialisationFenetre();
     }
