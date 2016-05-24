@@ -25,6 +25,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import model.Labyrinthe;
 import model.LabyrintheImpl;
@@ -1201,8 +1203,16 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
         	JComboBox jcb = new JComboBox(listP.toArray());
         	Combat fenCombat = null;
         	if(listP.size() > 1) {
-        		JOptionPane.showMessageDialog(null, jcb, "Choix d'un ennemi", JOptionPane.QUESTION_MESSAGE);
-        		fenCombat = new Combat(currentPerso, jcb.getSelectedItem().toString());
+        		try {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					UIManager.put("OptionPane.background", Color.WHITE);
+	                UIManager.put("Panel.background", Color.WHITE);
+	                UIManager.put("OptionPane.messageForeground", Color.BLACK);
+	        		JOptionPane.showMessageDialog(null, jcb, "Choix d'un ennemi", JOptionPane.QUESTION_MESSAGE);
+	        		fenCombat = new Combat(currentPerso, jcb.getSelectedItem().toString());
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+					e.printStackTrace();
+				}
         	} else {
         		fenCombat = new Combat(currentPerso);
         	}
