@@ -89,7 +89,6 @@ public class Combat extends javax.swing.JFrame {
     	        {
     	        	System.out.println("Mort du joueur");
     	        	
-    	        	
 					try {
 						//Le monstre gagne 1 PV
 	    	        	// Si récupère le serveur
@@ -102,8 +101,8 @@ public class Combat extends javax.swing.JFrame {
 	    	    		 	//boolean result = laby.updatePersonnage(monstreCombat.getIdIndiv(), monstreCombat.getNomIndiv() ,monstreCombat.getNbPVIndiv(), monstreCombat.getIdPiece());
 	    	        	} else if (piece.getNomServer().equals("beta")) {
 	    	             	laby = (Labyrinthe) Naming.lookup("MonServeur2"); 
-	    	             	boolean result = laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv() ,currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
-	    	            }
+	    	             	//boolean result = laby.updatePersonnage(monstreCombat.getIdIndiv(), monstreCombat.getNomIndiv() ,monstreCombat.getNbPVIndiv(), monstreCombat.getIdPiece());
+		    	        }
 					} catch (MalformedURLException | RemoteException
 							| NotBoundException e1) {
 						// TODO Auto-generated catch block
@@ -116,6 +115,25 @@ public class Combat extends javax.swing.JFrame {
     	        	System.out.println("Mort du monstre");
     	        	
     	        	//Le joueur gagne 1 PV
+    	        	try {
+						//Le monstre gagne 1 PV
+	    	        	// On récupère le serveur
+	    	        	Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");;
+	    	        	Piece piece;
+						piece = laby.getPieceById(currentPerso.getIdPiece());
+						
+						if(piece.getNomServer().equals("alpha")) {
+	    	    		 	laby = (Labyrinthe) Naming.lookup("MonServeur1");
+	    	    		 	boolean result = laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv() ,currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
+	    	        	} else if (piece.getNomServer().equals("beta")) {
+	    	             	laby = (Labyrinthe) Naming.lookup("MonServeur2"); 
+	    	             	boolean result = laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv() ,currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
+		    	        }
+					} catch (MalformedURLException | RemoteException
+							| NotBoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
     	        }
     	    }
     	});        
