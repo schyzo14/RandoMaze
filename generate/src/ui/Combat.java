@@ -286,6 +286,27 @@ public class Combat extends javax.swing.JFrame {
     	//Quitte le combat
     	
     	//Sauvegarde dans la base 
+    	System.out.println("Le joueur quitte le combat");
+    	
+		try {
+			//Le monstre gagne 1 PV
+        	// Si récupère le serveur
+        	Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");;
+        	Piece piece;
+			piece = laby.getPieceById(currentPerso.getIdPiece());
+			
+			if(piece.getNomServer().equals("alpha")) {
+    		 	laby = (Labyrinthe) Naming.lookup("MonServeur1");
+    		 	//boolean result = laby.updatePersonnage(monstreCombat.getIdIndiv(), monstreCombat.getNomIndiv() ,monstreCombat.getNbPVIndiv(), monstreCombat.getIdPiece());
+        	} else if (piece.getNomServer().equals("beta")) {
+             	laby = (Labyrinthe) Naming.lookup("MonServeur2"); 
+             	//boolean result = laby.updatePersonnage(monstreCombat.getIdIndiv(), monstreCombat.getNomIndiv() ,monstreCombat.getNbPVIndiv(), monstreCombat.getIdPiece());
+	        }
+		} catch (MalformedURLException | RemoteException
+				| NotBoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
     	
     	//Fermeture de la fenêtre
         this.setVisible(false); 
