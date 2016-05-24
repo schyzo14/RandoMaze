@@ -2,6 +2,7 @@ package persistence;
 
 import java.util.ArrayList;
 
+import model.Monstre;
 import model.Personnage;
 import model.Piece;
 import model.Porte;
@@ -32,5 +33,11 @@ public interface Labyrinthe extends java.rmi.Remote {
 	public boolean creerPersonnage (String nom ,int idUtilisateur)
 			throws java.rmi.RemoteException;
 	public boolean updatePersonnage (int id, String nom ,int pointvie, int idpiece)
+			throws java.rmi.RemoteException;
+	
+	// Monstre
+	public Monstre selectMonstreByPiece (int idPiece)
+			throws java.rmi.RemoteException;
+	public boolean updateMonstre (int id, String nom ,int pointvie, int idpiece)
 			throws java.rmi.RemoteException;
 }

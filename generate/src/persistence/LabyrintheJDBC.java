@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import model.Monstre;
 import model.Personnage;
 import model.Piece;
 import model.Porte;
@@ -54,6 +55,12 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	private PreparedStatement reqInsertPersonnageSt = null;
 	private PreparedStatement reqUpdatePersonnageSt = null;
 	
+	// Monstre
+	private static final String reqSelectMonstreByPiece = "select IDMONSTRE, NOMMONSTRE, POINTVIE, IDPIECE from MONSTRE where IDPIECE=?";
+	private static final String reqUpdateMonstre = "update MONSTRE set NOMMONSTRE=?, POINTVIE=?, IDPIECE=? where IDMONSTRE=?";
+	
+	private PreparedStatement reqSelectMonstreByPieceSt = null;
+	private PreparedStatement reqUpdateMonstreSt = null;
 	
 	public LabyrintheJDBC(String nomBD) throws RemoteException {
 		try {
@@ -74,6 +81,9 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 		    reqSelectPersonnageByUtilisateurSt = conn.prepareStatement(reqSelectPersonnageByUtilisateur);
 		    reqInsertPersonnageSt = conn.prepareStatement(reqInsertPersonnage);
 		    reqUpdatePersonnageSt = conn.prepareStatement(reqUpdatePersonnage);
+		    // Monstre
+		    reqSelectMonstreByPieceSt = conn.prepareStatement(reqSelectMonstreByPiece);
+		    reqUpdateMonstreSt = conn.prepareStatement(reqUpdateMonstre);
 		} catch(Exception e) {
 			// il y a eu une erreur
 			e.printStackTrace();
@@ -231,6 +241,42 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 		}
 	}
 	
+	@Override
+	public Monstre selectMonstreByPiece(int idPiece) throws RemoteException {
+		try {
+			reqSelectMonstreByPieceSt.setInt(1, idPiece);
+			ResultSet rs = reqSelectMonstreByPieceSt.executeQuery();
+			
+			while (rs.next()) {
+				Monstre monstre = new Monstre(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
+				return monstre;
+			}
+			return null;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public boolean updateMonstre(int id, String nom, int pointvie, int idpiece)
+			throws RemoteException {
+		try {
+			reqUpdateMonstreSt.setString(1, nom);
+			reqUpdateMonstreSt.setInt(2, pointvie);
+			reqUpdateMonstreSt.setInt(3, idpiece);
+			reqUpdateMonstreSt.setInt(4, id);
+        	if (reqUpdateMonstreSt.executeUpdate()==1)
+				return true;
+        	else
+        		return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	public void fermer() throws Exception {		
 		try {
 			conn.close();
@@ -269,6 +315,9 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 					+ personnage.getNbPVIndiv() + " - "
 					+ personnage.getNomIndiv());
 		}		*/
-		
+/*		Monstre monstre = labyrintheJDBC.selectMonstreByPiece(25);
+		System.out.println(monstre.getIdIndiv() + " - " + monstre.getIdPiece() + " - " + monstre.getNomIndiv() + " - " + monstre.getNbPVIndiv());
+*/		
 	}
+
 }

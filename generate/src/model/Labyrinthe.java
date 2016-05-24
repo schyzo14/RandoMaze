@@ -38,4 +38,9 @@ public interface Labyrinthe extends Remote {
 	
 	public ArrayList<String> getPersonnagesSamePiece (String persoName)
 			throws MalformedURLException, RemoteException, NotBoundException;
+	
+	public Monstre getMonstreByPiece (int idPiece)
+			throws RemoteException;
+	public boolean updateMonstre (int id, String nom ,int pointvie, int idpiece)
+			throws RemoteException;
 }

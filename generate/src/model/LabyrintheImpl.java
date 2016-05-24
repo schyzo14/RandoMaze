@@ -1,6 +1,5 @@
 package model;
 
-import java.awt.Color;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -9,10 +8,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import ui.Maze;
 
@@ -123,5 +118,17 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 			}
 		}
 		return persosSamePiece;
+	}
+
+	@Override
+	public Monstre getMonstreByPiece(int idPiece) throws RemoteException {
+		Monstre monstre = labyBD.selectMonstreByPiece(idPiece);
+		return monstre;
+	}
+
+	@Override
+	public boolean updateMonstre(int id, String nom, int pointvie, int idpiece) throws RemoteException {
+		boolean result = labyBD.updateMonstre(id, nom, pointvie, idpiece);
+		return result;
 	}
 }
