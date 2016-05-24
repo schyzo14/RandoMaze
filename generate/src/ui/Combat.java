@@ -12,9 +12,15 @@ import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 import model.Individu;
+import model.Labyrinthe;
 import model.Monstre;
+import model.Piece;
 
 /**
  *
@@ -77,13 +83,39 @@ public class Combat extends javax.swing.JFrame {
         	        	System.out.println("PV Joueur : "+pvJoueur);
     	        	}
     	        }
+    	        
     	        //Test si perso ou monstre meurt
     	        if(pvJoueur==0)
     	        {
     	        	System.out.println("Mort du joueur");
+    	        	
+    	        	
+					try {
+						//Le monstre gagne 1 PV
+	    	        	// Si récupère le serveur
+	    	        	Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");;
+	    	        	Piece piece;
+						piece = laby.getPieceById(currentPerso.getIdPiece());
+						
+						if(piece.getNomServer().equals("alpha")) {
+	    	    		 	laby = (Labyrinthe) Naming.lookup("MonServeur1");
+	    	    		 	//boolean result = laby.updatePersonnage(monstreCombat.getIdIndiv(), monstreCombat.getNomIndiv() ,monstreCombat.getNbPVIndiv(), monstreCombat.getIdPiece());
+	    	        	} else if (piece.getNomServer().equals("beta")) {
+	    	             	laby = (Labyrinthe) Naming.lookup("MonServeur2"); 
+	    	             	boolean result = laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv() ,currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
+	    	            }
+					} catch (MalformedURLException | RemoteException
+							| NotBoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+    	        	
+    	        	
     	        }else if(pvMonstre==0)
     	        {
     	        	System.out.println("Mort du monstre");
+    	        	
+    	        	//Le joueur gagne 1 PV
     	        }
     	    }
     	});        
@@ -230,6 +262,9 @@ public class Combat extends javax.swing.JFrame {
         // TODO add your handling code here:
     	//Quitte le combat
     	
+    	//Sauvegarde dans la base 
+    	
+    	//Fermeture de la fenêtre
         this.setVisible(false); 
     }   
 
