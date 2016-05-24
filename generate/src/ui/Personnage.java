@@ -189,7 +189,7 @@ public class Personnage extends javax.swing.JFrame {
     	
     	if (list.getSelectedIndex() == -1) {
     		System.out.println("Pas de personnage choisi");
-    		LabyrintheImpl.afficherPopUp("Veuillez choisir un personnage ou en créer un.");
+    		Util.afficherPopUp("Veuillez choisir un personnage ou en créer un.");
     	} else {
     		String nomPerso = (String) list.getSelectedValue();
     		boolean trouve = false;
@@ -205,7 +205,7 @@ public class Personnage extends javax.swing.JFrame {
         	}
     		if (!trouve) {
      			System.out.println("Personnage inconnue");
-     			LabyrintheImpl.afficherPopUp("Veuillez choisir un personnage ou en créer un.");
+     			Util.afficherPopUp("Veuillez choisir un personnage ou en créer un.");
      		}
     	}
     	

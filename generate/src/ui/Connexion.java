@@ -196,7 +196,7 @@ public class Connexion extends javax.swing.JFrame {
     	// Si l'utilisateur est inconnu ou le mot de passe incorrect
     	if(utilisateur == null || !utilisateur.getMdpUser().equals(motDePasse.getText())) {
     		System.out.println("Erreur de nom d'utilisateur ou de mot de passe.");
-    		LabyrintheImpl.afficherPopUp("Erreur de nom d'utilisateur ou de mot de passe.");
+    		Util.afficherPopUp("Erreur de nom d'utilisateur ou de mot de passe.");
         } else {
         	System.out.println("Nom d'utilisateur et mot de passe correct!");
         	// On ferme la fenêtre de Connexion

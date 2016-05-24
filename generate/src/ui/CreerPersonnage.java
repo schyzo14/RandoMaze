@@ -155,13 +155,13 @@ public class CreerPersonnage extends javax.swing.JFrame {
     	
     	if (tf_nomPers.getText().trim().length() <= 0) {
     		System.out.println("Remplissez le nom du personnage.");
-    		LabyrintheImpl.afficherPopUp("Remplissez le nom du personnage.");
+    		Util.afficherPopUp("Remplissez le nom du personnage.");
     	} else {
         	boolean result = laby.creerPersonnage(tf_nomPers.getText(), idUtilisateur);
         	
         	if (result == false) {
         		System.out.println("Problème de création de personnage - Nom de personnage déjà existant ou autre erreur... ");
-        		LabyrintheImpl.afficherPopUp("Problème de création de personnage - Nom de personnage déjà existant ou autre erreur...");
+        		Util.afficherPopUp("Problème de création de personnage - Nom de personnage déjà existant ou autre erreur...");
         	} else {
         		System.out.println("Personnage créé !");
         		this.setVisible(false);

@@ -1140,7 +1140,7 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
         		x = x-1;
         	} else {
         		System.out.println("Pas de porte au Nord.");
-        		LabyrintheImpl.afficherPopUp("Pas de porte au Nord.");
+        		Util.afficherPopUp("Pas de porte au Nord.");
         	}
         	break;
         case KeyEvent.VK_DOWN: // Flèche Bas
@@ -1149,7 +1149,7 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
         		x = x+1;
         	} else {
         		System.out.println("Pas de porte au Sud.");
-        		LabyrintheImpl.afficherPopUp("Pas de porte au Sud.");
+        		Util.afficherPopUp("Pas de porte au Sud.");
         	}
         	break;
         case KeyEvent.VK_LEFT: // Flèche Gauche 
@@ -1158,7 +1158,7 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
         		y = y-1;
         	} else {
         		System.out.println("Pas de porte à l'Ouest.");
-        		LabyrintheImpl.afficherPopUp("Pas de porte à l'Ouest.");
+        		Util.afficherPopUp("Pas de porte à l'Ouest.");
         	}
         	break;
         case KeyEvent.VK_RIGHT: // Flèche Droite
@@ -1167,7 +1167,7 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
         		y = y+1;
         	} else {
         		System.out.println("Pas de porte à l'Est.");
-        		LabyrintheImpl.afficherPopUp("Pas de porte à l'Est.");
+        		Util.afficherPopUp("Pas de porte à l'Est.");
         	}
         	break;
         }

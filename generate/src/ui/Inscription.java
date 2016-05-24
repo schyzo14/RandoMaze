@@ -173,11 +173,11 @@ public class Inscription extends javax.swing.JFrame {
     	// Si le nom d'utilisateur est vide
     	if (nomUtilisateur.getText().trim().length() <= 0) {
     		System.out.println("Remplissez le nom d'utilisateur.");
-    		LabyrintheImpl.afficherPopUp("Remplissez le nom d'utilisateur.");
+    		Util.afficherPopUp("Remplissez le nom d'utilisateur.");
     	// Sinon si le mot de passe est vide
     	} else if (motDePasse.getText().trim().length() <= 0) {
     		System.out.println("Remplissez le mot de passe.");
-    		LabyrintheImpl.afficherPopUp("Remplissez le mot de passe.");
+    		Util.afficherPopUp("Remplissez le mot de passe.");
     	// Les deux champs ne sont pas vide
     	} else {
     		// Cr�ation de l'utilisateur
@@ -185,7 +185,7 @@ public class Inscription extends javax.swing.JFrame {
         	// Si erreur lors de la cr�ation
         	if (result == false) {
         		System.out.println("Problème d'inscription");
-        		LabyrintheImpl.afficherPopUp("Problème d'inscription - Nom déjà existant ou autre erreur...");
+        		Util.afficherPopUp("Problème d'inscription - Nom déjà existant ou autre erreur...");
         	// Si inscription r�ussie
         	} else {
         		System.out.println("Inscription réussie");
