@@ -273,7 +273,7 @@ public class Connexion extends javax.swing.JFrame {
     public void quitterFenetre() throws RemoteException, MalformedURLException, NotBoundException {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		// tester si il y a d'autres fenetre ouvertes
+		// tester s'il y a d'autres fenetre ouvertes
 		Window[] frames = JFrame.getWindows();
 		boolean ouvert = false;
 		for (int i=0 ; i<frames.length ; i++) {
@@ -281,11 +281,10 @@ public class Connexion extends javax.swing.JFrame {
 				ouvert = true;
 			}
 		}
-		if (! ouvert) {
+		if (!ouvert) {
 			Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
 			laby.quitter();
 		}
-
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -301,6 +301,8 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 			reqUpdateMonstreSt = null;
 			
 			//Fermeture de la BD
+			Naming.unbind("MaBD");
+			UnicastRemoteObject.unexportObject(this, true);
 			conn.close();
 		} catch(Exception ex) {
 			// il y a eu une erreur
