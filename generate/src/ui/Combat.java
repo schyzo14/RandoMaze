@@ -9,6 +9,7 @@ package ui;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -16,6 +17,8 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+
+import javax.swing.JFrame;
 
 import model.Individu;
 import model.Labyrinthe;
@@ -108,7 +111,6 @@ public class Combat extends javax.swing.JFrame {
 							} else {
 								currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv()-1);
 								playerPV.setValue(currentPerso.getNbPVIndiv());
-								playerPV.repaint();
 								System.out.println("PV Joueur : " + currentPerso.getNbPVIndiv());
 							}
 						}
@@ -125,9 +127,11 @@ public class Combat extends javax.swing.JFrame {
 									
 										//LE joueur retourne à la case départ (listePersonnage)
 										//remise des PV à 10
-										currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv() + 1);
-								laby.updatePersonnage(currentPerso.getIdIndiv(),currentPerso.getNomIndiv(), currentPerso.getNbPVIndiv(),currentPerso.getIdPiece());
-
+										currentPerso.setNbPVIndiv(10);
+										currentPerso.setIdPiece(1);
+										laby.updatePersonnage(currentPerso.getIdIndiv(),currentPerso.getNomIndiv(), currentPerso.getNbPVIndiv(),currentPerso.getIdPiece());
+										fermer();
+										
 									} catch (RemoteException | MalformedURLException | NotBoundException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
@@ -150,7 +154,10 @@ public class Combat extends javax.swing.JFrame {
 								monstreCombat.setNbPVIndiv(5);
 								laby.updateMonstre(monstreCombat.getIdIndiv(), monstreCombat.getNomIndiv(), monstreCombat.getNbPVIndiv(), monstreCombat.getIdPiece());
 								
+								//Fermeture de la fenetre de combat
+								fermer();
 								
+
 							} catch (MalformedURLException | RemoteException | NotBoundException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -162,8 +169,10 @@ public class Combat extends javax.swing.JFrame {
 			}
 			
 		});
-		//Fermeture de la fenêtre de combat
-		this.setVisible(false);
+	}
+	
+	public void fermer(){
+		this.dispose();
 	}
 
 	// Combat entre joueur
