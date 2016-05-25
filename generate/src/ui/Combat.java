@@ -144,6 +144,8 @@ public class Combat extends javax.swing.JFrame {
 								System.out.println("Nombre de PV du joueur après combat : " + currentPerso.getNbPVIndiv());
 								
 								//Le monstre meurt
+								monstreCombat.setNbPVIndiv(5);
+								laby.updateMonstre(monstreCombat.getIdIndiv(), monstreCombat.getNomIndiv(), monstreCombat.getNbPVIndiv(), monstreCombat.getIdPiece());
 								
 								
 							} catch (MalformedURLException | RemoteException | NotBoundException e1) {
@@ -155,7 +157,10 @@ public class Combat extends javax.swing.JFrame {
 				};
 				t.start();
 			}
+			
 		});
+		//Fermeture de la fenêtre de combat
+		this.setVisible(false);
 	}
 
 	// Combat entre joueur
