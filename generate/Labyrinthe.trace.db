@@ -281,3 +281,13 @@ where idMonstre = 1 [42122-147]
 	at org.h2.server.web.WebThread.process(WebThread.java:166)
 	at org.h2.server.web.WebThread.run(WebThread.java:93)
 	at java.lang.Thread.run(Unknown Source)
+05-26 00:14:22 jdbc[2]: connection not closed
+java.lang.Exception: Stack Trace
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:121)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:94)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at persistence.LabyrintheJDBC.<init>(LabyrintheJDBC.java:70)
+	at persistence.LabyrintheJDBC.main(LabyrintheJDBC.java:315)
+	at Partie.main(Partie.java:8)

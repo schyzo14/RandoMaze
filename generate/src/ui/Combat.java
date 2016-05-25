@@ -79,6 +79,7 @@ public class Combat extends javax.swing.JFrame {
 	public Combat(model.Personnage personnage) {
 		// Initialisation Fenetre
 		initialisationFenetre();
+		
 
 		//Affectation du personnage
 		currentPerso = personnage;
@@ -93,6 +94,7 @@ public class Combat extends javax.swing.JFrame {
 			monstreCombat = laby.getMonstreByPiece(numPiece);
 			monster.setText("Monstre : "+monstreCombat.getNomIndiv());
 			player.setText("Personnage : "+currentPerso.getNomIndiv());
+			imageEnemy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/"+monstreCombat.getNomIndiv()+".png"))); // NOI18N
 		} catch (RemoteException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -263,8 +265,8 @@ public class Combat extends javax.swing.JFrame {
 
 		imageEnemy.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 		imageEnemy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		imageEnemy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/xemnas.jpg"))); // NOI18N
-
+		//imageEnemy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/"+monstreCombat.getNomIndiv()+".png"))); // NOI18N
+		
 		lifePointsEnemy.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 		lifePointsEnemy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		lifePointsEnemy.setText("PV : "+monsterPV.getMaximum()+" / "+monsterPV.getMaximum());
