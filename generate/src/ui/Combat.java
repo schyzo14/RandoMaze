@@ -30,6 +30,7 @@ import model.Piece;
 public class Combat extends javax.swing.JFrame {
 	private Personnage currentPerso;
 	private model.Monstre monstreCombat;
+	private Labyrinthe laby;
 	// Thread de combat
 	public static Thread t;
 
@@ -50,13 +51,37 @@ public class Combat extends javax.swing.JFrame {
 		int height = (int) (568 - insets.top - insets.bottom);
 		setSize(width, height);
 	}
+	
+	//Initialisation de la connexion au serveur
+	public void connexionServeur(){
+		try{
+			laby = (Labyrinthe) Naming.lookup("MonServeur1");
+			Piece piece= laby.getPieceById(currentPerso.getIdPiece());
+			
+			if (piece.getNomServer().equals("alpha")) {
+				laby = (Labyrinthe) Naming.lookup("MonServeur1");
+			} else if (piece.getNomServer().equals("beta")) {
+				laby = (Labyrinthe) Naming.lookup("MonServeur2");
+			}
+		}catch (MalformedURLException | RemoteException | NotBoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	}
 
 	// Combat contre un monstre
 	public Combat(model.Personnage personnage) {
 		// Initialisation Fenetre
 		initialisationFenetre();
 
+	
+		//Affectation du personnage
 		currentPerso = personnage;
+		
+		//Initialisation du labyrinthe
+		connexionServeur();
+		
 		System.out.println("Combat contre un monstre");
 		// Appel méthode génération combat
 		int numPiece = currentPerso.getIdPiece();
@@ -68,90 +93,59 @@ public class Combat extends javax.swing.JFrame {
 				// Création du Thread de combat
 				Combat.t = new Thread() {
 					public void run() {
-						int pvJoueur = 10;
-						int pvMonstre = 5;
-						monsterPV.setValue(pvMonstre);
-						monsterPV.repaint();
-						playerPV.setValue(pvJoueur);
-						playerPV.repaint();
+						currentPerso.setNbPVIndiv(10);
+						monstreCombat.setNbPVIndiv(5);
+						monsterPV.setValue(monstreCombat.getNbPVIndiv());
+						playerPV.setValue(currentPerso.getNbPVIndiv());
 						
 						// Boucle qui vérifie les PV du monstre et du joueur
 						// et qui vérifie si le Thread a été interrompu ou non
-						while (pvMonstre != 0 && pvJoueur != 0 && !this.isInterrupted()) {
+						while (monstreCombat.getNbPVIndiv() != 0 && currentPerso.getNbPVIndiv() != 0 && !this.isInterrupted()) {
 							// Toute les secondes, un des deux perd 1 point
 							if (Individu.retirerPV() == false) {
-								pvMonstre -= 1;
-								monstreCombat.setNbPVIndiv(pvMonstre);
-								monsterPV.setValue(pvMonstre);
-								monsterPV.repaint();
-								System.out.println("PV Monstre : " + pvMonstre);
+								monstreCombat.setNbPVIndiv(monstreCombat.getNbPVIndiv()-1);
+								monsterPV.setValue(monstreCombat.getNbPVIndiv());
+								System.out.println("PV Monstre : " + monstreCombat.getNbPVIndiv());
 							} else {
-								pvJoueur -= 1;
-								currentPerso.setNbPVIndiv(pvJoueur);
-								playerPV.setValue(pvJoueur);
+								currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv()-1);
+								playerPV.setValue(currentPerso.getNbPVIndiv());
 								playerPV.repaint();
-								System.out.println("PV Joueur : " + pvJoueur);
+								System.out.println("PV Joueur : " + currentPerso.getNbPVIndiv());
 							}
 						}
 
 						// Test si perso ou monstre meurt
-						if (pvJoueur == 0) {
+						if (currentPerso.getNbPVIndiv() == 0) {
 							System.out.println("Mort du joueur");
-
-							try {
 								// Le monstre gagne 1 PV
-								// Si récupère le serveur
-								Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
-								;
-								Piece piece;
-								piece = laby.getPieceById(currentPerso.getIdPiece());
+									try {
+										laby.updateMonstre(monstreCombat.getIdIndiv(),
+										monstreCombat.getNomIndiv()
+										,monstreCombat.getNbPVIndiv(),
+										monstreCombat.getIdPiece());
+									} catch (RemoteException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								
+								//LE joueur retourne à la case départ (listePersonnage)
 
-								if (piece.getNomServer().equals("alpha")) {
-									laby = (Labyrinthe) Naming.lookup("MonServeur1");
-									// boolean result =
-									// laby.updatePersonnage(monstreCombat.getIdIndiv(),
-									// monstreCombat.getNomIndiv()
-									// ,monstreCombat.getNbPVIndiv(),
-									// monstreCombat.getIdPiece());
-								} else if (piece.getNomServer().equals("beta")) {
-									laby = (Labyrinthe) Naming.lookup("MonServeur2");
-									// boolean result =
-									// laby.updatePersonnage(monstreCombat.getIdIndiv(),
-									// monstreCombat.getNomIndiv()
-									// ,monstreCombat.getNbPVIndiv(),
-									// monstreCombat.getIdPiece());
-								}
-							} catch (MalformedURLException | RemoteException | NotBoundException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-
-						} else if (pvMonstre == 0) {
+						} else if (monstreCombat.getNbPVIndiv() == 0) {
 							System.out.println("Mort du monstre");
 
 							// Le joueur gagne 1 PV
 							try {
-								// Le monstre gagne 1 PV
-								// On récupère le serveur
-								Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
-								;
-								Piece piece;
-								piece = laby.getPieceById(currentPerso.getIdPiece());
-
+								//On ajoute 1PV au joueur
 								currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv() + 1);
-								if (piece.getNomServer().equals("alpha")) {
-									laby = (Labyrinthe) Naming.lookup("MonServeur1");
-									boolean result = laby.updatePersonnage(currentPerso.getIdIndiv(),
+								laby.updatePersonnage(currentPerso.getIdIndiv(),
 											currentPerso.getNomIndiv(), currentPerso.getNbPVIndiv(),
 											currentPerso.getIdPiece());
-								} else if (piece.getNomServer().equals("beta")) {
-									laby = (Labyrinthe) Naming.lookup("MonServeur2");
-									boolean result = laby.updatePersonnage(currentPerso.getIdIndiv(),
-											currentPerso.getNomIndiv(), currentPerso.getNbPVIndiv(),
-											currentPerso.getIdPiece());
-								}
 
-								System.out.println("Nombre de PV après combat : " + currentPerso.getNbPVIndiv());
+								System.out.println("Nombre de PV du joueur après combat : " + currentPerso.getNbPVIndiv());
+								
+								//Le monstre meurt
+								
+								
 							} catch (MalformedURLException | RemoteException | NotBoundException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
