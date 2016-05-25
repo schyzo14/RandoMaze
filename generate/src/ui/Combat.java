@@ -75,7 +75,6 @@ public class Combat extends javax.swing.JFrame {
 		// Initialisation Fenetre
 		initialisationFenetre();
 
-	
 		//Affectation du personnage
 		currentPerso = personnage;
 		
@@ -123,13 +122,17 @@ public class Combat extends javax.swing.JFrame {
 										monstreCombat.getNomIndiv()
 										,monstreCombat.getNbPVIndiv(),
 										monstreCombat.getIdPiece());
-									} catch (RemoteException e) {
+									
+										//LE joueur retourne à la case départ (listePersonnage)
+										//remise des PV à 10
+										currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv() + 1);
+								laby.updatePersonnage(currentPerso.getIdIndiv(),currentPerso.getNomIndiv(), currentPerso.getNbPVIndiv(),currentPerso.getIdPiece());
+
+									} catch (RemoteException | MalformedURLException | NotBoundException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
 								
-								//LE joueur retourne à la case départ (listePersonnage)
-
 						} else if (monstreCombat.getNbPVIndiv() == 0) {
 							System.out.println("Mort du monstre");
 
