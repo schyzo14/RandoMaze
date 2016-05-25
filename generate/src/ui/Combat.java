@@ -19,6 +19,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import javax.swing.JFrame;
+import javax.swing.JProgressBar;
 
 import model.Individu;
 import model.Labyrinthe;
@@ -88,7 +89,15 @@ public class Combat extends javax.swing.JFrame {
 		System.out.println("Combat contre un monstre");
 		// Appel méthode génération combat
 		int numPiece = currentPerso.getIdPiece();
-		monstreCombat = new Monstre(1, "mechant", 5, numPiece);
+		try {
+			monstreCombat = laby.getMonstreByPiece(numPiece);
+			monster.setText("Monstre : "+monstreCombat.getNomIndiv());
+			player.setText("Personnage : "+currentPerso.getNomIndiv());
+		} catch (RemoteException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
 
 		// Tant que le joueur ne clique pas sur Fuir ou PV=0, le combat continue
 		this.addComponentListener(new ComponentAdapter() {
@@ -96,8 +105,23 @@ public class Combat extends javax.swing.JFrame {
 				// Création du Thread de combat
 				Combat.t = new Thread() {
 					public void run() {
-						currentPerso.setNbPVIndiv(1);
-						monstreCombat.setNbPVIndiv(20);
+						//Test de la piece pour savoir quel type de monstre il va combattre : normal, boss ou boss secret
+						if(numPiece==15)
+						{
+							currentPerso.setNbPVIndiv(10);
+							monstreCombat.setNbPVIndiv(16);
+							monsterPV.setMaximum(16);
+						}else if(numPiece==16)
+						{
+							currentPerso.setNbPVIndiv(10);
+							monstreCombat.setNbPVIndiv(20);
+							monsterPV.setMaximum(20);
+						}else{
+							currentPerso.setNbPVIndiv(10);
+							monstreCombat.setNbPVIndiv(5);
+							monsterPV.setMaximum(5);
+						}
+						
 						monsterPV.setValue(monstreCombat.getNbPVIndiv());
 						playerPV.setValue(currentPerso.getNbPVIndiv());
 						
@@ -108,11 +132,12 @@ public class Combat extends javax.swing.JFrame {
 							if (Individu.retirerPV() == false) {
 								monstreCombat.setNbPVIndiv(monstreCombat.getNbPVIndiv()-1);
 								monsterPV.setValue(monstreCombat.getNbPVIndiv());
-								System.out.println("PV Monstre : " + monstreCombat.getNbPVIndiv());
+								lifePointsEnemy.setText("PV : "+monstreCombat.getNbPVIndiv() + " / "+monsterPV.getMaximum());
 							} else {
 								currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv()-1);
 								playerPV.setValue(currentPerso.getNbPVIndiv());
-								System.out.println("PV Joueur : " + currentPerso.getNbPVIndiv());
+								lifePointsPlayer.setText("PV : "+currentPerso.getNbPVIndiv() + " / "+playerPV.getMaximum());
+								
 							}
 						}
 
@@ -200,7 +225,7 @@ public class Combat extends javax.swing.JFrame {
 		jPanel1 = new javax.swing.JPanel();
 		monster = new javax.swing.JLabel();
 		playerPV = new javax.swing.JProgressBar(0,10);
-		monsterPV = new javax.swing.JProgressBar(0,10);
+		monsterPV = new javax.swing.JProgressBar();
 		imagePlayer = new javax.swing.JLabel();
 		player = new javax.swing.JLabel();
 		lifePointsPlayer = new javax.swing.JLabel();
@@ -218,7 +243,7 @@ public class Combat extends javax.swing.JFrame {
 
 		monster.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 		monster.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		monster.setText("Monstre");
+		monster.setText("Monstre ");
 
 		playerPV.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
@@ -230,11 +255,11 @@ public class Combat extends javax.swing.JFrame {
 
 		player.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 		player.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		player.setText("Personnage");
+		player.setText("Personnage ");
 
 		lifePointsPlayer.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 		lifePointsPlayer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		lifePointsPlayer.setText("PV");
+		lifePointsPlayer.setText("PV : "+playerPV.getMaximum()+" / "+playerPV.getMaximum());
 
 		imageEnemy.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 		imageEnemy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -242,7 +267,7 @@ public class Combat extends javax.swing.JFrame {
 
 		lifePointsEnemy.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 		lifePointsEnemy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		lifePointsEnemy.setText("PV");
+		lifePointsEnemy.setText("PV : "+monsterPV.getMaximum()+" / "+monsterPV.getMaximum());
 
 		buttonRun.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 		buttonRun.setText("Fuir");
@@ -330,26 +355,12 @@ public class Combat extends javax.swing.JFrame {
 
 		try {
 			// Le monstre gagne 1 PV
-			// Si récupère le serveur
-			Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
-			;
-			Piece piece;
-			piece = laby.getPieceById(currentPerso.getIdPiece());
-
-			if (piece.getNomServer().equals("alpha")) {
-				laby = (Labyrinthe) Naming.lookup("MonServeur1");
-				// boolean result =
-				// laby.updatePersonnage(monstreCombat.getIdIndiv(),
-				// monstreCombat.getNomIndiv() ,monstreCombat.getNbPVIndiv(),
-				// monstreCombat.getIdPiece());
-			} else if (piece.getNomServer().equals("beta")) {
-				laby = (Labyrinthe) Naming.lookup("MonServeur2");
-				// boolean result =
-				// laby.updatePersonnage(monstreCombat.getIdIndiv(),
-				// monstreCombat.getNomIndiv() ,monstreCombat.getNbPVIndiv(),
-				// monstreCombat.getIdPiece());
-			}
-		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+			// Si récupère le serveur;
+				laby.updateMonstre(monstreCombat.getIdIndiv(),
+				monstreCombat.getNomIndiv() ,monstreCombat.getNbPVIndiv(),
+				monstreCombat.getIdPiece());
+			
+		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} finally {
