@@ -43,4 +43,7 @@ public interface Labyrinthe extends Remote {
 			throws RemoteException;
 	public boolean updateMonstre (int id, String nom ,int pointvie, int idpiece)
 			throws RemoteException;
+	
+	public void quitter() 
+			throws RemoteException;
 }

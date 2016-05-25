@@ -131,4 +131,27 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 		boolean result = labyBD.updateMonstre(id, nom, pointvie, idpiece);
 		return result;
 	}
+
+	@Override
+	public void quitter() throws RemoteException {
+		try {
+			// Suppression du lien vers les serveurs
+			Naming.unbind("MonServeur1");
+			Naming.unbind("MonServeur2");
+			Naming.unbind("MaBD");
+			
+			// Fermeture de la BD
+			labyBD.fermer();
+			
+			// Fermeture des serveurs
+			UnicastRemoteObject.unexportObject(this, true);
+			UnicastRemoteObject.unexportObject(labyBD, true);
+		} catch (MalformedURLException | NotBoundException e) {
+			// Erreur fermeture serveurs
+			e.printStackTrace();
+		} catch (Exception e) {
+			// Erreur fermeture BD
+			e.printStackTrace();
+		}
+	}
 }

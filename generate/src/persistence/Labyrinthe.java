@@ -40,4 +40,8 @@ public interface Labyrinthe extends java.rmi.Remote {
 			throws java.rmi.RemoteException;
 	public boolean updateMonstre (int id, String nom ,int pointvie, int idpiece)
 			throws java.rmi.RemoteException;
+	
+	// Fermeture
+	public void fermer() 
+			throws Exception;
 }

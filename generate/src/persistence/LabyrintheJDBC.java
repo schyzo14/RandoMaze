@@ -279,6 +279,28 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	
 	public void fermer() throws Exception {		
 		try {
+			//Fermeture des PreparedStatements
+			// Piece
+			reqSelectPieceSt = null;
+			reqSelectPieceByIdSt = null; 
+			
+			// Porte
+			reqSelectPorteByIdPieceSt = null;
+			
+			// Utilisateur
+			reqSelectUtilisateurByNomSt = null;
+			reqInsertUtilisateurSt = null;
+			
+			// Personnage
+			reqSelectPersonnageByUtilisateurSt = null;
+			reqInsertPersonnageSt = null;
+			reqUpdatePersonnageSt = null;
+			
+			// Monstre
+			reqSelectMonstreByPieceSt = null;
+			reqUpdateMonstreSt = null;
+			
+			//Fermeture de la BD
 			conn.close();
 		} catch(Exception ex) {
 			// il y a eu une erreur
