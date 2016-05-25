@@ -22,6 +22,7 @@ import javax.swing.JFrame;
 
 import model.Individu;
 import model.Labyrinthe;
+import model.LabyrintheImpl;
 import model.Monstre;
 import model.Personnage;
 import model.Piece;
@@ -95,8 +96,8 @@ public class Combat extends javax.swing.JFrame {
 				// Création du Thread de combat
 				Combat.t = new Thread() {
 					public void run() {
-						currentPerso.setNbPVIndiv(10);
-						monstreCombat.setNbPVIndiv(5);
+						currentPerso.setNbPVIndiv(1);
+						monstreCombat.setNbPVIndiv(20);
 						monsterPV.setValue(monstreCombat.getNbPVIndiv());
 						playerPV.setValue(currentPerso.getNbPVIndiv());
 						
@@ -132,8 +133,8 @@ public class Combat extends javax.swing.JFrame {
 										laby.updatePersonnage(currentPerso.getIdIndiv(),currentPerso.getNomIndiv(), currentPerso.getNbPVIndiv(),currentPerso.getIdPiece());
 										
 										//Fermeture de la fenetre Combat et Maze
+										LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv()).setVisible(false);
 										fermer();
-										laby.getListeMap().get(currentPerso.getNomIndiv()).setVisible(false);
 										// On ouvre la fenêtre de Personnage pour choisir son Personnage
 							        	//ui.Personnage fenPersonnage = new ui.Personnage(currentPerso.getIdUtilisateur());
 							        	//fenPersonnage.setVisible(true);
