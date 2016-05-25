@@ -130,8 +130,13 @@ public class Combat extends javax.swing.JFrame {
 										currentPerso.setNbPVIndiv(10);
 										currentPerso.setIdPiece(1);
 										laby.updatePersonnage(currentPerso.getIdIndiv(),currentPerso.getNomIndiv(), currentPerso.getNbPVIndiv(),currentPerso.getIdPiece());
-										fermer();
 										
+										//Fermeture de la fenetre Combat et Maze
+										fermer();
+										laby.getListeMap().get(currentPerso.getNomIndiv()).setVisible(false);
+										// On ouvre la fenêtre de Personnage pour choisir son Personnage
+							        	//ui.Personnage fenPersonnage = new ui.Personnage(currentPerso.getIdUtilisateur());
+							        	//fenPersonnage.setVisible(true);
 									} catch (RemoteException | MalformedURLException | NotBoundException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
@@ -193,8 +198,8 @@ public class Combat extends javax.swing.JFrame {
 
 		jPanel1 = new javax.swing.JPanel();
 		monster = new javax.swing.JLabel();
-		playerPV = new javax.swing.JProgressBar();
-		monsterPV = new javax.swing.JProgressBar();
+		playerPV = new javax.swing.JProgressBar(0,10);
+		monsterPV = new javax.swing.JProgressBar(0,10);
 		imagePlayer = new javax.swing.JLabel();
 		player = new javax.swing.JLabel();
 		lifePointsPlayer = new javax.swing.JLabel();
