@@ -58,8 +58,7 @@ public class Combat extends javax.swing.JFrame {
     	System.out.println("Combat contre un monstre");
         //Appel méthode génération combat
     	int numPiece = currentPerso.getIdPiece();
-        monstreCombat = new Monstre(1, "mechant");
-        monstreCombat.createMonstre();
+        monstreCombat = new Monstre(1, "mechant", 5, numPiece);
         
         //Tant que le joueur ne clique pas sur Fuir ou PV=0, le combat continue
     	this.addComponentListener(new ComponentAdapter() {
