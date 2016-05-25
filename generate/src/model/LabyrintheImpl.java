@@ -137,13 +137,19 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 		try {
 			// Suppression du lien vers les serveurs
 			Naming.unbind("MonServeur1");
+			System.out.println("MonServeur1 arrété");
 			Naming.unbind("MonServeur2");
+			System.out.println("MonServeur2 arrété");
 			
 			// Fermeture de la BD
 			labyBD.fermer();
+			System.out.println("Connexion BD fermée");
 			
 			// Fermeture des serveurs
 			UnicastRemoteObject.unexportObject(this, true);
+			
+			// quitter
+			System.exit(0);
 		} catch (MalformedURLException | NotBoundException e) {
 			// Erreur fermeture serveurs
 			e.printStackTrace();
