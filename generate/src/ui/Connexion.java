@@ -8,10 +8,13 @@ package ui;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+
+import javax.swing.JFrame;
 
 import model.Labyrinthe;
 import model.LabyrintheImpl;
@@ -59,7 +62,7 @@ public class Connexion extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         buttonInscription = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RandoMaze - Connexion");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setPreferredSize(new java.awt.Dimension(300, 500));
@@ -122,6 +125,19 @@ public class Connexion extends javax.swing.JFrame {
         buttonInscription.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonInscriptionActionPerformed(evt);
+            }
+        });
+        
+        // Croix fermer
+        this.addWindowListener(new java.awt.event.WindowAdapter() { 
+        	public void windowClosing(java.awt.event.WindowEvent evt) { 
+        		try {
+					Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
+					quitterFenetre();
+				} catch (MalformedURLException | RemoteException | NotBoundException e) {
+					e.printStackTrace();
+				}
+        		
             }
         });
 
@@ -252,6 +268,24 @@ public class Connexion extends javax.swing.JFrame {
                 new Connexion().setVisible(true);
             }
         });
+    }
+    
+    public void quitterFenetre() throws RemoteException, MalformedURLException, NotBoundException {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		// tester si il y a d'autres fenetre ouvertes
+		Window[] frames = JFrame.getWindows();
+		boolean ouvert = false;
+		for (int i=0 ; i<frames.length ; i++) {
+			if (frames[i].isVisible() && ! this.getName().equals(frames[i].getName())){
+				ouvert = true;
+			}
+		}
+		if (! ouvert) {
+			Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
+			laby.quitter();
+		}
+
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
