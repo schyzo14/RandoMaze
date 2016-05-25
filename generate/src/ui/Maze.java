@@ -260,6 +260,13 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
             }
         });
 		setTitle("RandoMaze - Jouer");
+		addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
 		jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1255,6 +1262,11 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
         listePanels.get("jPanel"+x+y).revalidate();
         listePanels.get("jPanel"+x+y).repaint();
     }
+    
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {                                       
+        jProgressBar1.setValue(currentPerso.getNbPVIndiv());
+        jLabel3.setText(currentPerso.getNbPVIndiv() + " / 10");
+    } 
 
 	/**
 	 * @return the listeMsg
