@@ -30,6 +30,8 @@ public interface Labyrinthe extends java.rmi.Remote {
 	// Personnage
 	public ArrayList<Personnage> selectPersonnageByUtilisateur (int idUtilisateur)
 			throws java.rmi.RemoteException;
+	public Personnage selectPersonnageByName (String nomPerso)
+			throws java.rmi.RemoteException;
 	public boolean creerPersonnage (String nom ,int idUtilisateur)
 			throws java.rmi.RemoteException;
 	public boolean updatePersonnage (int id, String nom ,int pointvie, int idpiece)

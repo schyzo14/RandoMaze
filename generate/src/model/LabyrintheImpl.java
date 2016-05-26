@@ -54,6 +54,12 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 	}
 	
 	@Override
+	public Personnage getPersonnageByName(String nomPerso)
+			throws MalformedURLException, RemoteException, NotBoundException {
+		return labyBD.selectPersonnageByName(nomPerso);
+	}
+	
+	@Override
 	public boolean creerPersonnage(String nom, int idUtilisateur) throws MalformedURLException, RemoteException, NotBoundException {
 		//persistence.Labyrinthe labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
 		boolean result = labyBD.creerPersonnage(nom, idUtilisateur);

@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -14,7 +15,9 @@ public class Util {
 			UIManager.put("OptionPane.background", Color.WHITE);
             UIManager.put("Panel.background", Color.WHITE);
             UIManager.put("OptionPane.messageForeground", Color.BLACK);
+            UIManager.put("OptionPane.minimumSize",new Dimension(400,150)); 
     		JOptionPane.showMessageDialog(null, mess);
+    		
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}

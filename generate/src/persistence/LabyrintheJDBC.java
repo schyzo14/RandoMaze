@@ -48,10 +48,12 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	
 	// Personnage
 	private static final String reqSelectPersonnageByUtilisateur = "select idpersonnage, nompersonnage, idutilisateur, pointvie, idpiece from PERSONNAGE where idutilisateur=?";
+	private static final String reqSelectPersonnageByName = "select idpersonnage, nompersonnage, idutilisateur, pointvie, idpiece from PERSONNAGE where nompersonnage=?";
 	private static final String reqInsertPersonnage = "insert into PERSONNAGE (nompersonnage, idutilisateur, pointvie, idpiece) values (?, ?, ?, ?) ";
 	private static final String reqUpdatePersonnage = "update PERSONNAGE set nompersonnage=?, pointvie=?, idpiece=? where idpersonnage=?";
 	
 	private PreparedStatement reqSelectPersonnageByUtilisateurSt = null;
+	private PreparedStatement reqSelectPersonnageByNameSt = null;
 	private PreparedStatement reqInsertPersonnageSt = null;
 	private PreparedStatement reqUpdatePersonnageSt = null;
 	
@@ -79,6 +81,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 		    reqInsertUtilisateurSt = conn.prepareStatement(reqInsertUtilisateur);
 		    // Personnage
 		    reqSelectPersonnageByUtilisateurSt = conn.prepareStatement(reqSelectPersonnageByUtilisateur);
+		    reqSelectPersonnageByNameSt = conn.prepareStatement(reqSelectPersonnageByName);
 		    reqInsertPersonnageSt = conn.prepareStatement(reqInsertPersonnage);
 		    reqUpdatePersonnageSt = conn.prepareStatement(reqUpdatePersonnage);
 		    // Monstre
@@ -198,6 +201,23 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 				listPersonnages.add(personnage);
 			}
 			return listPersonnages;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@Override
+	public Personnage selectPersonnageByName(String nomPerso)
+			throws RemoteException {
+		try {
+			reqSelectPersonnageByNameSt.setString(1, nomPerso);
+			ResultSet rs = reqSelectPersonnageByNameSt.executeQuery();
+			
+			Personnage personnage = new Personnage(rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getInt(5), rs.getInt(3));
+			
+			return personnage;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -343,5 +363,4 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 		System.out.println(monstre.getIdIndiv() + " - " + monstre.getIdPiece() + " - " + monstre.getNomIndiv() + " - " + monstre.getNbPVIndiv());
 */		
 	}
-
 }

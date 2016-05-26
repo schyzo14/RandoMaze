@@ -34,7 +34,9 @@ import model.Piece;
  */
 public class Combat extends javax.swing.JFrame {
 	private Personnage currentPerso;
+	private Personnage persoCombat;
 	private model.Monstre monstreCombat;
+	private int pvMonstreMax;
 	private Labyrinthe laby;
 	// Thread de combat
 	public static Thread t;
@@ -77,19 +79,31 @@ public class Combat extends javax.swing.JFrame {
 
 	// Combat contre un monstre
 	public Combat(model.Personnage personnage) {
+		//Affectation du personnage
+		currentPerso = personnage;
+		
+		//Test de la piece pour savoir quel type de monstre il va combattre : normal, boss ou boss secret
+		int numPiece = currentPerso.getIdPiece();
+		if(numPiece==15)
+		{
+			pvMonstreMax = 15;
+		}else if(numPiece==16)
+		{
+			pvMonstreMax = 20;
+		}else{
+			pvMonstreMax = 5;
+		}
+		
 		// Initialisation Fenetre
 		initialisationFenetre();
 		
-
-		//Affectation du personnage
-		currentPerso = personnage;
 		
 		//Initialisation du labyrinthe
 		connexionServeur();
 		
 		System.out.println("Combat contre un monstre");
 		// Appel méthode génération combat
-		int numPiece = currentPerso.getIdPiece();
+		
 		try {
 			monstreCombat = laby.getMonstreByPiece(numPiece);
 			monster.setText("Monstre : "+monstreCombat.getNomIndiv());
@@ -107,23 +121,8 @@ public class Combat extends javax.swing.JFrame {
 				// Création du Thread de combat
 				Combat.t = new Thread() {
 					public void run() {
-						//Test de la piece pour savoir quel type de monstre il va combattre : normal, boss ou boss secret
-						if(numPiece==15)
-						{
-							currentPerso.setNbPVIndiv(10);
-							monstreCombat.setNbPVIndiv(16);
-							monsterPV.setMaximum(16);
-						}else if(numPiece==16)
-						{
-							currentPerso.setNbPVIndiv(10);
-							monstreCombat.setNbPVIndiv(20);
-							monsterPV.setMaximum(20);
-						}else{
-							currentPerso.setNbPVIndiv(10);
-							monstreCombat.setNbPVIndiv(5);
-							monsterPV.setMaximum(5);
-						}
-						
+						currentPerso.setNbPVIndiv(10);
+						monstreCombat.setNbPVIndiv(pvMonstreMax);	
 						monsterPV.setValue(monstreCombat.getNbPVIndiv());
 						playerPV.setValue(currentPerso.getNbPVIndiv());
 						
@@ -159,12 +158,15 @@ public class Combat extends javax.swing.JFrame {
 										currentPerso.setIdPiece(1);
 										laby.updatePersonnage(currentPerso.getIdIndiv(),currentPerso.getNomIndiv(), currentPerso.getNbPVIndiv(),currentPerso.getIdPiece());
 										
+										//Message Game Over
+										Util.afficherPopUp("Game Over");
+										
 										//Fermeture de la fenetre Combat et Maze
 										LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv()).setVisible(false);
 										fermer();
 										// On ouvre la fenêtre de Personnage pour choisir son Personnage
-							        	//ui.Personnage fenPersonnage = new ui.Personnage(currentPerso.getIdUtilisateur());
-							        	//fenPersonnage.setVisible(true);
+							        	ui.Personnage fenPersonnage = new ui.Personnage(currentPerso.getIdUtilisateur());
+							        	fenPersonnage.setVisible(true);
 									} catch (RemoteException | MalformedURLException | NotBoundException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
@@ -187,6 +189,10 @@ public class Combat extends javax.swing.JFrame {
 								monstreCombat.setNbPVIndiv(5);
 								laby.updateMonstre(monstreCombat.getIdIndiv(), monstreCombat.getNomIndiv(), monstreCombat.getNbPVIndiv(), monstreCombat.getIdPiece());
 								
+								//Message de victoire si la pièce est 15
+								if(currentPerso.getIdPiece()==15){
+									Util.afficherPopUp("Félicitations, vous avez vaincu. \n \"Je suis venu, j'ai vu, j'ai vaincu.\"");
+								}
 								//Fermeture de la fenetre de combat
 								fermer();
 								
@@ -205,11 +211,25 @@ public class Combat extends javax.swing.JFrame {
 	}
 	
 	public void fermer(){
-		this.dispose();
+		this.setVisible(false);
 	}
 
 	// Combat entre joueur
-	public Combat(model.Personnage monPersonnage, String personnageCombattre) {
+	public Combat(model.Personnage monPersonnage, String personnageCombattre) throws MalformedURLException, RemoteException, NotBoundException {
+		//Affectation du personnage et du personnage à combattre
+		currentPerso = monPersonnage;
+		
+		//Initialisation du serveur
+		connexionServeur();
+		
+		//Test si c'est un monstre ou un Perso
+		if(personnageCombattre.equals("Monstre"))
+		{
+			new Combat(monPersonnage);
+		}else{
+			persoCombat = laby.getPersonnageByName(personnageCombattre);
+		}
+		
 		// Initialisation Fenetre
 		initialisationFenetre();
 	}
@@ -227,7 +247,7 @@ public class Combat extends javax.swing.JFrame {
 		jPanel1 = new javax.swing.JPanel();
 		monster = new javax.swing.JLabel();
 		playerPV = new javax.swing.JProgressBar(0,10);
-		monsterPV = new javax.swing.JProgressBar();
+		monsterPV = new javax.swing.JProgressBar(0,pvMonstreMax);
 		imagePlayer = new javax.swing.JLabel();
 		player = new javax.swing.JLabel();
 		lifePointsPlayer = new javax.swing.JLabel();
