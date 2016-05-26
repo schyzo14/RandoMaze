@@ -40,7 +40,9 @@ import model.Porte;
  *
  */
 public class Maze extends javax.swing.JFrame implements ActionListener, Serializable {
+	
 	private static final long serialVersionUID = -5693706248417459444L;
+	
 	private HashMap<String, JPanel> listePanels = new HashMap<String, JPanel>();
 	private HashMap<String, JLabel> listeLabels = new HashMap<String, JLabel>();
 	private Personnage currentPerso;
@@ -1063,7 +1065,7 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
 	}// </editor-fold>//GEN-END:initComponents
 
 	private void b_quitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_quitterActionPerformed
-		//this.setVisible(false);
+		this.setVisible(false);
 		Sauvegarder fenSauvegarder = new Sauvegarder(currentPerso);
 		fenSauvegarder.setVisible(true);
 	}//GEN-LAST:event_b_quitterActionPerformed
@@ -1107,7 +1109,7 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
 	}
 	
 	private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
-    	//this.setVisible(true);
+		this.setVisible(false);
 		Sauvegarder fenSauvegarder = new Sauvegarder(currentPerso);
 		fenSauvegarder.setVisible(true);
     }
