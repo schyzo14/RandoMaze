@@ -1088,6 +1088,7 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
 				l_textSave.setText("Sauvegarde réussie...");
 				messageUtilisateur(l_textSave);
 			}
+			jPanel2.requestFocus();
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
