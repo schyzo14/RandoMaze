@@ -102,11 +102,10 @@ public class Combat extends javax.swing.JFrame {
 		
 		System.out.println("Combat contre un monstre");
 		// Appel méthode génération combat
-		
 		try {
 			monstreCombat = laby.getMonstreByPiece(numPiece);
-			monster.setText("Monstre : "+monstreCombat.getNomIndiv());
-			player.setText("Personnage : "+currentPerso.getNomIndiv());
+			monster.setText("Nom : "+monstreCombat.getNomIndiv());
+			player.setText("Nom : "+currentPerso.getNomIndiv());
 			imageEnemy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/"+monstreCombat.getNomIndiv()+".png"))); // NOI18N
 		} catch (RemoteException e2) {
 			// TODO Auto-generated catch block
@@ -140,67 +139,9 @@ public class Combat extends javax.swing.JFrame {
 								
 							}
 						}
-
-						// Test si perso ou monstre meurt
-						if (currentPerso.getNbPVIndiv() == 0) {
-							System.out.println("Mort du joueur");
-								// Le monstre gagne 1 PV
-									try {
-										laby.updateMonstre(monstreCombat.getIdIndiv(),
-										monstreCombat.getNomIndiv()
-										,monstreCombat.getNbPVIndiv(),
-										monstreCombat.getIdPiece());
-									
-										//LE joueur retourne à la case départ (listePersonnage)
-										//remise des PV à 10
-										currentPerso.setNbPVIndiv(10);
-										currentPerso.setIdPiece(1);
-										laby.updatePersonnage(currentPerso.getIdIndiv(),currentPerso.getNomIndiv(), currentPerso.getNbPVIndiv(),currentPerso.getIdPiece());
-										
-										//Message Game Over
-										Util.afficherPopUp("Game Over");
-										
-										//Fermeture de la fenetre Combat et Maze
-										LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv()).setVisible(false);
-										fermer();
-										// On ouvre la fenêtre de Personnage pour choisir son Personnage
-							        	ui.Personnage fenPersonnage = new ui.Personnage(currentPerso.getIdUtilisateur());
-							        	fenPersonnage.setVisible(true);
-									} catch (RemoteException | MalformedURLException | NotBoundException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-								
-						} else if (monstreCombat.getNbPVIndiv() == 0) {
-							System.out.println("Mort du monstre");
-
-							// Le joueur gagne 1 PV
-							try {
-								//On ajoute 1PV au joueur
-								currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv() + 1);
-								laby.updatePersonnage(currentPerso.getIdIndiv(),
-											currentPerso.getNomIndiv(), currentPerso.getNbPVIndiv(),
-											currentPerso.getIdPiece());
-
-								System.out.println("Nombre de PV du joueur après combat : " + currentPerso.getNbPVIndiv());
-								
-								//Le monstre meurt
-								monstreCombat.setNbPVIndiv(5);
-								laby.updateMonstre(monstreCombat.getIdIndiv(), monstreCombat.getNomIndiv(), monstreCombat.getNbPVIndiv(), monstreCombat.getIdPiece());
-								
-								//Message de victoire si la pièce est 15
-								if(currentPerso.getIdPiece()==15){
-									Util.afficherPopUp("Félicitations, vous avez vaincu. \n \"Je suis venu, j'ai vu, j'ai vaincu.\"");
-								}
-								//Fermeture de la fenetre de combat
-								fermer();
-								
-
-							} catch (MalformedURLException | RemoteException | NotBoundException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						}
+						
+						//Traitement du combat d'un joueur contre un monstre
+						combatPvM();
 					}
 				};
 				t.start();
@@ -212,7 +153,73 @@ public class Combat extends javax.swing.JFrame {
 	public void fermer(){
 		this.setVisible(false);
 	}
+	
+	public void combatPvM()
+	{
+		// Test si perso ou monstre meurt
+		if (currentPerso.getNbPVIndiv() == 0) {
+			System.out.println("Mort du joueur");
+				// Le monstre gagne 1 PV
+					try {
+						laby.updateMonstre(monstreCombat.getIdIndiv(),
+						monstreCombat.getNomIndiv()
+						,monstreCombat.getNbPVIndiv(),
+						monstreCombat.getIdPiece());
+					
+						//Le joueur retourne à la case départ (listePersonnage)
+						//remise des PV à 10
+						currentPerso.setNbPVIndiv(10);
+						currentPerso.setIdPiece(1);
+						laby.updatePersonnage(currentPerso.getIdIndiv(),currentPerso.getNomIndiv(), currentPerso.getNbPVIndiv(),currentPerso.getIdPiece());
+						
+						//Message Game Over
+						Util.afficherPopUp("Game Over");
+						
+						//Fermeture de la fenetre Combat et Maze
+						LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv()).setVisible(false);
+						fermer();
+						// On ouvre la fenêtre de Personnage pour choisir son Personnage
+			        	ui.Personnage fenPersonnage = new ui.Personnage(currentPerso.getIdUtilisateur());
+			        	fenPersonnage.setVisible(true);
+					} catch (RemoteException | MalformedURLException | NotBoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
+		} else if (monstreCombat.getNbPVIndiv() == 0) {
+			System.out.println("Mort du monstre");
 
+			// Le joueur gagne 1 PV
+			try {
+				//On ajoute 1PV au joueur
+				currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv() + 1);
+				laby.updatePersonnage(currentPerso.getIdIndiv(),
+							currentPerso.getNomIndiv(), currentPerso.getNbPVIndiv(),
+							currentPerso.getIdPiece());
+
+				System.out.println("Nombre de PV du joueur après combat : " + currentPerso.getNbPVIndiv());
+				
+				//Le monstre meurt
+				monstreCombat.setNbPVIndiv(5);
+				laby.updateMonstre(monstreCombat.getIdIndiv(), monstreCombat.getNomIndiv(), monstreCombat.getNbPVIndiv(), monstreCombat.getIdPiece());
+				
+				//Message de victoire si la pièce est 15
+				if(currentPerso.getIdPiece()==15){
+					Util.afficherPopUp("Félicitations, vous avez vaincu. \n \"Je suis venu, j'ai vu, j'ai vaincu.\"");
+				}
+				//Fermeture de la fenetre de combat
+				fermer();
+				
+
+			} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
+	}
+
+	
 	// Combat entre joueur
 	public Combat(model.Personnage monPersonnage, String personnageCombattre) throws MalformedURLException, RemoteException, NotBoundException {
 		//Affectation du personnage et du personnage à combattre
@@ -227,11 +234,117 @@ public class Combat extends javax.swing.JFrame {
 			new Combat(monPersonnage);
 		}else{
 			persoCombat = laby.getPersonnageByName(personnageCombattre);
+			monster.setText("Nom : "+persoCombat.getNomIndiv());
+			player.setText("Nom : "+currentPerso.getNomIndiv());
 		}
 		
 		// Initialisation Fenetre
 		initialisationFenetre();
+		
+		System.out.println("Combat entre joueur");
+		// Tant que le joueur ne clique pas sur Fuir ou PV=0, le combat continue
+				this.addComponentListener(new ComponentAdapter() {
+					public void componentShown(ComponentEvent e) {
+						// Création du Thread de combat
+						Combat.t = new Thread() {
+							public void run() {
+								currentPerso.setNbPVIndiv(10);
+								persoCombat.setNbPVIndiv(10);	
+								monsterPV.setValue(persoCombat.getNbPVIndiv());
+								playerPV.setValue(currentPerso.getNbPVIndiv());
+								
+								// Boucle qui vérifie les PV du joueur à combattre et du joueur
+								// et qui vérifie si le Thread a été interrompu ou non
+								while (persoCombat.getNbPVIndiv() != 0 && currentPerso.getNbPVIndiv() != 0 && !this.isInterrupted()) {
+									// Toute les secondes, un des deux perd 1 point
+									if (Individu.retirerPV() == false) {
+										persoCombat.setNbPVIndiv(persoCombat.getNbPVIndiv()-1);
+										monsterPV.setValue(persoCombat.getNbPVIndiv());
+										lifePointsEnemy.setText("PV : "+persoCombat.getNbPVIndiv() + " / "+monsterPV.getMaximum());
+									} else {
+										currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv()-1);
+										playerPV.setValue(currentPerso.getNbPVIndiv());
+										lifePointsPlayer.setText("PV : "+currentPerso.getNbPVIndiv() + " / "+playerPV.getMaximum());
+										
+									}
+								}
+								
+								//Traitement du combat d'un joueur contre un joueur
+								combatPvP();
+							}
+						};
+						t.start();
+					}
+					
+				});
 	}
+	
+	public void combatPvP()
+	{
+		// Test si perso ou perso meurt
+		if (currentPerso.getNbPVIndiv() == 0) {
+			System.out.println("Mort de notre joueur");
+				// Le joueur combattu gagne 1 PV
+					try {
+						laby.updatePersonnage(persoCombat.getIdIndiv(),
+								persoCombat.getNomIndiv()
+						,persoCombat.getNbPVIndiv(),
+						persoCombat.getIdPiece());
+					
+						//Le joueur retourne à la case départ (listePersonnage)
+						//remise des PV à 10
+						currentPerso.setNbPVIndiv(10);
+						currentPerso.setIdPiece(1);
+						laby.updatePersonnage(currentPerso.getIdIndiv(),currentPerso.getNomIndiv(), currentPerso.getNbPVIndiv(),currentPerso.getIdPiece());
+						
+						//Message Game Over
+						Util.afficherPopUp("Game Over");
+						
+						//Fermeture de la fenetre Combat et Maze
+						LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv()).setVisible(false);
+						fermer();
+						// On ouvre la fenêtre de Personnage pour choisir son Personnage
+			        	ui.Personnage fenPersonnage = new ui.Personnage(currentPerso.getIdUtilisateur());
+			        	fenPersonnage.setVisible(true);
+					} catch (RemoteException | MalformedURLException | NotBoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
+		} else if (persoCombat.getNbPVIndiv() == 0) {
+			System.out.println("Mort du joueur combattu");
+
+			// Notre joueur gagne 1 PV
+			try {
+				//On ajoute 1PV à notre joueur
+				currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv() + 1);
+				laby.updatePersonnage(currentPerso.getIdIndiv(),
+							currentPerso.getNomIndiv(), currentPerso.getNbPVIndiv(),
+							currentPerso.getIdPiece());
+
+				System.out.println("Nombre de PV de notre joueur après combat : " + currentPerso.getNbPVIndiv());
+				
+				//Le joueur combattu meurt
+				persoCombat.setNbPVIndiv(10);
+				laby.updatePersonnage(persoCombat.getIdIndiv(), persoCombat.getNomIndiv(), persoCombat.getNbPVIndiv(), persoCombat.getIdPiece());
+				
+				//Fermeture de la fenetre de combat
+				//Fermeture de la fenetre Combat et Maze
+				LabyrintheImpl.listeMap.get(persoCombat.getNomIndiv()).setVisible(false);
+				fermer();
+				// On ouvre la fenêtre de Personnage pour choisir son Personnage
+	        	ui.Personnage fenPersonnage = new ui.Personnage(persoCombat.getIdUtilisateur());
+	        	fenPersonnage.setVisible(true);
+				
+
+			} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
+	}
+
 
 	/**
 	 * This method is called from within the constructor to initialize the form.
