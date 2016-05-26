@@ -3,21 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//package ui;
 package ui;
 
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
-import java.awt.Window;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-
-import javax.swing.JFrame;
 
 import model.Individu;
 import model.Labyrinthe;
@@ -224,6 +220,9 @@ public class Combat extends javax.swing.JFrame {
 	public Combat(model.Personnage monPersonnage, String personnageCombattre) throws MalformedURLException, RemoteException, NotBoundException {
 		//Affectation du personnage et du personnage à combattre
 		currentPerso = monPersonnage;
+		
+		// Initialisation Fenetre
+		initialisationFenetre();
 		
 		//Initialisation du serveur
 		connexionServeur();
