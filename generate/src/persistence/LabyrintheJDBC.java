@@ -220,7 +220,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 		try {
 			reqSelectPersonnageByNameSt.setString(1, nomPerso);
 			ResultSet rs = reqSelectPersonnageByNameSt.executeQuery();
-			
+			rs.next();
 			Personnage personnage = new Personnage(rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getInt(5), rs.getInt(3));
 			
 			return personnage;

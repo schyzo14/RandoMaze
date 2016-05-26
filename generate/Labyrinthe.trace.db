@@ -333,3 +333,43 @@ java.lang.Exception: Stack Trace
 	at Partie.main(Partie.java:13)
 05-26 14:32:07 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: No data is available [2000-147]
+05-26 18:41:08 jdbc[2]: connection not closed
+java.lang.Exception: Stack Trace
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:121)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:94)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at persistence.LabyrintheJDBC.<init>(LabyrintheJDBC.java:78)
+	at persistence.LabyrintheJDBC.main(LabyrintheJDBC.java:341)
+	at Partie.main(Partie.java:13)
+05-26 18:41:27 jdbc[2]: connection not closed
+java.lang.Exception: Stack Trace
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:121)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:94)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at persistence.LabyrintheJDBC.<init>(LabyrintheJDBC.java:78)
+	at persistence.LabyrintheJDBC.main(LabyrintheJDBC.java:341)
+	at Partie.main(Partie.java:13)
+05-26 18:43:40 jdbc[2]: connection not closed
+java.lang.Exception: Stack Trace
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:121)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:94)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at persistence.LabyrintheJDBC.<init>(LabyrintheJDBC.java:78)
+	at persistence.LabyrintheJDBC.main(LabyrintheJDBC.java:341)
+	at Partie.main(Partie.java:13)
+05-26 18:46:05 jdbc[2]: connection not closed
+java.lang.Exception: Stack Trace
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:121)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:94)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at persistence.LabyrintheJDBC.<init>(LabyrintheJDBC.java:78)
+	at persistence.LabyrintheJDBC.main(LabyrintheJDBC.java:341)
+	at Partie.main(Partie.java:13)
