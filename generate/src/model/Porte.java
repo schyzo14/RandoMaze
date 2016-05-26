@@ -2,11 +2,15 @@ package model;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author Manon, Aurore, Youssef
+ *
+ */
 public class Porte implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -1251738136255779026L;
+	
 	public int idPorte;
 	public String positionPorte;
 	public int idPiece;

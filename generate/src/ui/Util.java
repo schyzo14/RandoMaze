@@ -7,6 +7,11 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+/**
+ * 
+ * @author Manon, Aurore, Youssef
+ *
+ */
 public class Util {
 
 	public static void afficherPopUp(String mess) {

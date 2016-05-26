@@ -12,27 +12,26 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import javax.swing.JFrame;
-import javax.swing.JProgressBar;
 
 import model.Individu;
 import model.Labyrinthe;
 import model.LabyrintheImpl;
-import model.Monstre;
 import model.Personnage;
 import model.Piece;
 
 /**
+ * 
+ * @author Manon, Aurore, Youssef
  *
- * @author Schyzo
  */
 public class Combat extends javax.swing.JFrame {
+	
 	private Personnage currentPerso;
 	private Personnage persoCombat;
 	private model.Monstre monstreCombat;

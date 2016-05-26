@@ -11,11 +11,14 @@ import java.util.HashMap;
 
 import ui.Maze;
 
+/**
+ * Implémentation de l'interface Labyrinthe
+ * 
+ * @author Manon, Aurore, Youssef
+ *
+ */
 public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5382892920038127485L;
 	
 	persistence.Labyrinthe labyBD;

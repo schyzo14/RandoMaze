@@ -8,6 +8,12 @@ import model.Piece;
 import model.Porte;
 import model.Utilisateur;
 
+/**
+ * Interface de LabyrintheJDBC
+ * 
+ * @author Aurore
+ *
+ */
 public interface Labyrinthe extends java.rmi.Remote {
 
 	// Pièces

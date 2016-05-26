@@ -3,11 +3,15 @@ package model;
 import java.io.Serializable;
 import java.util.Random;
 
+/**
+ * 
+ * @author Manon, Aurore, Youssef
+ *
+ */
 public class Individu implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 2211726595953913891L;
+	
 	private int idIndiv;
 	private String nomIndiv;
 	private int nbPVIndiv;

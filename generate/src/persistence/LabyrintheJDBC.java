@@ -18,6 +18,12 @@ import model.Piece;
 import model.Porte;
 import model.Utilisateur;
 
+/**
+ * Permet de communiquer avec la BD
+ * 
+ * @author Manon, Aurore, Youssef
+ *
+ */
 public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 
 	/**

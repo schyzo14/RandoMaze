@@ -5,7 +5,6 @@
  */
 package ui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
@@ -18,11 +17,11 @@ import java.rmi.RemoteException;
 import javax.swing.JFrame;
 
 import model.Labyrinthe;
-import model.LabyrintheImpl;
 
 /**
+ * 
+ * @author Manon, Aurore, Youssef
  *
- * @author Administrateur
  */
 public class CreerPersonnage extends javax.swing.JFrame {
 

@@ -2,6 +2,11 @@ import model.LabyrintheImpl;
 import persistence.LabyrintheJDBC;
 import ui.Connexion;
 
+/**
+ * Jouer une partie
+ * 
+ * @author Manon, Aurore, Youssef
+ */
 public class Partie {
 
 	public static void main(String[] args) throws Exception {

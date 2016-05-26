@@ -5,7 +5,6 @@
 //package ui;
 package ui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
@@ -19,11 +18,11 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import model.Labyrinthe;
-import model.LabyrintheImpl;
 
 /**
+ * 
+ * @author Manon, Aurore, Youssef
  *
- * @author Aurore
  */
 public class Personnage extends javax.swing.JFrame {
 

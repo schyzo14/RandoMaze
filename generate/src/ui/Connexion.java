@@ -17,12 +17,12 @@ import java.rmi.RemoteException;
 import javax.swing.JFrame;
 
 import model.Labyrinthe;
-import model.LabyrintheImpl;
 import model.Utilisateur;
 
 /**
+ * 
+ * @author Manon, Aurore, Youssef
  *
- * @author Aurore
  */
 public class Connexion extends javax.swing.JFrame {
 

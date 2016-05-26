@@ -35,8 +35,9 @@ import model.Piece;
 import model.Porte;
 
 /**
+ * 
+ * @author Manon, Aurore, Youssef
  *
- * @author Schyzo
  */
 public class Maze extends javax.swing.JFrame implements ActionListener, Serializable {
 	private static final long serialVersionUID = -5693706248417459444L;

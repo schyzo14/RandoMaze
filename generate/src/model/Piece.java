@@ -3,11 +3,15 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Manon, Aurore, Youssef
+ *
+ */
 public class Piece implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -6444614151907722565L;
+	
 	private int idPiece;
 	private String nomServer;
 	private int posX;

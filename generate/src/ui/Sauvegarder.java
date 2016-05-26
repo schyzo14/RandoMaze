@@ -19,15 +19,14 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.ColorUIResource;
 
-import persistence.LabyrintheJDBC;
 import model.Labyrinthe;
 import model.Personnage;
 
 /**
+ * 
+ * @author Manon, Aurore, Youssef
  *
- * @author Administrateur
  */
 public class Sauvegarder extends javax.swing.JFrame {
 
