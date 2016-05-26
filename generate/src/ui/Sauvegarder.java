@@ -157,7 +157,7 @@ public class Sauvegarder extends javax.swing.JFrame {
 					        JOptionPane.YES_NO_OPTION, 
 					        JOptionPane.QUESTION_MESSAGE);
 		            if(option == JOptionPane.OK_OPTION){
-				          System.exit(0);   	
+		            	quitterFenetre();
 				      }else{
 				    	  this.setVisible(false);
 		        	      //Maze fenMaze = new Maze(currentPerso);
@@ -168,7 +168,7 @@ public class Sauvegarder extends javax.swing.JFrame {
 				}
 			} else {
 				System.out.println("Sauvegarde réussie!");
-				System.exit(0);
+				quitterFenetre();
 			}
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -184,7 +184,7 @@ public class Sauvegarder extends javax.swing.JFrame {
     		//LabyrintheJDBC laby = new LabyrintheJDBC("MaBD");
 			//laby.fermer();
 
-			System.exit(0);
+    		quitterFenetre();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -193,18 +193,15 @@ public class Sauvegarder extends javax.swing.JFrame {
     }//GEN-LAST:event_b_nonMouseClicked
 
 	private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
-        // TODO add your handling code here:
-    	//this.setVisible(false);
 		try {
-			Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
 			quitterFenetre();
-		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+		} catch (RemoteException | MalformedURLException | NotBoundException e) {
 			e.printStackTrace();
 		}
     }
 	
 	public void quitterFenetre() throws RemoteException, MalformedURLException, NotBoundException {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.dispose();
 		
 		// tester s'il y a d'autres fenetre ouvertes
 		Window[] frames = JFrame.getWindows();

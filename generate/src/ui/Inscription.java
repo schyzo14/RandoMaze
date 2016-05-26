@@ -117,7 +117,6 @@ public class Inscription extends javax.swing.JFrame {
         this.addWindowListener(new java.awt.event.WindowAdapter() { 
         	public void windowClosing(java.awt.event.WindowEvent evt) { 
         		try {
-					Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
 					quitterFenetre();
 				} catch (MalformedURLException | RemoteException | NotBoundException e) {
 					e.printStackTrace();
