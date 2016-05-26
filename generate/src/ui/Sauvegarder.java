@@ -9,11 +9,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -192,7 +194,30 @@ public class Sauvegarder extends javax.swing.JFrame {
 
 	private void formWindowClosing(java.awt.event.WindowEvent evt) {                                   
         // TODO add your handling code here:
-    	this.setVisible(false);
+    	//this.setVisible(false);
+		try {
+			Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
+			quitterFenetre();
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			e.printStackTrace();
+		}
+    }
+	
+	public void quitterFenetre() throws RemoteException, MalformedURLException, NotBoundException {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		// tester s'il y a d'autres fenetre ouvertes
+		Window[] frames = JFrame.getWindows();
+		boolean ouvert = false;
+		for (int i=0 ; i<frames.length ; i++) {
+			if (frames[i].isVisible() && ! this.getName().equals(frames[i].getName())){
+				ouvert = true;
+			}
+		}
+		if (!ouvert) {
+			Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
+			laby.quitter();
+		}
     }
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables
