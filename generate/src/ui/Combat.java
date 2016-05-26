@@ -367,7 +367,7 @@ public class Combat extends javax.swing.JFrame {
 		lifePointsEnemy = new javax.swing.JLabel();
 		buttonRun = new javax.swing.JButton();
 
-		//setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 		setTitle("RandoMaze - Combat");
 		setMaximumSize(new java.awt.Dimension(824, 528));
 		setMinimumSize(new java.awt.Dimension(824, 528));
@@ -414,11 +414,7 @@ public class Combat extends javax.swing.JFrame {
 		// Croix fermer
         this.addWindowListener(new java.awt.event.WindowAdapter() { 
         	public void windowClosing(java.awt.event.WindowEvent evt) { 
-        		try {
-					quitterFenetre();
-				} catch (MalformedURLException | RemoteException | NotBoundException e) {
-					e.printStackTrace();
-				}
+        		Util.afficherPopUp("Combattez ou fuyez ! Vous ne pouvez pas quitter...");
         		
             }
         });
@@ -518,23 +514,6 @@ public class Combat extends javax.swing.JFrame {
 		this.setVisible(false);
 	}
 	
-	public void quitterFenetre() throws RemoteException, MalformedURLException, NotBoundException {
-		t.interrupt();
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-		// tester s'il y a d'autres fenetre ouvertes
-		Window[] frames = JFrame.getWindows();
-		boolean ouvert = false;
-		for (int i=0 ; i<frames.length ; i++) {
-			if (frames[i].isVisible() && ! this.getName().equals(frames[i].getName())){
-				ouvert = true;
-			}
-		}
-		if (!ouvert) {
-			Labyrinthe laby = (Labyrinthe) Naming.lookup("MonServeur1");
-			laby.quitter();
-		}
-    }
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton buttonRun;
