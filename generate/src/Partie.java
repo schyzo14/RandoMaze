@@ -15,7 +15,9 @@ public class Partie {
 		
 		Connexion connexion = new Connexion();
 		Connexion connexion2 = new Connexion();
+		Connexion connexion3 = new Connexion();
 		connexion.demarrer();
 		connexion2.demarrer();
+		connexion3.demarrer();
 	}
 }

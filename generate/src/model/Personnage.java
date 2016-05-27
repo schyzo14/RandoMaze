@@ -16,7 +16,7 @@ public class Personnage extends Individu implements Serializable {
 	private int idUtilisateur;
 	
 	public Personnage(int id, String nom, int pv, int idPiece, int idUtilisateur) {
-		super(id, nom, pv);
+		super(id, nom, pv, idPiece);
 		setIdPiece(idPiece);
 		setIdUtilisateur(idUtilisateur);
 	}

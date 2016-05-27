@@ -15,11 +15,13 @@ public class Individu implements Serializable {
 	private int idIndiv;
 	private String nomIndiv;
 	private int nbPVIndiv;
+	private int idPiece;
 	
-	public Individu(int id, String nom, int PV) {
+	public Individu(int id, String nom, int PV, int piece) {
 		idIndiv = id;
 		nomIndiv = nom;
 		nbPVIndiv = PV;
+		idPiece = piece;
 	}
 	
 	/**
@@ -59,6 +61,16 @@ public class Individu implements Serializable {
 		this.nbPVIndiv = nbPVIndiv;
 	}
 	
+	
+	
+	public int getIdPiece() {
+		return idPiece;
+	}
+
+	public void setIdPiece(int idPiece) {
+		this.idPiece = idPiece;
+	}
+
 	/**
 	 * Retirer des PV
 	 * 

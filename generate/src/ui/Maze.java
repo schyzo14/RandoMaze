@@ -1213,6 +1213,7 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
         	ArrayList<String> listP = new ArrayList<String>(laby.getPersonnagesSamePiece(currentPerso.getNomIndiv()));
         	JComboBox jcb = new JComboBox(listP.toArray());
         	Combat fenCombat = null;
+        	Combat fenCombatJ2 = null;
         	if(listP.size() > 1) {
         		try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
