@@ -22,6 +22,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import model.Labyrinthe;
 import model.Personnage;
+import model.Piece;
 
 /**
  * 
@@ -31,6 +32,7 @@ import model.Personnage;
 public class Sauvegarder extends javax.swing.JFrame {
 
 	private Personnage currentPerso;
+	private Labyrinthe laby;
     /**
      * Creates new form Sauvegarder
      */
@@ -49,6 +51,24 @@ public class Sauvegarder extends javax.swing.JFrame {
         setSize(width, height);
     }
 
+  //Initialisation de la connexion au serveur
+  	public void connexionServeur(){
+  		try{
+  			laby = (Labyrinthe) Naming.lookup("MonServeur1");
+  			Piece piece= laby.getPieceById(currentPerso.getIdPiece());
+  			
+  			if (piece.getNomServer().equals("alpha")) {
+  				laby = (Labyrinthe) Naming.lookup("MonServeur1");
+  			} else if (piece.getNomServer().equals("beta")) {
+  				laby = (Labyrinthe) Naming.lookup("MonServeur2");
+  			}
+  		}catch (MalformedURLException | RemoteException | NotBoundException e1) {
+  			// TODO Auto-generated catch block
+  			e1.printStackTrace();
+  		}
+  		
+  	}
+  	
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,9 +157,7 @@ public class Sauvegarder extends javax.swing.JFrame {
     private void b_ouiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_ouiMouseClicked
         // TODO add your handling code here:
        System.out.println("Sauvegarde dans la BDD");
-		Labyrinthe laby;
 		try {
-			laby = (Labyrinthe) Naming.lookup("MonServeur1");
 			boolean result = laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv() ,currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
 			
 			if (result == false) {
