@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ui;
 
 import java.awt.Dimension;
@@ -25,12 +20,17 @@ import model.Personnage;
 import model.Piece;
 
 /**
+ * Classe Combat
  * 
  * @author Manon, Aurore, Youssef
  *
  */
 public class Combat extends javax.swing.JFrame {
-	//Liste de combattants
+
+	/**
+	 * Variables
+	 */
+	// Liste de combattants
 	private Personnage currentPerso;
 	private Individu enemy;
 	private int pvMonstreMax = 10;
@@ -40,42 +40,9 @@ public class Combat extends javax.swing.JFrame {
 	public static Thread t;
 
 	/**
-	 * Creates new form Combat
+	 * Combat contre un monstre
+	 * @param personnage
 	 */
-	// init fenêtre
-	public void initialisationFenetre() {
-		initComponents();
-		this.setLocationRelativeTo(null);
-		this.setResizable(false);
-
-		// Dimensionnement Fenetre
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		Dimension d = tk.getScreenSize();
-		Insets insets = tk.getScreenInsets(getGraphicsConfiguration());
-		int width = (int) (824 - insets.left - insets.right);
-		int height = (int) (568 - insets.top - insets.bottom);
-		setSize(width, height);
-	}
-
-	// Initialisation de la connexion au serveur
-	public void connexionServeur() {
-		try {
-			laby = (Labyrinthe) Naming.lookup("MonServeur1");
-			Piece piece = laby.getPieceById(currentPerso.getIdPiece());
-
-			if (piece.getNomServer().equals("alpha")) {
-				laby = (Labyrinthe) Naming.lookup("MonServeur1");
-			} else if (piece.getNomServer().equals("beta")) {
-				laby = (Labyrinthe) Naming.lookup("MonServeur2");
-			}
-		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-	}
-
-	// Combat contre un monstre
 	public Combat(model.Personnage personnage) {
 		// Affectation du personnage
 		currentPerso = personnage;
@@ -93,16 +60,16 @@ public class Combat extends javax.swing.JFrame {
 		// Initialisation Fenetre
 		initialisationFenetre();
 
-		// Initialisation du labyrinthe
+		// Initialisation du serveur
 		connexionServeur();
 
 		System.out.println("Combat contre un monstre");
-		// Appel méthode génération combat
 		try {
+			//On récupère le monstre de la pièce
 			enemy = laby.getMonstreByPiece(numPiece);
 			monster.setText("Nom : " + enemy.getNomIndiv());
-			imageEnemy.setIcon(
-					new javax.swing.ImageIcon(getClass().getResource("/images/" + enemy.getNomIndiv() + ".png"))); // NOI18N
+			imageEnemy.setIcon(new javax.swing.ImageIcon(getClass()
+					.getResource("/images/" + enemy.getNomIndiv() + ".png"))); // NOI18N
 			player.setText("Nom : " + currentPerso.getNomIndiv());
 		} catch (RemoteException e2) {
 			// TODO Auto-generated catch block
@@ -121,18 +88,23 @@ public class Combat extends javax.swing.JFrame {
 
 						// Boucle qui vérifie les PV du monstre et du joueur
 						// et qui vérifie si le Thread a été interrompu ou non
-						while (enemy.getNbPVIndiv() != 0 && currentPerso.getNbPVIndiv() != 0 && !this.isInterrupted()) {
+						while (enemy.getNbPVIndiv() != 0
+								&& currentPerso.getNbPVIndiv() != 0
+								&& !this.isInterrupted()) {
 							// Toutes les secondes, un des deux perd 1 point
 							if (Individu.retirerPV() == false) {
 								enemy.setNbPVIndiv(enemy.getNbPVIndiv() - 1);
 								monsterPV.setValue(enemy.getNbPVIndiv());
-								lifePointsEnemy
-										.setText("PV : " + enemy.getNbPVIndiv() + " / " + monsterPV.getMaximum());
+								lifePointsEnemy.setText("PV : "
+										+ enemy.getNbPVIndiv() + " / "
+										+ monsterPV.getMaximum());
 							} else {
-								currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv() - 1);
+								currentPerso.setNbPVIndiv(currentPerso
+										.getNbPVIndiv() - 1);
 								playerPV.setValue(currentPerso.getNbPVIndiv());
-								lifePointsPlayer
-										.setText("PV : " + currentPerso.getNbPVIndiv() + " / " + playerPV.getMaximum());
+								lifePointsPlayer.setText("PV : "
+										+ currentPerso.getNbPVIndiv() + " / "
+										+ playerPV.getMaximum());
 
 							}
 						}
@@ -147,75 +119,14 @@ public class Combat extends javax.swing.JFrame {
 		});
 	}
 
-	// fermeture de la fenêtre
-	public synchronized void fermer() {
-		this.setVisible(false);
-	}
-
-	// Traitement d'un combat contre un Monstre
-	public synchronized void combatPvM() {
-		// Test si perso ou monstre meurt
-		// Mort du perso
-		if (currentPerso.getNbPVIndiv() == 0) {
-			System.out.println("Mort du joueur");
-			// Le monstre gagne 1 PV
-			try {
-				enemy.setNbPVIndiv(enemy.getNbPVIndiv() + 1);
-				laby.updateMonstre(enemy.getIdIndiv(), enemy.getNomIndiv(), enemy.getNbPVIndiv(), enemy.getIdPiece());
-
-				// Le joueur retourne à la case départ (listePersonnage)
-				// remise des PV à 10
-				currentPerso.setNbPVIndiv(10);
-				currentPerso.setIdPiece(1);
-				laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv(),
-						currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
-
-				// Message Game Over
-				Util.afficherPopUp("Game Over");
-
-				// Fermeture de la fenetre Combat et Maze
-				LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv()).setVisible(false);
-				fermer();
-				// On ouvre la fenêtre de Personnage pour choisir son Personnage
-				ui.Personnage fenPersonnage = new ui.Personnage(currentPerso.getIdUtilisateur());
-				fenPersonnage.setVisible(true);
-			} catch (RemoteException | MalformedURLException | NotBoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		} else if (enemy.getNbPVIndiv() == 0) { // Mort du monstre
-			System.out.println("Mort du monstre");
-
-			// Le joueur gagne 1 PV
-			try {
-				// On ajoute 1PV au joueur
-				currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv() + 1);
-				laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv(),
-						currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
-
-				System.out.println("Nombre de PV du joueur après combat : " + currentPerso.getNbPVIndiv());
-
-				// Le monstre meurt
-				enemy.setNbPVIndiv(5);
-				laby.updateMonstre(enemy.getIdIndiv(), enemy.getNomIndiv(), enemy.getNbPVIndiv(), enemy.getIdPiece());
-
-				// Message de victoire si la pièce est 15
-				if (currentPerso.getIdPiece() == 15) {
-					Util.afficherPopUp("Félicitations, vous avez vaincu. \n \"Je suis venu, j'ai vu, j'ai vaincu.\"");
-				}
-				// Fermeture de la fenetre de combat
-				fermer();
-				LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv()).setVisible(true);
-			} catch (MalformedURLException | RemoteException | NotBoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-
-	}
-
-	// Combat entre joueur
+	/**
+	 * Combat entre joueur
+	 * @param monPersonnage
+	 * @param personnageCombattre
+	 * @throws MalformedURLException
+	 * @throws RemoteException
+	 * @throws NotBoundException
+	 */
 	public Combat(model.Personnage monPersonnage, String personnageCombattre)
 			throws MalformedURLException, RemoteException, NotBoundException {
 		// Affectation du personnage
@@ -227,16 +138,18 @@ public class Combat extends javax.swing.JFrame {
 		// Initialisation du serveur
 		connexionServeur();
 
-		// Test si c'est un monstre ou un Perso
-		// Si c'est un monstre
+		// Récupération des valeurs concernant le personnage à combattre
 		enemy = laby.getPersonnageByName(personnageCombattre);
-		LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv()).setVisible(false);
+		LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv()).setVisible(
+				false);
 		LabyrintheImpl.listeMap.get(enemy.getNomIndiv()).setVisible(false);
 		monster.setText("Nom : " + enemy.getNomIndiv());
 		player.setText("Nom : " + currentPerso.getNomIndiv());
-		imageEnemy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/avatar.png"))); // NOI18N
-		imagePlayer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/avatar.png"))); // NOI18N
-		
+		imageEnemy.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+				"/images/avatar.png")));
+		imagePlayer.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+				"/images/avatar.png")));
+
 		System.out.println("Combat entre joueur");
 		// Tant que le joueur ne clique pas sur Fuir ou PV=0, le combat continue
 		this.addComponentListener(new ComponentAdapter() {
@@ -251,18 +164,23 @@ public class Combat extends javax.swing.JFrame {
 						// Boucle qui vérifie les PV du joueur à combattre et du
 						// joueur
 						// et qui vérifie si le Thread a été interrompu ou non
-						while (enemy.getNbPVIndiv() != 0 && currentPerso.getNbPVIndiv() != 0 && !this.isInterrupted()) {
+						while (enemy.getNbPVIndiv() != 0
+								&& currentPerso.getNbPVIndiv() != 0
+								&& !this.isInterrupted()) {
 							// Toute les secondes, un des deux perd 1 point
 							if (Individu.retirerPV() == false) {
 								enemy.setNbPVIndiv(enemy.getNbPVIndiv() - 1);
 								monsterPV.setValue(enemy.getNbPVIndiv());
-								lifePointsEnemy
-										.setText("PV : " + enemy.getNbPVIndiv() + " / " + monsterPV.getMaximum());
+								lifePointsEnemy.setText("PV : "
+										+ enemy.getNbPVIndiv() + " / "
+										+ monsterPV.getMaximum());
 							} else {
-								currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv() - 1);
+								currentPerso.setNbPVIndiv(currentPerso
+										.getNbPVIndiv() - 1);
 								playerPV.setValue(currentPerso.getNbPVIndiv());
-								lifePointsPlayer
-										.setText("PV : " + currentPerso.getNbPVIndiv() + " / " + playerPV.getMaximum());
+								lifePointsPlayer.setText("PV : "
+										+ currentPerso.getNbPVIndiv() + " / "
+										+ playerPV.getMaximum());
 
 							}
 						}
@@ -276,32 +194,115 @@ public class Combat extends javax.swing.JFrame {
 		});
 	}
 
+	/** 
+	 * Traitement d'un combat d'un joueur contre un Monstre
+	 */
+	public synchronized void combatPvM() {
+		// Test si perso ou monstre meurt
+		// Mort du perso
+		if (currentPerso.getNbPVIndiv() == 0) {
+			System.out.println("Mort du joueur");
+			// Le monstre gagne 1 PV
+			try {
+				enemy.setNbPVIndiv(enemy.getNbPVIndiv() + 1);
+				laby.updateMonstre(enemy.getIdIndiv(), enemy.getNomIndiv(),
+						enemy.getNbPVIndiv(), enemy.getIdPiece());
+
+				// Le joueur retourne à la case départ (listePersonnage)
+				// remise des PV à 10 et de la pièce à 1 (pièce de départ)
+				currentPerso.setNbPVIndiv(10);
+				currentPerso.setIdPiece(1);
+				laby.updatePersonnage(currentPerso.getIdIndiv(),
+						currentPerso.getNomIndiv(),
+						currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
+
+				// Message Game Over
+				Util.afficherPopUp("Game Over");
+
+				// Fermeture de la fenetre Combat et Maze
+				LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv())
+						.setVisible(false);
+				fermer();
+				// On ouvre la fenêtre de Personnage pour choisir son Personnage
+				ui.Personnage fenPersonnage = new ui.Personnage(
+						currentPerso.getIdUtilisateur());
+				fenPersonnage.setVisible(true);
+			} catch (RemoteException | MalformedURLException
+					| NotBoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else if (enemy.getNbPVIndiv() == 0) { // Mort du monstre
+			System.out.println("Mort du monstre");
+
+			// Le joueur gagne 1 PV
+			try {
+				// On ajoute 1PV au joueur
+				currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv() + 1);
+				laby.updatePersonnage(currentPerso.getIdIndiv(),
+						currentPerso.getNomIndiv(),
+						currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
+
+				System.out.println("Nombre de PV du joueur après combat : "
+						+ currentPerso.getNbPVIndiv());
+
+				// Le monstre meurt
+				enemy.setNbPVIndiv(5);
+				laby.updateMonstre(enemy.getIdIndiv(), enemy.getNomIndiv(),
+						enemy.getNbPVIndiv(), enemy.getIdPiece());
+
+				// Message de victoire si la pièce est 15
+				if (currentPerso.getIdPiece() == 15) {
+					Util.afficherPopUp("Félicitations, vous avez vaincu. \n \"Je suis venu, j'ai vu, j'ai vaincu.\"");
+				}
+				// Fermeture de la fenetre de combat
+				fermer();
+				LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv())
+						.setVisible(true);
+			} catch (MalformedURLException | RemoteException
+					| NotBoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
+	}
+	
+	/**
+	 * Traitement d'un combat d'un joueur contre un autre joueur
+	 */
+
 	public void combatPvP() {
-		// Test si perso ou perso meurt
+		// Test si perso ou perso combattu meurt
 		if (currentPerso.getNbPVIndiv() == 0) {
 			System.out.println("Mort de notre joueur");
 			// Le joueur combattu gagne 1 PV
 			try {
 				enemy.setNbPVIndiv(enemy.getNbPVIndiv() + 1);
-				laby.updatePersonnage(enemy.getIdIndiv(), enemy.getNomIndiv(), enemy.getNbPVIndiv(),
-						enemy.getIdPiece());
+				laby.updatePersonnage(enemy.getIdIndiv(), enemy.getNomIndiv(),
+						enemy.getNbPVIndiv(), enemy.getIdPiece());
 
 				// Le joueur retourne à la case départ (listePersonnage)
-				// remise des PV à 10
+				// remise des PV à 10 et de la pièce à 1 (pièce de départ)
 				currentPerso.setNbPVIndiv(10);
 				currentPerso.setIdPiece(1);
-				laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv(),
+				laby.updatePersonnage(currentPerso.getIdIndiv(),
+						currentPerso.getNomIndiv(),
 						currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
 
 				// Fermeture de la fenetre Combat et Maze
-				LabyrintheImpl.listeMap.get(enemy.getNomIndiv()).setVisible(true);
+				LabyrintheImpl.listeMap.get(enemy.getNomIndiv()).setVisible(
+						true);
 				Util.afficherPopUp("Game Over");
-				// LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv()).setVisible(false);
 				fermer();
+				
 				// On ouvre la fenêtre de Personnage pour choisir son Personnage
-				ui.Personnage fenPersonnage = new ui.Personnage(currentPerso.getIdUtilisateur());
+				ui.Personnage fenPersonnage = new ui.Personnage(
+						currentPerso.getIdUtilisateur());
 				fenPersonnage.setVisible(true);
-			} catch (RemoteException | MalformedURLException | NotBoundException e) {
+			} catch (RemoteException | MalformedURLException
+					| NotBoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -313,42 +314,46 @@ public class Combat extends javax.swing.JFrame {
 			try {
 				// On ajoute 1PV à notre joueur
 				currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv() + 1);
-				laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv(),
+				laby.updatePersonnage(currentPerso.getIdIndiv(),
+						currentPerso.getNomIndiv(),
 						currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
 
-				System.out.println("Nombre de PV de notre joueur après combat : " + currentPerso.getNbPVIndiv());
+				System.out
+						.println("Nombre de PV de notre joueur après combat : "
+								+ currentPerso.getNbPVIndiv());
 
 				// Le joueur combattu meurt
 				enemy.setNbPVIndiv(10);
-				laby.updatePersonnage(enemy.getIdIndiv(), enemy.getNomIndiv(), enemy.getNbPVIndiv(),
-						enemy.getIdPiece());
+				enemy.setIdPiece(1);
+				laby.updatePersonnage(enemy.getIdIndiv(), enemy.getNomIndiv(),
+						enemy.getNbPVIndiv(), enemy.getIdPiece());
 
 				// Fermeture de la fenetre de combat
 				// Fermeture de la fenetre Combat et Maze
-				LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv()).setVisible(true);
+				LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv())
+						.setVisible(true);
 				Util.afficherPopUp("Game Over");
-				// LabyrintheImpl.listeMap.get(enemy.getNomIndiv()).setVisible(false);
 				fermer();
+				
 				// On ouvre la fenêtre de Personnage pour choisir son Personnage
-				ui.Personnage fenPersonnage = new ui.Personnage(((Personnage) enemy).getIdUtilisateur());
+				ui.Personnage fenPersonnage = new ui.Personnage(
+						((Personnage) enemy).getIdUtilisateur());
 				fenPersonnage.setVisible(true);
 
-			} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+			} catch (MalformedURLException | RemoteException
+					| NotBoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
 
 	}
+	
 
 	/**
-	 * This method is called from within the constructor to initialize the form.
-	 * WARNING: Do NOT modify this code. The content of this method is always
-	 * regenerated by the Form Editor.
+	 * Initialisation de la fenêtre (NetBeans)
 	 */
 	@SuppressWarnings("unchecked")
-	// <editor-fold defaultstate="collapsed" desc="Generated
-	// Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
 		jPanel1 = new javax.swing.JPanel();
@@ -370,37 +375,39 @@ public class Combat extends javax.swing.JFrame {
 
 		jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-		monster.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+		monster.setFont(new java.awt.Font("Arial", 0, 14));
 		monster.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		monster.setText("Monstre ");
 
-		playerPV.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+		playerPV.setFont(new java.awt.Font("Arial", 0, 12));
 
-		monsterPV.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+		monsterPV.setFont(new java.awt.Font("Arial", 0, 12));
 
-		imagePlayer.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+		imagePlayer.setFont(new java.awt.Font("Arial", 0, 12));
 		imagePlayer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		imagePlayer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/avatar.png"))); // NOI18N
+		imagePlayer.setIcon(new javax.swing.ImageIcon(getClass().getResource(
+				"/images/avatar.png")));
 
-		player.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+		player.setFont(new java.awt.Font("Arial", 0, 14));
 		player.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 		player.setText("Personnage ");
 
-		lifePointsPlayer.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-		lifePointsPlayer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		lifePointsPlayer.setText("PV : " + playerPV.getMaximum() + " / " + playerPV.getMaximum());
+		lifePointsPlayer.setFont(new java.awt.Font("Arial", 0, 14));
+		lifePointsPlayer
+				.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		lifePointsPlayer.setText("PV : " + playerPV.getMaximum() + " / "
+				+ playerPV.getMaximum());
 
-		imageEnemy.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+		imageEnemy.setFont(new java.awt.Font("Arial", 0, 12));
 		imageEnemy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		// imageEnemy.setIcon(new
-		// javax.swing.ImageIcon(getClass().getResource("/images/"+monstreCombat.getNomIndiv()+".png")));
-		// // NOI18N
 
-		lifePointsEnemy.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-		lifePointsEnemy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		lifePointsEnemy.setText("PV : " + monsterPV.getMaximum() + " / " + monsterPV.getMaximum());
+		lifePointsEnemy.setFont(new java.awt.Font("Arial", 0, 14));
+		lifePointsEnemy
+				.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+		lifePointsEnemy.setText("PV : " + monsterPV.getMaximum() + " / "
+				+ monsterPV.getMaximum());
 
-		buttonRun.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+		buttonRun.setFont(new java.awt.Font("Arial", 0, 14));
 		buttonRun.setText("Fuir");
 		buttonRun.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -416,95 +423,250 @@ public class Combat extends javax.swing.JFrame {
 			}
 		});
 
-		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(
+				jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
-		jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanel1Layout.createSequentialGroup().addGap(46, 46, 46)
-						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-								.addComponent(playerPV, javax.swing.GroupLayout.Alignment.LEADING,
-										javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
-								.addComponent(player, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lifePointsPlayer, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(imagePlayer, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGap(97, 97, 97)
-						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(monsterPV, javax.swing.GroupLayout.Alignment.TRAILING,
-										javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
-								.addComponent(monster, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lifePointsEnemy, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(imageEnemy, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGap(65, 65, 65))
-				.addGroup(jPanel1Layout.createSequentialGroup().addGap(301, 301, 301).addComponent(buttonRun,
-						javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGap(319, 319, 319)));
-		jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanel1Layout.createSequentialGroup().addGap(32, 32, 32).addGroup(jPanel1Layout
-						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(jPanel1Layout.createSequentialGroup()
-								.addComponent(monster, javax.swing.GroupLayout.PREFERRED_SIZE, 35,
-										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(imageEnemy, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(monsterPV, javax.swing.GroupLayout.PREFERRED_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-								.addComponent(lifePointsEnemy, javax.swing.GroupLayout.PREFERRED_SIZE, 35,
-										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addGap(5, 5, 5))
-						.addGroup(jPanel1Layout.createSequentialGroup()
-								.addComponent(player, javax.swing.GroupLayout.PREFERRED_SIZE, 35,
-										javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addComponent(imagePlayer, javax.swing.GroupLayout.DEFAULT_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addGap(12, 12, 12)
-								.addComponent(playerPV, javax.swing.GroupLayout.PREFERRED_SIZE,
-										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addGap(18, 18, 18).addComponent(lifePointsPlayer,
-										javax.swing.GroupLayout.PREFERRED_SIZE, 35,
-										javax.swing.GroupLayout.PREFERRED_SIZE)))
-						.addGap(37, 37, 37).addComponent(buttonRun, javax.swing.GroupLayout.PREFERRED_SIZE, 35,
-								javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addGap(38, 38, 38)));
+		jPanel1Layout
+				.setHorizontalGroup(jPanel1Layout
+						.createParallelGroup(
+								javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(
+								jPanel1Layout
+										.createSequentialGroup()
+										.addGap(46, 46, 46)
+										.addGroup(
+												jPanel1Layout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.TRAILING)
+														.addComponent(
+																playerPV,
+																javax.swing.GroupLayout.Alignment.LEADING,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																308,
+																Short.MAX_VALUE)
+														.addComponent(
+																player,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																Short.MAX_VALUE)
+														.addComponent(
+																lifePointsPlayer,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																Short.MAX_VALUE)
+														.addComponent(
+																imagePlayer,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																Short.MAX_VALUE))
+										.addGap(97, 97, 97)
+										.addGroup(
+												jPanel1Layout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.LEADING)
+														.addComponent(
+																monsterPV,
+																javax.swing.GroupLayout.Alignment.TRAILING,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																308,
+																Short.MAX_VALUE)
+														.addComponent(
+																monster,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																Short.MAX_VALUE)
+														.addComponent(
+																lifePointsEnemy,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																Short.MAX_VALUE)
+														.addComponent(
+																imageEnemy,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																Short.MAX_VALUE))
+										.addGap(65, 65, 65))
+						.addGroup(
+								jPanel1Layout
+										.createSequentialGroup()
+										.addGap(301, 301, 301)
+										.addComponent(
+												buttonRun,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												Short.MAX_VALUE)
+										.addGap(319, 319, 319)));
+		jPanel1Layout
+				.setVerticalGroup(jPanel1Layout
+						.createParallelGroup(
+								javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(
+								jPanel1Layout
+										.createSequentialGroup()
+										.addGap(32, 32, 32)
+										.addGroup(
+												jPanel1Layout
+														.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.LEADING)
+														.addGroup(
+																jPanel1Layout
+																		.createSequentialGroup()
+																		.addComponent(
+																				monster,
+																				javax.swing.GroupLayout.PREFERRED_SIZE,
+																				35,
+																				javax.swing.GroupLayout.PREFERRED_SIZE)
+																		.addPreferredGap(
+																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																		.addComponent(
+																				imageEnemy,
+																				javax.swing.GroupLayout.DEFAULT_SIZE,
+																				263,
+																				Short.MAX_VALUE)
+																		.addPreferredGap(
+																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																		.addComponent(
+																				monsterPV,
+																				javax.swing.GroupLayout.PREFERRED_SIZE,
+																				javax.swing.GroupLayout.DEFAULT_SIZE,
+																				javax.swing.GroupLayout.PREFERRED_SIZE)
+																		.addPreferredGap(
+																				javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+																		.addComponent(
+																				lifePointsEnemy,
+																				javax.swing.GroupLayout.PREFERRED_SIZE,
+																				35,
+																				javax.swing.GroupLayout.PREFERRED_SIZE)
+																		.addGap(5,
+																				5,
+																				5))
+														.addGroup(
+																jPanel1Layout
+																		.createSequentialGroup()
+																		.addComponent(
+																				player,
+																				javax.swing.GroupLayout.PREFERRED_SIZE,
+																				35,
+																				javax.swing.GroupLayout.PREFERRED_SIZE)
+																		.addPreferredGap(
+																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																		.addComponent(
+																				imagePlayer,
+																				javax.swing.GroupLayout.DEFAULT_SIZE,
+																				javax.swing.GroupLayout.DEFAULT_SIZE,
+																				Short.MAX_VALUE)
+																		.addGap(12,
+																				12,
+																				12)
+																		.addComponent(
+																				playerPV,
+																				javax.swing.GroupLayout.PREFERRED_SIZE,
+																				javax.swing.GroupLayout.DEFAULT_SIZE,
+																				javax.swing.GroupLayout.PREFERRED_SIZE)
+																		.addGap(18,
+																				18,
+																				18)
+																		.addComponent(
+																				lifePointsPlayer,
+																				javax.swing.GroupLayout.PREFERRED_SIZE,
+																				35,
+																				javax.swing.GroupLayout.PREFERRED_SIZE)))
+										.addGap(37, 37, 37)
+										.addComponent(
+												buttonRun,
+												javax.swing.GroupLayout.PREFERRED_SIZE,
+												35,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addGap(38, 38, 38)));
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
+				getContentPane());
 		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-				jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-				jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+		layout.setHorizontalGroup(layout.createParallelGroup(
+				javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+				jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+				javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+		layout.setVerticalGroup(layout.createParallelGroup(
+				javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+				jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+				javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
 		pack();
 		setLocationRelativeTo(null);
-	}// </editor-fold>//GEN-END:initComponents
+	}
 
+	/**
+	 * Initialisation de la fenêtre
+	 */
+	public void initialisationFenetre() {
+		initComponents();
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
+
+		// Dimensionnement Fenetre
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Dimension d = tk.getScreenSize();
+		Insets insets = tk.getScreenInsets(getGraphicsConfiguration());
+		int width = (int) (824 - insets.left - insets.right);
+		int height = (int) (568 - insets.top - insets.bottom);
+		setSize(width, height);
+	}
+
+	/**
+	 * Initialisation de la connexion au serveur
+	 */
+	public void connexionServeur() {
+		try {
+			laby = (Labyrinthe) Naming.lookup("MonServeur1");
+			// On récupère la pièce où se trouve le joueur
+			Piece piece = laby.getPieceById(currentPerso.getIdPiece());
+
+			// on test sur quel serveur se trouve la pièce
+			if (piece.getNomServer().equals("alpha")) {
+				laby = (Labyrinthe) Naming.lookup("MonServeur1");
+			} else if (piece.getNomServer().equals("beta")) {
+				laby = (Labyrinthe) Naming.lookup("MonServeur2");
+			}
+		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * Fermeture de la fenêtre
+	 */
+	public synchronized void fermer() {
+		this.setVisible(false);
+	}
+
+	
+	/**
+	 * Traitement du clic sur le bouton Fuir
+	 * 
+	 * @param evt
+	 */
 	private void buttonRunActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
-		// Quitte le combat
-
-		// Sauvegarde dans la base
-		System.out.println("Le joueur quitte le combat");
-
+		System.out.println("Le monstre ou le joueur quitte le combat");
 		try {
 			// Le monstre ou le joueur combattu gagne 1 PV
 			// Si récupère le serveur;
 			if (enemy instanceof Personnage) {
-				laby.updatePersonnage(enemy.getIdIndiv(), enemy.getNomIndiv(), enemy.getNbPVIndiv(),
-						enemy.getIdPiece());
+				laby.updatePersonnage(enemy.getIdIndiv(), enemy.getNomIndiv(),
+						enemy.getNbPVIndiv(), enemy.getIdPiece());
 
-				LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv()).setVisible(true);
-				LabyrintheImpl.listeMap.get(enemy.getNomIndiv()).setVisible(true);
+				LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv())
+						.setVisible(true);
+				LabyrintheImpl.listeMap.get(enemy.getNomIndiv()).setVisible(
+						true);
 			} else {
-				laby.updateMonstre(enemy.getIdIndiv(), enemy.getNomIndiv(), enemy.getNbPVIndiv(), enemy.getIdPiece());
+				laby.updateMonstre(enemy.getIdIndiv(), enemy.getNomIndiv(),
+						enemy.getNbPVIndiv(), enemy.getIdPiece());
 
-				LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv()).setVisible(true);
+				LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv())
+						.setVisible(true);
 
 			}
 
@@ -526,7 +688,7 @@ public class Combat extends javax.swing.JFrame {
 		this.setVisible(false);
 	}
 
-	// Variables declaration - do not modify//GEN-BEGIN:variables
+	// Variables declaration
 	private javax.swing.JButton buttonRun;
 	private javax.swing.JLabel imageEnemy;
 	private javax.swing.JLabel imagePlayer;
@@ -537,5 +699,5 @@ public class Combat extends javax.swing.JFrame {
 	private javax.swing.JProgressBar monsterPV;
 	private javax.swing.JLabel player;
 	private javax.swing.JProgressBar playerPV;
-	// End of variables declaration//GEN-END:variables
+	// End of variables declaration
 }
