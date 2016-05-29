@@ -35,14 +35,6 @@ public class Personnage extends Individu implements Serializable {
 		this.user = user;
 	}
 
-	public int getIdPiece() {
-		return idPiece;
-	}
-
-	public void setIdPiece(int idPiece) {
-		this.idPiece = idPiece;
-	}
-
 	public int getIdUtilisateur() {
 		return idUtilisateur;
 	}

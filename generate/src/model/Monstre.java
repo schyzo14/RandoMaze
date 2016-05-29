@@ -17,12 +17,4 @@ public class Monstre extends Individu implements Serializable {
 		super(id, nom, pv, idPiece);
 		this.setIdPiece(idPiece);
 	}
-
-	public int getIdPiece() {
-		return idPiece;
-	}
-
-	public void setIdPiece(int idPiece) {
-		this.idPiece = idPiece;
-	}
 }

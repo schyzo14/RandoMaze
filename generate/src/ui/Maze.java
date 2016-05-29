@@ -1210,10 +1210,10 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
         	afficherCase(currentPiece);
         	
         	// On affiche le combat
+        	currentPerso.setNbPVIndiv(10);
         	ArrayList<String> listP = new ArrayList<String>(laby.getPersonnagesSamePiece(currentPerso.getNomIndiv()));
         	JComboBox jcb = new JComboBox(listP.toArray());
         	Combat fenCombat = null;
-        	Combat fenCombatJ2 = null;
         	if(listP.size() > 1) {
         		try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -1221,13 +1221,18 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
 	                UIManager.put("Panel.background", Color.WHITE);
 	                UIManager.put("OptionPane.messageForeground", Color.BLACK);
 	        		JOptionPane.showMessageDialog(null, jcb, "Choix d'un ennemi", JOptionPane.QUESTION_MESSAGE);
-	        		fenCombat = new Combat(currentPerso, jcb.getSelectedItem().toString());
+	        		if(jcb.getSelectedItem().toString().equals("Monstre")) {
+	        			fenCombat = new Combat(currentPerso);
+	        		} else {
+	        			fenCombat = new Combat(currentPerso, jcb.getSelectedItem().toString());
+	        		}
 				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 					e.printStackTrace();
 				}
         	} else {
         		fenCombat = new Combat(currentPerso);
         	}
+        	this.setVisible(false);
         	fenCombat.setVisible(true);
         }
     }
