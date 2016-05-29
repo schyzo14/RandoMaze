@@ -239,7 +239,8 @@ public class Combat extends javax.swing.JFrame {
 			// Le joueur gagne 1 PV
 			try {
 				// On ajoute 1PV au joueur
-				currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv() + 1);
+				if(currentPerso.getNbPVIndiv() < 10)
+					currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv() + 1);
 				laby.updatePersonnage(currentPerso.getIdIndiv(),
 						currentPerso.getNomIndiv(),
 						currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
@@ -279,7 +280,8 @@ public class Combat extends javax.swing.JFrame {
 			System.out.println("Mort de notre joueur");
 			// Le joueur combattu gagne 1 PV
 			try {
-				enemy.setNbPVIndiv(enemy.getNbPVIndiv() + 1);
+				if(enemy.getNbPVIndiv() < 10)
+					enemy.setNbPVIndiv(enemy.getNbPVIndiv() + 1);
 				laby.updatePersonnage(enemy.getIdIndiv(), enemy.getNomIndiv(),
 						enemy.getNbPVIndiv(), enemy.getIdPiece());
 
@@ -313,7 +315,8 @@ public class Combat extends javax.swing.JFrame {
 			// Notre joueur gagne 1 PV
 			try {
 				// On ajoute 1PV à notre joueur
-				currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv() + 1);
+				if(currentPerso.getNbPVIndiv() < 10)
+					currentPerso.setNbPVIndiv(currentPerso.getNbPVIndiv() + 1);
 				laby.updatePersonnage(currentPerso.getIdIndiv(),
 						currentPerso.getNomIndiv(),
 						currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
