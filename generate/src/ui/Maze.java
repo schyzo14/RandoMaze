@@ -80,6 +80,8 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
 
         afficherCase(piece);
     }
+    
+    
 
 	/**
 	 * This method is called from within the constructor to initialize the form.
@@ -1073,9 +1075,7 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
 	private void b_sauvegarderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_sauvegarderMouseClicked
 		// TODO add your handling code here:
 		l_textSave.setText("Sauvegarde en cours...");
-		Labyrinthe laby;
 		try {
-			laby = (Labyrinthe) Naming.lookup("MonServeur1");
 			boolean result = laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv() ,currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
 			
 			if (result == false) {
