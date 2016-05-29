@@ -14,6 +14,9 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import model.Individu;
 import model.Labyrinthe;
@@ -27,11 +30,12 @@ import model.Piece;
  *
  */
 public class Combat extends javax.swing.JFrame {
-
+	//Liste de combattants
 	private Personnage currentPerso;
 	private Individu enemy;
 	private int pvMonstreMax = 10;
 	private Labyrinthe laby;
+	private int numPiece;
 	// Thread de combat
 	public static Thread t;
 
@@ -78,7 +82,7 @@ public class Combat extends javax.swing.JFrame {
 
 		// Test de la piece pour savoir quel type de monstre il va combattre :
 		// normal, boss ou boss secret
-		int numPiece = currentPerso.getIdPiece();
+		numPiece = currentPerso.getIdPiece();
 		if (numPiece == 15)
 			pvMonstreMax = 15;
 		else if (numPiece == 16)
@@ -96,7 +100,6 @@ public class Combat extends javax.swing.JFrame {
 		// Appel méthode génération combat
 		try {
 			enemy = laby.getMonstreByPiece(numPiece);
-			// LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv()).setVisible(false);
 			monster.setText("Nom : " + enemy.getNomIndiv());
 			imageEnemy.setIcon(
 					new javax.swing.ImageIcon(getClass().getResource("/images/" + enemy.getNomIndiv() + ".png"))); // NOI18N
@@ -145,12 +148,12 @@ public class Combat extends javax.swing.JFrame {
 	}
 
 	// fermeture de la fenêtre
-	public void fermer() {
+	public synchronized void fermer() {
 		this.setVisible(false);
 	}
 
 	// Traitement d'un combat contre un Monstre
-	public void combatPvM() {
+	public synchronized void combatPvM() {
 		// Test si perso ou monstre meurt
 		// Mort du perso
 		if (currentPerso.getNbPVIndiv() == 0) {
@@ -233,7 +236,7 @@ public class Combat extends javax.swing.JFrame {
 		player.setText("Nom : " + currentPerso.getNomIndiv());
 		imageEnemy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/avatar.png"))); // NOI18N
 		imagePlayer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/avatar.png"))); // NOI18N
-
+		
 		System.out.println("Combat entre joueur");
 		// Tant que le joueur ne clique pas sur Fuir ou PV=0, le combat continue
 		this.addComponentListener(new ComponentAdapter() {
@@ -241,10 +244,7 @@ public class Combat extends javax.swing.JFrame {
 				// Création du Thread de combat
 				Combat.t = new Thread() {
 					public void run() {
-						/*
-						 * currentPerso.setNbPVIndiv(10);
-						 * enemy.setNbPVIndiv(10);
-						 */
+						enemy.setNbPVIndiv(10);
 						monsterPV.setValue(enemy.getNbPVIndiv());
 						playerPV.setValue(enemy.getNbPVIndiv());
 
@@ -495,13 +495,12 @@ public class Combat extends javax.swing.JFrame {
 		try {
 			// Le monstre ou le joueur combattu gagne 1 PV
 			// Si récupère le serveur;
-			if (enemy.getClass().isInstance(Personnage.class)) {
+			if (enemy instanceof Personnage) {
 				laby.updatePersonnage(enemy.getIdIndiv(), enemy.getNomIndiv(), enemy.getNbPVIndiv(),
 						enemy.getIdPiece());
 
 				LabyrintheImpl.listeMap.get(currentPerso.getNomIndiv()).setVisible(true);
 				LabyrintheImpl.listeMap.get(enemy.getNomIndiv()).setVisible(true);
-
 			} else {
 				laby.updateMonstre(enemy.getIdIndiv(), enemy.getNomIndiv(), enemy.getNbPVIndiv(), enemy.getIdPiece());
 

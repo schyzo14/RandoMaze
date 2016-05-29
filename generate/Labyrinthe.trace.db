@@ -575,3 +575,33 @@ java.lang.Exception: Stack Trace
 	at persistence.LabyrintheJDBC.<init>(LabyrintheJDBC.java:78)
 	at persistence.LabyrintheJDBC.main(LabyrintheJDBC.java:341)
 	at Partie.main(Partie.java:13)
+05-29 15:47:36 jdbc[2]: connection not closed
+java.lang.Exception: Stack Trace
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:121)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:94)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at persistence.LabyrintheJDBC.<init>(LabyrintheJDBC.java:78)
+	at persistence.LabyrintheJDBC.main(LabyrintheJDBC.java:341)
+	at Partie.main(Partie.java:13)
+05-29 19:49:30 jdbc[2]: connection not closed
+java.lang.Exception: Stack Trace
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:121)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:94)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at persistence.LabyrintheJDBC.<init>(LabyrintheJDBC.java:78)
+	at persistence.LabyrintheJDBC.main(LabyrintheJDBC.java:341)
+	at Partie.main(Partie.java:13)
+05-29 19:55:57 jdbc[2]: connection not closed
+java.lang.Exception: Stack Trace
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:121)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:94)
+	at org.h2.Driver.connect(Driver.java:72)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at java.sql.DriverManager.getConnection(Unknown Source)
+	at persistence.LabyrintheJDBC.<init>(LabyrintheJDBC.java:78)
+	at persistence.LabyrintheJDBC.main(LabyrintheJDBC.java:341)
+	at Partie.main(Partie.java:13)

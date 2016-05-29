@@ -1136,6 +1136,9 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
         int y = currentPiece.getPosY();
         int exX = x;
         int exY = y;
+        
+        // On met à jour le monstre avant de quitter la salle
+        laby.getMonstreByPiece(currentPiece.getIdPiece()).setNbPVIndiv(5);
     	
     	// On récupère les portes de la Piece courante
         ArrayList<Porte> listPortes = currentPiece.getListePortes();
