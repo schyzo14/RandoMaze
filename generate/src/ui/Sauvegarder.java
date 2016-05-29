@@ -158,6 +158,7 @@ public class Sauvegarder extends javax.swing.JFrame {
         // TODO add your handling code here:
        System.out.println("Sauvegarde dans la BDD");
 		try {
+			connexionServeur();
 			boolean result = laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv() ,currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
 			
 			if (result == false) {
