@@ -10,11 +10,11 @@ import java.io.Serializable;
 public class Porte implements Serializable {
 
 	private static final long serialVersionUID = -1251738136255779026L;
-	
+
 	public int idPorte;
 	public String positionPorte;
 	public int idPiece;
-	
+
 	public Porte(int id, String situation) {
 		idPorte = id;
 		positionPorte = situation;
@@ -28,7 +28,8 @@ public class Porte implements Serializable {
 	}
 
 	/**
-	 * @param idPorte the idPorte to set
+	 * @param idPorte
+	 *            the idPorte to set
 	 */
 	public void setIdPorte(int idPorte) {
 		this.idPorte = idPorte;
@@ -42,7 +43,8 @@ public class Porte implements Serializable {
 	}
 
 	/**
-	 * @param positionPorte the positionPorte to set
+	 * @param positionPorte
+	 *            the positionPorte to set
 	 */
 	public void setPositionPorte(String positionPorte) {
 		this.positionPorte = positionPorte;
@@ -56,7 +58,8 @@ public class Porte implements Serializable {
 	}
 
 	/**
-	 * @param idPiece the idPiece to set
+	 * @param idPiece
+	 *            the idPiece to set
 	 */
 	public void setIdPiece(int idPiece) {
 		this.idPiece = idPiece;

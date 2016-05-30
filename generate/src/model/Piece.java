@@ -11,13 +11,13 @@ import java.util.ArrayList;
 public class Piece implements Serializable {
 
 	private static final long serialVersionUID = -6444614151907722565L;
-	
+
 	private int idPiece;
 	private String nomServer;
 	private int posX;
 	private int posY;
 	private ArrayList<Porte> listePortes;
-	
+
 	public Piece(int id, String nom, int x, int y) {
 		idPiece = id;
 		nomServer = nom;
@@ -33,7 +33,8 @@ public class Piece implements Serializable {
 	}
 
 	/**
-	 * @param idPiece the idPiece to set
+	 * @param idPiece
+	 *            the idPiece to set
 	 */
 	public void setIdPiece(int idPiece) {
 		this.idPiece = idPiece;
@@ -47,7 +48,8 @@ public class Piece implements Serializable {
 	}
 
 	/**
-	 * @param nomServer the nomServer to set
+	 * @param nomServer
+	 *            the nomServer to set
 	 */
 	public void setNomServer(String nomServer) {
 		this.nomServer = nomServer;
@@ -61,7 +63,8 @@ public class Piece implements Serializable {
 	}
 
 	/**
-	 * @param posX the posX to set
+	 * @param posX
+	 *            the posX to set
 	 */
 	public void setPosX(int posX) {
 		this.posX = posX;
@@ -75,7 +78,8 @@ public class Piece implements Serializable {
 	}
 
 	/**
-	 * @param posY the posY to set
+	 * @param posY
+	 *            the posY to set
 	 */
 	public void setPosY(int posY) {
 		this.posY = posY;
@@ -89,7 +93,8 @@ public class Piece implements Serializable {
 	}
 
 	/**
-	 * @param listePortes the listePortes to set
+	 * @param listePortes
+	 *            the listePortes to set
 	 */
 	public void setListePortes(ArrayList<Porte> listePortes) {
 		this.listePortes = listePortes;
