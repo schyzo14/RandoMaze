@@ -23,51 +23,50 @@ import model.Utilisateur;
  * 
  * @author Manon, Aurore, Youssef
  */
-public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
+public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe {
 
 	private static final long serialVersionUID = 6415704478523465430L;
 
 	// Connection
 	private Connection conn;
-	
+
 	// Piece
 	private static final String reqSelectPiece = "select idpiece, nomserveur, positionX, positionY from PIECE";
 	private static final String reqSelectPieceById = "select idpiece, nomserveur, positionX, positionY from PIECE where idpiece=?";
-	
+
 	private PreparedStatement reqSelectPieceSt = null;
-	private PreparedStatement reqSelectPieceByIdSt = null; 
-	
+	private PreparedStatement reqSelectPieceByIdSt = null;
+
 	// Porte
 	private static final String reqSelectPorteByIdPiece = "select idporte, situationporte, idpiece from PORTE where idpiece=?";
-	
+
 	private PreparedStatement reqSelectPorteByIdPieceSt = null;
-	
+
 	// Utilisateur
 	private static final String reqSelectUtilisateurByNom = "select idutilisateur, nomutilisateur, mdputilisateur from UTILISATEUR where nomutilisateur=?";
 	private static final String reqInsertUtilisateur = "insert into UTILISATEUR (nomutilisateur, mdputilisateur) values (?, ?)";
-	
+
 	private PreparedStatement reqSelectUtilisateurByNomSt = null;
 	private PreparedStatement reqInsertUtilisateurSt = null;
-	
+
 	// Personnage
 	private static final String reqSelectPersonnageByUtilisateur = "select idpersonnage, nompersonnage, idutilisateur, pointvie, idpiece from PERSONNAGE where idutilisateur=?";
 	private static final String reqSelectPersonnageByName = "select idpersonnage, nompersonnage, idutilisateur, pointvie, idpiece from PERSONNAGE where nompersonnage=?";
 	private static final String reqInsertPersonnage = "insert into PERSONNAGE (nompersonnage, idutilisateur, pointvie, idpiece) values (?, ?, ?, ?) ";
 	private static final String reqUpdatePersonnage = "update PERSONNAGE set nompersonnage=?, pointvie=?, idpiece=? where idpersonnage=?";
-	
+
 	private PreparedStatement reqSelectPersonnageByUtilisateurSt = null;
 	private PreparedStatement reqSelectPersonnageByNameSt = null;
 	private PreparedStatement reqInsertPersonnageSt = null;
 	private PreparedStatement reqUpdatePersonnageSt = null;
-	
+
 	// Monstre
 	private static final String reqSelectMonstreByPiece = "select IDMONSTRE, NOMMONSTRE, POINTVIE, IDPIECE from MONSTRE where IDPIECE=?";
 	private static final String reqUpdateMonstre = "update MONSTRE set NOMMONSTRE=?, POINTVIE=?, IDPIECE=? where IDMONSTRE=?";
-	
+
 	private PreparedStatement reqSelectMonstreByPieceSt = null;
 	private PreparedStatement reqUpdateMonstreSt = null;
-	
-	
+
 	/**
 	 * Prépare les requetes
 	 * 
@@ -77,35 +76,35 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	public LabyrintheJDBC(String nomBD) throws RemoteException {
 		try {
 			// récupération du driver
-		    Class.forName("org.h2.Driver");
-		    // création d'une connexion
-		    conn = DriverManager.getConnection("jdbc:h2:"+nomBD+";IGNORECASE=TRUE", "sa", "");
-	        
-		    // Construction des prepared statement
-		    // Piece
-		    reqSelectPieceSt = conn.prepareStatement(reqSelectPiece);
-		    reqSelectPieceByIdSt = conn.prepareStatement(reqSelectPieceById);
-		    // Porte
-		    reqSelectPorteByIdPieceSt = conn.prepareStatement(reqSelectPorteByIdPiece);
-		    // Utilisateur
-		    reqSelectUtilisateurByNomSt = conn.prepareStatement(reqSelectUtilisateurByNom);
-		    reqInsertUtilisateurSt = conn.prepareStatement(reqInsertUtilisateur);
-		    // Personnage
-		    reqSelectPersonnageByUtilisateurSt = conn.prepareStatement(reqSelectPersonnageByUtilisateur);
-		    reqSelectPersonnageByNameSt = conn.prepareStatement(reqSelectPersonnageByName);
-		    reqInsertPersonnageSt = conn.prepareStatement(reqInsertPersonnage);
-		    reqUpdatePersonnageSt = conn.prepareStatement(reqUpdatePersonnage);
-		    // Monstre
-		    reqSelectMonstreByPieceSt = conn.prepareStatement(reqSelectMonstreByPiece);
-		    reqUpdateMonstreSt = conn.prepareStatement(reqUpdateMonstre);
-		    
-		} catch(Exception e) {
+			Class.forName("org.h2.Driver");
+			// création d'une connexion
+			conn = DriverManager.getConnection("jdbc:h2:" + nomBD + ";IGNORECASE=TRUE", "sa", "");
+
+			// Construction des prepared statement
+			// Piece
+			reqSelectPieceSt = conn.prepareStatement(reqSelectPiece);
+			reqSelectPieceByIdSt = conn.prepareStatement(reqSelectPieceById);
+			// Porte
+			reqSelectPorteByIdPieceSt = conn.prepareStatement(reqSelectPorteByIdPiece);
+			// Utilisateur
+			reqSelectUtilisateurByNomSt = conn.prepareStatement(reqSelectUtilisateurByNom);
+			reqInsertUtilisateurSt = conn.prepareStatement(reqInsertUtilisateur);
+			// Personnage
+			reqSelectPersonnageByUtilisateurSt = conn.prepareStatement(reqSelectPersonnageByUtilisateur);
+			reqSelectPersonnageByNameSt = conn.prepareStatement(reqSelectPersonnageByName);
+			reqInsertPersonnageSt = conn.prepareStatement(reqInsertPersonnage);
+			reqUpdatePersonnageSt = conn.prepareStatement(reqUpdatePersonnage);
+			// Monstre
+			reqSelectMonstreByPieceSt = conn.prepareStatement(reqSelectMonstreByPiece);
+			reqUpdateMonstreSt = conn.prepareStatement(reqUpdateMonstre);
+
+		} catch (Exception e) {
 			// il y a eu une erreur
 			e.printStackTrace();
 		}
 	}
 
-	
+	// Piece
 	/**
 	 * Liste de toutes les pieces
 	 * 
@@ -127,14 +126,13 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 				listPieces.add(piece);
 			}
 			return listPieces;
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
-	
+
 	/**
 	 * Retourne une piece grace à son id
 	 * 
@@ -154,16 +152,16 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 			Piece piece = new Piece(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
 			// On récupère les portes de la piece
 			piece.setListePortes(selectPorteByIdPiece(rs.getInt(1)));
-			
+
 			return piece;
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
-	
+
+	// Porte
 	/**
 	 * Retourne la liste des portes d'une piece
 	 * 
@@ -186,14 +184,14 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 				listPortes.add(porte);
 			}
 			return listPortes;
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
-	
+
+	// Utilisateur
 	/**
 	 * Retourne un utilisateur grave à son nom
 	 * 
@@ -211,9 +209,9 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 			// On récupère l'utilisateur retourné par la requete
 			Utilisateur utilisateur = null;
 			while (rs.next()) {
-				utilisateur = new Utilisateur((int)rs.getLong(1), rs.getString(2), rs.getString(3));
+				utilisateur = new Utilisateur((int) rs.getLong(1), rs.getString(2), rs.getString(3));
 				// On récupère les personnages de l'utilisateur
-				ArrayList<Personnage> listePerso = selectPersonnageByUtilisateur((int)rs.getLong(1));
+				ArrayList<Personnage> listePerso = selectPersonnageByUtilisateur((int) rs.getLong(1));
 				HashMap<Integer, Personnage> listePersoMap = new HashMap<Integer, Personnage>();
 				for (Personnage perso : listePerso) {
 					listePersoMap.put(perso.getIdIndiv(), perso);
@@ -221,14 +219,13 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 				utilisateur.setListePerso(listePersoMap);
 			}
 			return utilisateur;
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-	
 	/**
 	 * Créer un utilisateur avec son nom et mdp
 	 * 
@@ -242,15 +239,16 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 		try {
 			// On complete la requete par le nom de l'utilisateur et son mdp
 			reqInsertUtilisateurSt.setString(1, nom);
-			reqInsertUtilisateurSt.setString(2,mdp);
+			reqInsertUtilisateurSt.setString(2, mdp);
 			// Création de l'utilisateur
-        	if (reqInsertUtilisateurSt.executeUpdate()==1)
+			if (reqInsertUtilisateurSt.executeUpdate() == 1)
 				return true;
-        	else
-        		return false;
-        	
+			else
+				return false;
+
 		} catch (SQLException e) {
-			// Si ce n'est pas une Contrainte unique sur le nom d'utilisateur (nom déjà existant)
+			// Si ce n'est pas une Contrainte unique sur le nom d'utilisateur
+			// (nom déjà existant)
 			if (e.getErrorCode() != 23001) {
 				e.printStackTrace();
 			}
@@ -258,7 +256,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 		}
 	}
 
-	
+	// Personnage
 	/**
 	 * Retourne les personnages d'un utilisateur
 	 * 
@@ -267,7 +265,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	 * @throws java.rmi.RemoteException
 	 */
 	@Override
-	public ArrayList<Personnage> selectPersonnageByUtilisateur (int idUtilisateur) throws RemoteException {
+	public ArrayList<Personnage> selectPersonnageByUtilisateur(int idUtilisateur) throws RemoteException {
 		try {
 			// On complete la requete par l'id de l'utilisateur
 			reqSelectPersonnageByUtilisateurSt.setInt(1, idUtilisateur);
@@ -276,18 +274,18 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 			// On récupère la liste des personnages
 			ArrayList<Personnage> listPersonnages = new ArrayList<Personnage>();
 			while (rs.next()) {
-				Personnage personnage = new Personnage(rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getInt(5), rs.getInt(3));
+				Personnage personnage = new Personnage(rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getInt(5),
+						rs.getInt(3));
 				listPersonnages.add(personnage);
 			}
 			return listPersonnages;
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
-	
+
 	/**
 	 * Retourne un personnage grace à son nom
 	 * 
@@ -302,19 +300,19 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 			reqSelectPersonnageByNameSt.setString(1, nomPerso);
 			// Exécution de la requete
 			ResultSet rs = reqSelectPersonnageByNameSt.executeQuery();
-			// On récupère le personnage 
+			// On récupère le personnage
 			rs.next();
-			Personnage personnage = new Personnage(rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getInt(5), rs.getInt(3));
-			
+			Personnage personnage = new Personnage(rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getInt(5),
+					rs.getInt(3));
+
 			return personnage;
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-	
 	/**
 	 * Créer un personnage avec son nom et utilisateur
 	 * 
@@ -326,27 +324,29 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	@Override
 	public boolean creerPersonnage(String nom, int idUtilisateur) throws RemoteException {
 		try {
-			// On complete la requete par le nom du personnage, l'id de son utilisateur, le nombre de PV=10, la salle=1
+			// On complete la requete par le nom du personnage, l'id de son
+			// utilisateur, le nombre de PV=10, la salle=1
 			reqInsertPersonnageSt.setString(1, nom);
 			reqInsertPersonnageSt.setInt(2, idUtilisateur);
 			reqInsertPersonnageSt.setInt(3, 10);
 			reqInsertPersonnageSt.setInt(4, 1);
 			// Exécution de la requete
-        	if (reqInsertPersonnageSt.executeUpdate()==1)
+			if (reqInsertPersonnageSt.executeUpdate() == 1)
 				return true;
-        	else
-        		return false;
-        	
+			else
+				return false;
+
 		} catch (SQLException e) {
-			// Si ce n'est pas une Contrainte unique sur le nom d'utilisateur (nom déjà existant)
-			if (e.getErrorCode() != 23001) { // Contrainte unique du nom de personnage
+			// Si ce n'est pas une Contrainte unique sur le nom d'utilisateur
+			// (nom déjà existant)
+			if (e.getErrorCode() != 23001) { // Contrainte unique du nom de
+												// personnage
 				e.printStackTrace();
 			}
 			return false;
 		}
 	}
 
-	
 	/**
 	 * Mettre à jour un personnage
 	 * 
@@ -360,24 +360,25 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	@Override
 	public boolean updatePersonnage(int id, String nom, int pointvie, int idpiece) throws RemoteException {
 		try {
-			// On complete la requete par le nom du personnage, le nombre de PV, la salle et l'id du personnage
+			// On complete la requete par le nom du personnage, le nombre de PV,
+			// la salle et l'id du personnage
 			reqUpdatePersonnageSt.setString(1, nom);
 			reqUpdatePersonnageSt.setInt(2, pointvie);
 			reqUpdatePersonnageSt.setInt(3, idpiece);
 			reqUpdatePersonnageSt.setInt(4, id);
 			// Exécution de la requete
-        	if (reqUpdatePersonnageSt.executeUpdate()==1)
+			if (reqUpdatePersonnageSt.executeUpdate() == 1)
 				return true;
-        	else
-        		return false;
-        	
+			else
+				return false;
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
 	}
-	
-	
+
+	// Monstre
 	/**
 	 * Retourne le monstre d'une piece
 	 * 
@@ -398,14 +399,13 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 				return monstre;
 			}
 			return null;
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
-	
 	/**
 	 * Mettre à jour un monstre
 	 * 
@@ -419,63 +419,64 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	@Override
 	public boolean updateMonstre(int id, String nom, int pointvie, int idpiece) throws RemoteException {
 		try {
-			// On complete la requete par le nom du monstre, le nombre de PV, la salle et l'id du monstre
+			// On complete la requete par le nom du monstre, le nombre de PV, la
+			// salle et l'id du monstre
 			reqUpdateMonstreSt.setString(1, nom);
 			reqUpdateMonstreSt.setInt(2, pointvie);
 			reqUpdateMonstreSt.setInt(3, idpiece);
 			reqUpdateMonstreSt.setInt(4, id);
 			// Exécution de la requete
-        	if (reqUpdateMonstreSt.executeUpdate()==1)
+			if (reqUpdateMonstreSt.executeUpdate() == 1)
 				return true;
-        	else
-        		return false;
-        	
+			else
+				return false;
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
 	}
-	
-	
+
+	// Fermeture
 	/**
 	 * Fermer l'accès à la bd
 	 * 
 	 * @throws Exception
 	 */
-	public void fermer() throws Exception {		
+	public void fermer() throws Exception {
 		try {
-			//Fermeture des PreparedStatements
+			// Fermeture des PreparedStatements
 			// Piece
 			reqSelectPieceSt = null;
-			reqSelectPieceByIdSt = null; 
-			
+			reqSelectPieceByIdSt = null;
+
 			// Porte
 			reqSelectPorteByIdPieceSt = null;
-			
+
 			// Utilisateur
 			reqSelectUtilisateurByNomSt = null;
 			reqInsertUtilisateurSt = null;
-			
+
 			// Personnage
 			reqSelectPersonnageByUtilisateurSt = null;
 			reqInsertPersonnageSt = null;
 			reqUpdatePersonnageSt = null;
-			
+
 			// Monstre
 			reqSelectMonstreByPieceSt = null;
 			reqUpdateMonstreSt = null;
-			
-			//Fermeture de la BD
+
+			// Fermeture de la BD
 			Naming.unbind("MaBD");
 			UnicastRemoteObject.unexportObject(this, true);
 			conn.close();
-			
-		} catch(Exception ex) {
+
+		} catch (Exception ex) {
 			// il y a eu une erreur
 			ex.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Connexion à la BD
 	 * 
@@ -484,9 +485,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	 */
 	public static void main(String[] args) throws Exception {
 		LocateRegistry.createRegistry(1099);
-		LabyrintheJDBC labyrintheJDBC = new LabyrintheJDBC("Labyrinthe");
 		Naming.rebind("MaBD", new LabyrintheJDBC("Labyrinthe"));
-		System.out.println("Connexion BD réussie");	
+		System.out.println("Connexion BD réussie");
 	}
-	
 }
