@@ -33,7 +33,6 @@ public class Util {
             UIManager.put("OptionPane.minimumSize",new Dimension(400,150));
             // Affichage de la pop-up
     		JOptionPane.showMessageDialog(null, mess);
-    		
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
