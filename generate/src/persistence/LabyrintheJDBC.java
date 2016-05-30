@@ -22,13 +22,9 @@ import model.Utilisateur;
  * Permet de communiquer avec la BD
  * 
  * @author Manon, Aurore, Youssef
- *
  */
 public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6415704478523465430L;
 
 	private Connection conn;

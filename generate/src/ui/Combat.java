@@ -9,13 +9,11 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import model.Individu;
 import model.Labyrinthe;
 import model.LabyrintheImpl;
+import model.Monstre;
 import model.Personnage;
 import model.Piece;
 
@@ -68,6 +66,8 @@ public class Combat extends javax.swing.JFrame {
 			//On récupère le monstre de la pièce
 			enemy = laby.getMonstreByPiece(numPiece);
 			monster.setText("Nom : " + enemy.getNomIndiv());
+			lifePointsEnemy.setText("PV : " + enemy.getNbPVIndiv() + " / "	+ monsterPV.getMaximum());
+			monsterPV.setValue(enemy.getNbPVIndiv());
 			imageEnemy.setIcon(new javax.swing.ImageIcon(getClass()
 					.getResource("/images/" + enemy.getNomIndiv() + ".png"))); // NOI18N
 			player.setText("Nom : " + currentPerso.getNomIndiv());
@@ -157,7 +157,6 @@ public class Combat extends javax.swing.JFrame {
 				// Création du Thread de combat
 				Combat.t = new Thread() {
 					public void run() {
-						enemy.setNbPVIndiv(10);
 						monsterPV.setValue(enemy.getNbPVIndiv());
 						playerPV.setValue(enemy.getNbPVIndiv());
 
@@ -407,8 +406,7 @@ public class Combat extends javax.swing.JFrame {
 		lifePointsEnemy.setFont(new java.awt.Font("Arial", 0, 14));
 		lifePointsEnemy
 				.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		lifePointsEnemy.setText("PV : " + monsterPV.getMaximum() + " / "
-				+ monsterPV.getMaximum());
+		//lifePointsEnemy.setText("PV : " + monsterPV.getMaximum() + " / "	+ monsterPV.getMaximum());
 
 		buttonRun.setFont(new java.awt.Font("Arial", 0, 14));
 		buttonRun.setText("Fuir");
