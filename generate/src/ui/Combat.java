@@ -82,7 +82,6 @@ public class Combat extends javax.swing.JFrame {
 				// Création du Thread de combat
 				Combat.t = new Thread() {
 					public void run() {
-						enemy.setNbPVIndiv(pvMonstreMax);
 						monsterPV.setValue(enemy.getNbPVIndiv());
 						playerPV.setValue(currentPerso.getNbPVIndiv());
 
@@ -144,6 +143,8 @@ public class Combat extends javax.swing.JFrame {
 				false);
 		LabyrintheImpl.listeMap.get(enemy.getNomIndiv()).setVisible(false);
 		monster.setText("Nom : " + enemy.getNomIndiv());
+		lifePointsEnemy.setText("PV : " + enemy.getNbPVIndiv() + " / 10");
+		monsterPV.setValue(enemy.getNbPVIndiv());
 		player.setText("Nom : " + currentPerso.getNomIndiv());
 		imageEnemy.setIcon(new javax.swing.ImageIcon(getClass().getResource(
 				"/images/avatar.png")));
