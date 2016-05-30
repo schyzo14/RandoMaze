@@ -27,6 +27,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 
 	private static final long serialVersionUID = 6415704478523465430L;
 
+	// Connection
 	private Connection conn;
 	
 	// Piece
@@ -66,13 +67,21 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 	private PreparedStatement reqSelectMonstreByPieceSt = null;
 	private PreparedStatement reqUpdateMonstreSt = null;
 	
+	
+	/**
+	 * Prépare les requetes
+	 * 
+	 * @param nomBD
+	 * @throws RemoteException
+	 */
 	public LabyrintheJDBC(String nomBD) throws RemoteException {
 		try {
 			// récupération du driver
 		    Class.forName("org.h2.Driver");
 		    // création d'une connexion
 		    conn = DriverManager.getConnection("jdbc:h2:"+nomBD+";IGNORECASE=TRUE", "sa", "");
-	        // construction des prepared statement
+	        
+		    // Construction des prepared statement
 		    // Piece
 		    reqSelectPieceSt = conn.prepareStatement(reqSelectPiece);
 		    reqSelectPieceByIdSt = conn.prepareStatement(reqSelectPieceById);
@@ -89,20 +98,31 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 		    // Monstre
 		    reqSelectMonstreByPieceSt = conn.prepareStatement(reqSelectMonstreByPiece);
 		    reqUpdateMonstreSt = conn.prepareStatement(reqUpdateMonstre);
+		    
 		} catch(Exception e) {
 			// il y a eu une erreur
 			e.printStackTrace();
 		}
 	}
 
+	
+	/**
+	 * Liste de toutes les pieces
+	 * 
+	 * @return liste des pieces
+	 * @throws java.rmi.RemoteException
+	 */
 	@Override
 	public ArrayList<Piece> selectPiece() throws RemoteException {
 		try {
+			// Exécution de la requete
 			ResultSet rs = reqSelectPieceSt.executeQuery();
-			
+			// Liste des pieces
 			ArrayList<Piece> listPieces = new ArrayList<Piece>();
+			// On ajoute toutes les pieces du resultat de la requete à la liste
 			while (rs.next()) {
 				Piece piece = new Piece(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
+				// On récupère les portes de la piece courante
 				piece.setListePortes(selectPorteByIdPiece(rs.getInt(1)));
 				listPieces.add(piece);
 			}
@@ -114,28 +134,51 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 		}
 	}
 	
+	
+	/**
+	 * Retourne une piece grace à son id
+	 * 
+	 * @param idPiece
+	 * @return piece
+	 * @throws java.rmi.RemoteException
+	 */
 	@Override
 	public Piece selectPieceById(int idPiece) throws RemoteException {
 		try {
+			// On complete la requete par idPiece
 			reqSelectPieceByIdSt.setInt(1, idPiece);
+			// Exécution de la requete
 			ResultSet rs = reqSelectPieceByIdSt.executeQuery();
+			// On récupère la piece du retour de la requete
 			rs.next();
 			Piece piece = new Piece(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
+			// On récupère les portes de la piece
 			piece.setListePortes(selectPorteByIdPiece(rs.getInt(1)));
 			
 			return piece;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 	
+	
+	/**
+	 * Retourne la liste des portes d'une piece
+	 * 
+	 * @param idpiece
+	 * @return liste des portes
+	 * @throws java.rmi.RemoteException
+	 */
 	@Override
 	public ArrayList<Porte> selectPorteByIdPiece(int idpiece) throws RemoteException {
 		try {
+			// On complete la requete par idPiece
 			reqSelectPorteByIdPieceSt.setInt(1, idpiece);
+			// Exécution de la requete
 			ResultSet rs = reqSelectPorteByIdPieceSt.executeQuery();
-			
+			// On ajoute toutes les portes du resultat de la requete à la liste
 			ArrayList<Porte> listPortes = new ArrayList<Porte>();
 			while (rs.next()) {
 				Porte porte = new Porte(rs.getInt(1), rs.getString(2));
@@ -150,15 +193,26 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 		}
 	}
 	
+	
+	/**
+	 * Retourne un utilisateur grave à son nom
+	 * 
+	 * @param nom
+	 * @return Utilisateur
+	 * @throws java.rmi.RemoteException
+	 */
 	@Override
 	public Utilisateur selectUtilisateurByNom(String nom) throws RemoteException {
 		try {
+			// On complete la requete par le nom de l'utilisateur
 			reqSelectUtilisateurByNomSt.setString(1, nom);
+			// Exécution de la requete
 			ResultSet rs = reqSelectUtilisateurByNomSt.executeQuery();
-			
+			// On récupère l'utilisateur retourné par la requete
 			Utilisateur utilisateur = null;
 			while (rs.next()) {
 				utilisateur = new Utilisateur((int)rs.getLong(1), rs.getString(2), rs.getString(3));
+				// On récupère les personnages de l'utilisateur
 				ArrayList<Personnage> listePerso = selectPersonnageByUtilisateur((int)rs.getLong(1));
 				HashMap<Integer, Personnage> listePersoMap = new HashMap<Integer, Personnage>();
 				for (Personnage perso : listePerso) {
@@ -174,29 +228,52 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 		}
 	}
 
+	
+	/**
+	 * Créer un utilisateur avec son nom et mdp
+	 * 
+	 * @param nom
+	 * @param mdp
+	 * @return false : le nom existe déjà / true : création réussie
+	 * @throws java.rmi.RemoteException
+	 */
 	@Override
 	public boolean creerUtilisateur(String nom, String mdp) throws RemoteException {
 		try {
+			// On complete la requete par le nom de l'utilisateur et son mdp
 			reqInsertUtilisateurSt.setString(1, nom);
 			reqInsertUtilisateurSt.setString(2,mdp);
+			// Création de l'utilisateur
         	if (reqInsertUtilisateurSt.executeUpdate()==1)
 				return true;
         	else
         		return false;
+        	
 		} catch (SQLException e) {
-			if (e.getErrorCode() != 23001) { // Contrainte unique nom d'utilisateur
+			// Si ce n'est pas une Contrainte unique sur le nom d'utilisateur (nom déjà existant)
+			if (e.getErrorCode() != 23001) {
 				e.printStackTrace();
 			}
 			return false;
 		}
 	}
 
+	
+	/**
+	 * Retourne les personnages d'un utilisateur
+	 * 
+	 * @param idUtilisateur
+	 * @return liste de personnages
+	 * @throws java.rmi.RemoteException
+	 */
 	@Override
 	public ArrayList<Personnage> selectPersonnageByUtilisateur (int idUtilisateur) throws RemoteException {
 		try {
+			// On complete la requete par l'id de l'utilisateur
 			reqSelectPersonnageByUtilisateurSt.setInt(1, idUtilisateur);
+			// Exécution de la requete
 			ResultSet rs = reqSelectPersonnageByUtilisateurSt.executeQuery();
-			
+			// On récupère la liste des personnages
 			ArrayList<Personnage> listPersonnages = new ArrayList<Personnage>();
 			while (rs.next()) {
 				Personnage personnage = new Personnage(rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getInt(5), rs.getInt(3));
@@ -210,12 +287,22 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 		}
 	}
 	
+	
+	/**
+	 * Retourne un personnage grace à son nom
+	 * 
+	 * @param nomPerso
+	 * @return personnage
+	 * @throws java.rmi.RemoteException
+	 */
 	@Override
-	public Personnage selectPersonnageByName(String nomPerso)
-			throws RemoteException {
+	public Personnage selectPersonnageByName(String nomPerso) throws RemoteException {
 		try {
+			// On complete la requete par le nom du personnage
 			reqSelectPersonnageByNameSt.setString(1, nomPerso);
+			// Exécution de la requete
 			ResultSet rs = reqSelectPersonnageByNameSt.executeQuery();
+			// On récupère le personnage 
 			rs.next();
 			Personnage personnage = new Personnage(rs.getInt(1), rs.getString(2), rs.getInt(4), rs.getInt(5), rs.getInt(3));
 			
@@ -227,18 +314,31 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 		}
 	}
 
+	
+	/**
+	 * Créer un personnage avec son nom et utilisateur
+	 * 
+	 * @param nom
+	 * @param idUtilisateur
+	 * @return false : le nom existe déjà / true : création réussie
+	 * @throws java.rmi.RemoteException
+	 */
 	@Override
 	public boolean creerPersonnage(String nom, int idUtilisateur) throws RemoteException {
 		try {
+			// On complete la requete par le nom du personnage, l'id de son utilisateur, le nombre de PV=10, la salle=1
 			reqInsertPersonnageSt.setString(1, nom);
 			reqInsertPersonnageSt.setInt(2, idUtilisateur);
 			reqInsertPersonnageSt.setInt(3, 10);
 			reqInsertPersonnageSt.setInt(4, 1);
+			// Exécution de la requete
         	if (reqInsertPersonnageSt.executeUpdate()==1)
 				return true;
         	else
         		return false;
+        	
 		} catch (SQLException e) {
+			// Si ce n'est pas une Contrainte unique sur le nom d'utilisateur (nom déjà existant)
 			if (e.getErrorCode() != 23001) { // Contrainte unique du nom de personnage
 				e.printStackTrace();
 			}
@@ -246,29 +346,53 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 		}
 	}
 
+	
+	/**
+	 * Mettre à jour un personnage
+	 * 
+	 * @param id
+	 * @param nom
+	 * @param pointvie
+	 * @param idpiece
+	 * @return false : erreur / true : MAJ réussie
+	 * @throws java.rmi.RemoteException
+	 */
 	@Override
 	public boolean updatePersonnage(int id, String nom, int pointvie, int idpiece) throws RemoteException {
 		try {
+			// On complete la requete par le nom du personnage, le nombre de PV, la salle et l'id du personnage
 			reqUpdatePersonnageSt.setString(1, nom);
 			reqUpdatePersonnageSt.setInt(2, pointvie);
 			reqUpdatePersonnageSt.setInt(3, idpiece);
 			reqUpdatePersonnageSt.setInt(4, id);
+			// Exécution de la requete
         	if (reqUpdatePersonnageSt.executeUpdate()==1)
 				return true;
         	else
         		return false;
+        	
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
 	}
 	
+	
+	/**
+	 * Retourne le monstre d'une piece
+	 * 
+	 * @param idPiece
+	 * @return monstre
+	 * @throws java.rmi.RemoteException
+	 */
 	@Override
 	public Monstre selectMonstreByPiece(int idPiece) throws RemoteException {
 		try {
+			// On complete la requete par l'id de la piece
 			reqSelectMonstreByPieceSt.setInt(1, idPiece);
+			// Exécution de la requete
 			ResultSet rs = reqSelectMonstreByPieceSt.executeQuery();
-			
+			// On récupère le monstre
 			while (rs.next()) {
 				Monstre monstre = new Monstre(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
 				return monstre;
@@ -281,24 +405,43 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 		}
 	}
 
+	
+	/**
+	 * Mettre à jour un monstre
+	 * 
+	 * @param id
+	 * @param nom
+	 * @param pointvie
+	 * @param idpiece
+	 * @return false : erreur / true : MAJ réussie
+	 * @throws java.rmi.RemoteException
+	 */
 	@Override
-	public boolean updateMonstre(int id, String nom, int pointvie, int idpiece)
-			throws RemoteException {
+	public boolean updateMonstre(int id, String nom, int pointvie, int idpiece) throws RemoteException {
 		try {
+			// On complete la requete par le nom du monstre, le nombre de PV, la salle et l'id du monstre
 			reqUpdateMonstreSt.setString(1, nom);
 			reqUpdateMonstreSt.setInt(2, pointvie);
 			reqUpdateMonstreSt.setInt(3, idpiece);
 			reqUpdateMonstreSt.setInt(4, id);
+			// Exécution de la requete
         	if (reqUpdateMonstreSt.executeUpdate()==1)
 				return true;
         	else
         		return false;
+        	
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
 	}
 	
+	
+	/**
+	 * Fermer l'accès à la bd
+	 * 
+	 * @throws Exception
+	 */
 	public void fermer() throws Exception {		
 		try {
 			//Fermeture des PreparedStatements
@@ -326,43 +469,24 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe{
 			Naming.unbind("MaBD");
 			UnicastRemoteObject.unexportObject(this, true);
 			conn.close();
+			
 		} catch(Exception ex) {
 			// il y a eu une erreur
 			ex.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Connexion à la BD
+	 * 
+	 * @param args
+	 * @throws Exception
+	 */
 	public static void main(String[] args) throws Exception {
 		LocateRegistry.createRegistry(1099);
 		LabyrintheJDBC labyrintheJDBC = new LabyrintheJDBC("Labyrinthe");
 		Naming.rebind("MaBD", new LabyrintheJDBC("Labyrinthe"));
-		System.out.println("Connexion BD réussie");
-/*		ArrayList<Piece> listePiece =  labyrintheJDBC.selectPiece();
-		for (Piece piece : listePiece) {
-			System.out.println();
-			System.out.print(piece.getIdPiece() + " - " 
-					+ piece.getNomServer() + " - " 
-					+ piece.getPosX() + " - " 
-					+ piece.getPosY() + " - ");
-			ArrayList<Porte> listePorte = piece.getListePortes();
-			for (Porte porte : listePorte) {
-				System.out.print(porte.positionPorte + " - ");
-			}
-		}		*/
-		
-/*		Utilisateur utilisateur = labyrintheJDBC.selectUtilisateurByNom("YouYou");
-		System.out.println(utilisateur.getIdUser() + " - " 
-				+ utilisateur.getNomUser() + " - "
-				+ utilisateur.getMdpUser());
-		HashMap<Integer, Personnage> listPerso = utilisateur.getListePerso();
-		for (int idPerso : listPerso.keySet()) {
-			Personnage personnage = listPerso.get(idPerso);
-			System.out.println(personnage.getIdPiece() + " - "
-					+ personnage.getNbPVIndiv() + " - "
-					+ personnage.getNomIndiv());
-		}		*/
-/*		Monstre monstre = labyrintheJDBC.selectMonstreByPiece(25);
-		System.out.println(monstre.getIdIndiv() + " - " + monstre.getIdPiece() + " - " + monstre.getNomIndiv() + " - " + monstre.getNbPVIndiv());
-*/		
+		System.out.println("Connexion BD réussie");	
 	}
+	
 }

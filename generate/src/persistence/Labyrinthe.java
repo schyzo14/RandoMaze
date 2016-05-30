@@ -139,7 +139,7 @@ public interface Labyrinthe extends java.rmi.Remote {
 	
 	// Fermeture
 	/**
-	 * fermer l'accès à la bd
+	 * Fermer l'accès à la bd
 	 * 
 	 * @throws Exception
 	 */
