@@ -11,62 +11,75 @@ import java.util.Random;
 public class Individu implements Serializable {
 
 	private static final long serialVersionUID = 2211726595953913891L;
-	
+
 	private int idIndiv;
 	private String nomIndiv;
 	private int nbPVIndiv;
 	private int idPiece;
-	
+
 	public Individu(int id, String nom, int PV, int piece) {
 		idIndiv = id;
 		nomIndiv = nom;
 		nbPVIndiv = PV;
 		idPiece = piece;
 	}
-	
+
 	/**
 	 * @return the idIndiv
 	 */
 	public int getIdIndiv() {
 		return idIndiv;
 	}
+
 	/**
-	 * @param idIndiv the idIndiv to set
+	 * @param idIndiv
+	 *            the idIndiv to set
 	 */
 	public void setIdIndiv(int idIndiv) {
 		this.idIndiv = idIndiv;
 	}
+
 	/**
 	 * @return the nomIndiv
 	 */
 	public String getNomIndiv() {
 		return nomIndiv;
 	}
+
 	/**
-	 * @param nomIndiv the nomIndiv to set
+	 * @param nomIndiv
+	 *            the nomIndiv to set
 	 */
 	public void setNomIndiv(String nomIndiv) {
 		this.nomIndiv = nomIndiv;
 	}
+
 	/**
 	 * @return the nbPVIndiv
 	 */
 	public int getNbPVIndiv() {
 		return nbPVIndiv;
 	}
+
 	/**
-	 * @param nbPVIndiv the nbPVIndiv to set
+	 * @param nbPVIndiv
+	 *            the nbPVIndiv to set
 	 */
 	public void setNbPVIndiv(int nbPVIndiv) {
 		this.nbPVIndiv = nbPVIndiv;
 	}
-	
-	
-	
+
+	/**
+	 * @return the idPiece
+	 */
 	public int getIdPiece() {
 		return idPiece;
 	}
 
+	/**
+	 * @param idPiece
+	 *            the idPiece to set
+	 */
 	public void setIdPiece(int idPiece) {
 		this.idPiece = idPiece;
 	}
@@ -76,15 +89,15 @@ public class Individu implements Serializable {
 	 * 
 	 * @return False=monstre / True=personnage
 	 */
-	public synchronized static boolean retirerPV () {
-		
+	public synchronized static boolean retirerPV() {
+
 		// attendre 1 seconde
 		try {
-		    Thread.sleep(1000);             // 1000 milliseconds is one second.
-		} catch(InterruptedException ex) {
-		    Thread.currentThread().interrupt();
+			Thread.sleep(1000); // 1000 milliseconds is one second.
+		} catch (InterruptedException ex) {
+			Thread.currentThread().interrupt();
 		}
-		
+
 		// retirer aléatoirement des PV
 		Random rand = new Random();
 		int val = rand.nextInt(1 - 0 + 1) + 0;
@@ -93,7 +106,5 @@ public class Individu implements Serializable {
 		} else {
 			return true; // Retirer au personnage
 		}
-		
 	}
-	
 }

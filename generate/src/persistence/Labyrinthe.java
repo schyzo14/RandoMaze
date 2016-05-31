@@ -41,8 +41,7 @@ public interface Labyrinthe extends java.rmi.Remote {
 	 * @return liste des portes
 	 * @throws java.rmi.RemoteException
 	 */
-	public ArrayList<Porte> selectPorteByIdPiece(int idpiece)
-			throws java.rmi.RemoteException;
+	public ArrayList<Porte> selectPorteByIdPiece(int idpiece) throws java.rmi.RemoteException;
 
 	// Utilisateur
 	/**
@@ -52,8 +51,7 @@ public interface Labyrinthe extends java.rmi.Remote {
 	 * @return Utilisateur
 	 * @throws java.rmi.RemoteException
 	 */
-	public Utilisateur selectUtilisateurByNom(String nom)
-			throws java.rmi.RemoteException;
+	public Utilisateur selectUtilisateurByNom(String nom) throws java.rmi.RemoteException;
 
 	/**
 	 * Créer un utilisateur avec son nom et mdp
@@ -63,8 +61,7 @@ public interface Labyrinthe extends java.rmi.Remote {
 	 * @return false : le nom existe déjà / true : création réussie
 	 * @throws java.rmi.RemoteException
 	 */
-	public boolean creerUtilisateur(String nom, String mdp)
-			throws java.rmi.RemoteException;
+	public boolean creerUtilisateur(String nom, String mdp) throws java.rmi.RemoteException;
 
 	// Personnage
 	/**
@@ -74,8 +71,7 @@ public interface Labyrinthe extends java.rmi.Remote {
 	 * @return liste de personnages
 	 * @throws java.rmi.RemoteException
 	 */
-	public ArrayList<Personnage> selectPersonnageByUtilisateur(int idUtilisateur)
-			throws java.rmi.RemoteException;
+	public ArrayList<Personnage> selectPersonnageByUtilisateur(int idUtilisateur) throws java.rmi.RemoteException;
 
 	/**
 	 * Retourne un personnage grace à son nom
@@ -84,8 +80,7 @@ public interface Labyrinthe extends java.rmi.Remote {
 	 * @return personnage
 	 * @throws java.rmi.RemoteException
 	 */
-	public Personnage selectPersonnageByName(String nomPerso)
-			throws java.rmi.RemoteException;
+	public Personnage selectPersonnageByName(String nomPerso) throws java.rmi.RemoteException;
 
 	/**
 	 * Créer un personnage avec son nom et utilisateur
@@ -95,8 +90,7 @@ public interface Labyrinthe extends java.rmi.Remote {
 	 * @return false : le nom existe déjà / true : création réussie
 	 * @throws java.rmi.RemoteException
 	 */
-	public boolean creerPersonnage(String nom, int idUtilisateur)
-			throws java.rmi.RemoteException;
+	public boolean creerPersonnage(String nom, int idUtilisateur) throws java.rmi.RemoteException;
 
 	/**
 	 * Mettre à jour un personnage
@@ -108,10 +102,8 @@ public interface Labyrinthe extends java.rmi.Remote {
 	 * @return false : erreur / true : MAJ réussie
 	 * @throws java.rmi.RemoteException
 	 */
-	public boolean updatePersonnage(int id, String nom, int pointvie,
-			int idpiece) throws java.rmi.RemoteException;
+	public boolean updatePersonnage(int id, String nom, int pointvie, int idpiece) throws java.rmi.RemoteException;
 
-	
 	// Monstre
 	/**
 	 * Retourne le monstre d'une piece
@@ -120,8 +112,7 @@ public interface Labyrinthe extends java.rmi.Remote {
 	 * @return monstre
 	 * @throws java.rmi.RemoteException
 	 */
-	public Monstre selectMonstreByPiece(int idPiece)
-			throws java.rmi.RemoteException;
+	public Monstre selectMonstreByPiece(int idPiece) throws java.rmi.RemoteException;
 
 	/**
 	 * Mettre à jour un monstre
@@ -133,10 +124,8 @@ public interface Labyrinthe extends java.rmi.Remote {
 	 * @return false : erreur / true : MAJ réussie
 	 * @throws java.rmi.RemoteException
 	 */
-	public boolean updateMonstre(int id, String nom, int pointvie, int idpiece)
-			throws java.rmi.RemoteException;
+	public boolean updateMonstre(int id, String nom, int pointvie, int idpiece) throws java.rmi.RemoteException;
 
-	
 	// Fermeture
 	/**
 	 * Fermer l'accès à la bd

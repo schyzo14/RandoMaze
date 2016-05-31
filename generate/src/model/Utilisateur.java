@@ -9,9 +9,9 @@ import java.util.HashMap;
  *
  */
 public class Utilisateur implements Serializable {
-	
+
 	private static final long serialVersionUID = 2544947169058657840L;
-	
+
 	private int idUser;
 	private String nomUser;
 	private String mdpUser;
@@ -31,7 +31,8 @@ public class Utilisateur implements Serializable {
 	}
 
 	/**
-	 * @param idUser the idUser to set
+	 * @param idUser
+	 *            the idUser to set
 	 */
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
@@ -45,7 +46,8 @@ public class Utilisateur implements Serializable {
 	}
 
 	/**
-	 * @param nomUser the nomUser to set
+	 * @param nomUser
+	 *            the nomUser to set
 	 */
 	public void setNomUser(String nomUser) {
 		this.nomUser = nomUser;
@@ -59,12 +61,13 @@ public class Utilisateur implements Serializable {
 	}
 
 	/**
-	 * @param mdpUser the mdpUser to set
+	 * @param mdpUser
+	 *            the mdpUser to set
 	 */
 	public void setMdpUser(String mdpUser) {
 		this.mdpUser = mdpUser;
 	}
-	
+
 	/**
 	 * @return the listePerso
 	 */
@@ -73,7 +76,8 @@ public class Utilisateur implements Serializable {
 	}
 
 	/**
-	 * @param listePerso the listePerso to set
+	 * @param listePerso
+	 *            the listePerso to set
 	 */
 	public void setListePerso(HashMap<Integer, Personnage> listePerso) {
 		this.listePerso = listePerso;
