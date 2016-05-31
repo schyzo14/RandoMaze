@@ -9,24 +9,15 @@ import ui.Connexion;
  */
 public class Partie {
 
-	/**
-	 * Lance le jeux 
-	 * 
-	 * @param args
-	 * @throws Exception
-	 */
 	public static void main(String[] args) throws Exception {
-		// Connexion à la BD
-		LabyrintheJDBC.demarrer();
+		LabyrintheJDBC.main(args);
+		LabyrintheImpl.main(args);
 		
-		// Démmarre les 2 serveurs
-		LabyrintheImpl.demarrer();
-		
-		// Ouvre 2 fenetres de connexion
 		Connexion connexion = new Connexion();
 		Connexion connexion2 = new Connexion();
+		//Connexion connexion3 = new Connexion();
 		connexion.demarrer();
 		connexion2.demarrer();
-
+		//connexion3.demarrer();
 	}
 }

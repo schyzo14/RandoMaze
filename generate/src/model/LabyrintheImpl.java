@@ -27,12 +27,8 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 	public LabyrintheImpl() throws RemoteException, MalformedURLException, NotBoundException {
 		labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
 	}
-	/**
-	 * Démarre le serveur
-	 * 
-	 * @throws Exception
-	 */
-	public static void demarrer() throws Exception {
+	
+	public static void main(String[] args) throws Exception {
 		LocateRegistry.createRegistry(1098);
 	 	Naming.rebind("MonServeur1", new LabyrintheImpl());
 	 	System.out.println("MonServeur1 est lancé.");
