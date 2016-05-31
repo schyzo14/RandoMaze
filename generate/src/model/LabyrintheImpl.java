@@ -15,7 +15,6 @@ import ui.Maze;
  * Implémentation de l'interface Labyrinthe
  * 
  * @author Manon, Aurore, Youssef
- *
  */
 public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 
@@ -29,7 +28,13 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 		labyBD = (persistence.Labyrinthe) Naming.lookup("MaBD");
 	}
 
-	public static void main(String[] args) throws Exception {
+	
+	/**
+	 * Lancer les 2 serveurs
+	 * 
+	 * @throws Exception
+	 */
+	public static void demarrer() throws Exception {
 		// Création des serveurs 1 et 2
 		LocateRegistry.createRegistry(1098);
 		Naming.rebind("MonServeur1", new LabyrintheImpl());
@@ -39,38 +44,53 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 		System.out.println("MonServeur2 est lancé.");
 	}
 
-	// Utilisateur
-	// Connexion de l'utilisateur
+
+	/**
+	 * Utilisateur
+	 * Connexion de l'utilisateur
+	 */
 	@Override
 	public Utilisateur se_connecter(String id, String mdp)
 			throws MalformedURLException, RemoteException, NotBoundException {
 		return labyBD.selectUtilisateurByNom(id);
 	}
 
+	
+	/**
+	 * Création d'un nouvel utilisateur
+	 */
 	@Override
-	// Création d'un nouvel utilisateur
 	public boolean creerUtilisateur(String nom, String mdp)
 			throws MalformedURLException, RemoteException, NotBoundException {
 		boolean result = labyBD.creerUtilisateur(nom, mdp);
 		return result;
 	}
 
-	// Personnages
-	// Récupération de tous les personnages d'un utilisateur
+
+	/**
+	 * Personnages
+	 * Récupération de tous les personnages d'un utilisateur
+	 */
 	@Override
 	public ArrayList<model.Personnage> getPersonnages(int idUtilisateur)
 			throws MalformedURLException, RemoteException, NotBoundException {
 		return labyBD.selectPersonnageByUtilisateur(idUtilisateur);
 	}
 
-	// Récupération d'un personnage à partir de son nom
+	
+	/**
+	 * Récupération d'un personnage à partir de son nom
+	 */
 	@Override
 	public Personnage getPersonnageByName(String nomPerso)
 			throws MalformedURLException, RemoteException, NotBoundException {
 		return labyBD.selectPersonnageByName(nomPerso);
 	}
 
-	// Création d'un nouveau personnage
+
+	/**
+	 * Création d'un nouveau personnage
+	 */
 	@Override
 	public boolean creerPersonnage(String nom, int idUtilisateur)
 			throws MalformedURLException, RemoteException, NotBoundException {
@@ -78,7 +98,10 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 		return result;
 	}
 
-	// Mise à jour d'un personnage
+
+	/**
+	 * Mise à jour d'un personnage
+	 */
 	@Override
 	public boolean updatePersonnage(int id, String nom, int pointvie, int idpiece)
 			throws MalformedURLException, RemoteException, NotBoundException {
@@ -86,8 +109,10 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 		return result;
 	}
 
-	// Récupération de tous les personnages qui sont dans la même pièce
-	// qu'un personnage donné
+
+	/**
+	 * Récupération de tous les personnages qui sont dans la même pièce qu'un personnage donné
+	 */
 	@Override
 	public ArrayList<String> getPersonnagesSamePiece(String persoName)
 			throws MalformedURLException, RemoteException, NotBoundException {
@@ -102,39 +127,52 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 		return persosSamePiece;
 	}
 
-	// Piece
-	// Récupération d'une pièce
+
+	/**
+	 * Piece
+	 * Récupération d'une pièce
+	 */
 	@Override
 	public Piece getPieceById(int idPiece) throws MalformedURLException, RemoteException, NotBoundException {
 		Piece piece = labyBD.selectPieceById(idPiece);
 		return piece;
 	}
 
-	// Récupération de toutes les pièces
+	
+	/**
+	 * Récupération de toutes les pièces
+	 */
 	@Override
 	public ArrayList<Piece> getPiece() throws RemoteException {
 		ArrayList<Piece> listPiece = labyBD.selectPiece();
 		return listPiece;
 	}
 
-	// Monstre
-	// Récupération du monstre d'une pièce
+
+	/**
+	 * Monstre
+	 * Récupération du monstre d'une pièce
+	 */
 	@Override
 	public Monstre getMonstreByPiece(int idPiece) throws RemoteException {
 		Monstre monstre = labyBD.selectMonstreByPiece(idPiece);
 		return monstre;
 	}
 
-	// Mise à jour d'un monstre
+
+	/**
+	 * Mise à jour d'un monstre
+	 */
 	@Override
 	public boolean updateMonstre(int id, String nom, int pointvie, int idpiece) throws RemoteException {
 		boolean result = labyBD.updateMonstre(id, nom, pointvie, idpiece);
 		return result;
 	}
 
-	// Autre
-	// Gestion de la chatbox dans le cas où il y a plusieurs personnages
-	// dans une même salle
+
+	/**
+	 * Gestion de la chatbox dans le cas où il y a plusieurs personnages dans une même salle
+	 */
 	@Override
 	public void notifyChat(String nomPerso, String msg) throws RemoteException {
 		int piece = listeMap.get(nomPerso).getCurrentPiece().getIdPiece();
@@ -145,8 +183,11 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 		}
 	}
 
+	
+	/**
+	 * Fermeture de l'application
+	 */
 	@Override
-	// Fermeture de l'application
 	public void quitter() throws RemoteException {
 		try {
 			// Suppression du lien vers les serveurs

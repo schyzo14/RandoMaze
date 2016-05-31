@@ -483,7 +483,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe {
 	 * @param args
 	 * @throws Exception
 	 */
-	public static void main(String[] args) throws Exception {
+	public static void demarrer() throws Exception {
 		LocateRegistry.createRegistry(1099);
 		Naming.rebind("MaBD", new LabyrintheJDBC("Labyrinthe"));
 		System.out.println("Connexion BD réussie");
