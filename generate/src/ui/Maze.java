@@ -50,12 +50,14 @@ public class Maze extends javax.swing.JFrame implements ActionListener, Serializ
 	private Piece currentPiece;
 	private Labyrinthe laby;
 
+	
 	/**
 	 * Creates new form Maze
 	 * 
-	 * @throws NotBoundException
-	 * @throws RemoteException
-	 * @throws MalformedURLException
+	 * @param choixPersonnage : personnage choisie pour jouer
+	 * @throws MalformedURLException e
+	 * @throws RemoteException e
+	 * @throws NotBoundException e
 	 */
 	public Maze(Personnage choixPersonnage) throws MalformedURLException, RemoteException, NotBoundException {
 		currentPerso = choixPersonnage;

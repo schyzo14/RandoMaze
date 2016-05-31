@@ -28,12 +28,14 @@ public class Personnage extends javax.swing.JFrame {
 	// Liste des personnages de l'utilisateur
 	private ArrayList<model.Personnage> listPersonnages;
 
+
 	/**
 	 * Fenetre Choix du personnage
 	 * 
-	 * @throws NotBoundException
-	 * @throws RemoteException
-	 * @throws MalformedURLException
+	 * @param idUtilisateur : id de l'utilisateur connecté
+	 * @throws MalformedURLException e
+	 * @throws RemoteException e
+	 * @throws NotBoundException e
 	 */
 	public Personnage(int idUtilisateur) throws MalformedURLException, RemoteException, NotBoundException {
 
@@ -250,9 +252,9 @@ public class Personnage extends javax.swing.JFrame {
 	/**
 	 * Ferme la fenetre et teste si il y a d'autres fenetres ouvertes
 	 * 
-	 * @throws RemoteException
-	 * @throws MalformedURLException
-	 * @throws NotBoundException
+	 * @throws RemoteException e
+	 * @throws MalformedURLException e
+	 * @throws NotBoundException e
 	 */
 	public void quitterFenetre() throws RemoteException, MalformedURLException, NotBoundException {
 		// ferme la fenetre

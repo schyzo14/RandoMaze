@@ -238,9 +238,9 @@ public class Connexion extends javax.swing.JFrame {
 	/**
 	 * Ferme la fenetre et teste si il y a d'autres fenetres ouvertes
 	 * 
-	 * @throws RemoteException
-	 * @throws MalformedURLException
-	 * @throws NotBoundException
+	 * @throws RemoteException e
+	 * @throws MalformedURLException e
+	 * @throws NotBoundException e
 	 */
 	public void quitterFenetre() throws RemoteException, MalformedURLException, NotBoundException {
 		// Fermer la fenetre

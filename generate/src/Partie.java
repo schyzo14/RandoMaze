@@ -12,8 +12,8 @@ public class Partie {
 	/**
 	 * Lancer le jeux
 	 * 
-	 * @param args
-	 * @throws Exception
+	 * @param args arguments
+	 * @throws Exception exception
 	 */
 	public static void main(String[] args) throws Exception {
 		// Connexion à la BD

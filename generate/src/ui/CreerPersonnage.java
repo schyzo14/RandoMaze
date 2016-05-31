@@ -33,7 +33,7 @@ public class CreerPersonnage extends javax.swing.JFrame {
 	/**
 	 * Constructeur de la classe CreerPersonnage
 	 * 
-	 * @param idUtilisateur
+	 * @param idUtilisateur : id de l'utilisateur
 	 */
 	public CreerPersonnage(int idUtilisateur) {
 
@@ -213,9 +213,9 @@ public class CreerPersonnage extends javax.swing.JFrame {
 	/**
 	 * Traitement du clic sur la croix rouge Permet de fermer la fenêtre
 	 * 
-	 * @throws RemoteException
-	 * @throws MalformedURLException
-	 * @throws NotBoundException
+	 * @throws RemoteException e
+	 * @throws MalformedURLException e
+	 * @throws NotBoundException e
 	 */
 	public void quitterFenetre() throws RemoteException, MalformedURLException, NotBoundException {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

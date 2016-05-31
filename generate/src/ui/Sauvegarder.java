@@ -37,11 +37,11 @@ public class Sauvegarder extends javax.swing.JFrame {
 	private Personnage currentPerso;
 	private Labyrinthe laby;
 
+
 	/**
 	 * Constructeur de la classe Sauvegarder
 	 * 
-	 * @param Personnage
-	 *            choixPerso
+	 * @param choixPerso : personnage qui joue
 	 */
 	public Sauvegarder(Personnage choixPerso) {
 		currentPerso = choixPerso;
@@ -228,9 +228,9 @@ public class Sauvegarder extends javax.swing.JFrame {
 	/**
 	 * Fermeture de l'application
 	 * 
-	 * @throws RemoteException
-	 * @throws MalformedURLException
-	 * @throws NotBoundException
+	 * @throws RemoteException e
+	 * @throws MalformedURLException e
+	 * @throws NotBoundException e
 	 */
 	public void quitterFenetre() throws RemoteException, MalformedURLException, NotBoundException {
 		this.dispose();

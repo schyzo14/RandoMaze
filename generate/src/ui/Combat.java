@@ -42,7 +42,7 @@ public class Combat extends javax.swing.JFrame {
 	/**
 	 * Combat contre un monstre
 	 * 
-	 * @param personnage
+	 * @param personnage du combat
 	 */
 	public Combat(model.Personnage personnage) {
 		// Affectation du personnage
@@ -116,11 +116,11 @@ public class Combat extends javax.swing.JFrame {
 	/**
 	 * Combat entre joueurs
 	 * 
-	 * @param monPersonnage
-	 * @param personnageCombattre
-	 * @throws MalformedURLException
-	 * @throws RemoteException
-	 * @throws NotBoundException
+	 * @param monPersonnage : nom du personnage
+	 * @param personnageCombattre : personnage à combattre
+	 * @throws MalformedURLException e
+	 * @throws RemoteException e
+	 * @throws NotBoundException e
 	 */
 	public Combat(model.Personnage monPersonnage, String personnageCombattre)
 			throws MalformedURLException, RemoteException, NotBoundException {

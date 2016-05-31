@@ -18,12 +18,12 @@ public interface Labyrinthe extends Remote {
 	/**
 	 * Connexion de l'utilisateur
 	 * 
-	 * @param id
-	 * @param mdp
-	 * @return
-	 * @throws MalformedURLException
-	 * @throws RemoteException
-	 * @throws NotBoundException
+	 * @param id de l'utilisateur
+	 * @param mdp de l'utilisateur
+	 * @return Utilisateur
+	 * @throws MalformedURLException e
+	 * @throws RemoteException e
+	 * @throws NotBoundException e
 	 */
 	public Utilisateur se_connecter(String id, String mdp)
 			throws MalformedURLException, RemoteException, NotBoundException;
@@ -31,12 +31,12 @@ public interface Labyrinthe extends Remote {
 	/**
 	 * Création d'un nouvel utilisateur
 	 * 
-	 * @param nom
-	 * @param mdp
-	 * @return
-	 * @throws MalformedURLException
-	 * @throws RemoteException
-	 * @throws NotBoundException
+	 * @param nom de l'utilisateur
+	 * @param mdp de l'utilisateur
+	 * @return boolean
+	 * @throws MalformedURLException e
+	 * @throws RemoteException e
+	 * @throws NotBoundException e
 	 */
 	public boolean creerUtilisateur(String nom, String mdp)
 			throws MalformedURLException, RemoteException, NotBoundException;
@@ -45,11 +45,11 @@ public interface Labyrinthe extends Remote {
 	/**
 	 * Récupération de tous les personnages d'un utilisateur
 	 * 
-	 * @param idUtilisateur
-	 * @return
-	 * @throws MalformedURLException
-	 * @throws RemoteException
-	 * @throws NotBoundException
+	 * @param idUtilisateur : id de l'utilisateur
+	 * @return liste des personnages de l'utilisateur
+	 * @throws MalformedURLException e
+	 * @throws RemoteException e
+	 * @throws NotBoundException e
 	 */
 	public ArrayList<Personnage> getPersonnages(int idUtilisateur)
 			throws MalformedURLException, RemoteException, NotBoundException;
@@ -57,11 +57,11 @@ public interface Labyrinthe extends Remote {
 	/**
 	 * Récupération d'un personnage à partir de son nom
 	 * 
-	 * @param nomPerso
-	 * @return
-	 * @throws MalformedURLException
-	 * @throws RemoteException
-	 * @throws NotBoundException
+	 * @param nomPerso : nom du personnage
+	 * @return personnage
+	 * @throws MalformedURLException e
+	 * @throws RemoteException e
+	 * @throws NotBoundException e
 	 */
 	public Personnage getPersonnageByName(String nomPerso)
 			throws MalformedURLException, RemoteException, NotBoundException;
@@ -69,12 +69,12 @@ public interface Labyrinthe extends Remote {
 	/**
 	 * Création d'un nouveau personnage
 	 * 
-	 * @param nom
-	 * @param idUtilisateur
-	 * @return
-	 * @throws MalformedURLException
-	 * @throws RemoteException
-	 * @throws NotBoundException
+	 * @param nom du personnage
+	 * @param idUtilisateur du personnage
+	 * @return boolean
+	 * @throws MalformedURLException e
+	 * @throws RemoteException e
+	 * @throws NotBoundException e
 	 */
 	public boolean creerPersonnage(String nom, int idUtilisateur)
 			throws MalformedURLException, RemoteException, NotBoundException;
@@ -82,14 +82,14 @@ public interface Labyrinthe extends Remote {
 	/**
 	 * Mise à jour d'un personnage
 	 * 
-	 * @param id
-	 * @param nom
-	 * @param pointvie
-	 * @param idpiece
-	 * @return
-	 * @throws MalformedURLException
-	 * @throws RemoteException
-	 * @throws NotBoundException
+	 * @param id du personnage
+	 * @param nom du personnage
+	 * @param pointvie du personnage
+	 * @param idpiece du personnage
+	 * @return boolean
+	 * @throws MalformedURLException e
+	 * @throws RemoteException e
+	 * @throws NotBoundException e
 	 */
 	public boolean updatePersonnage(int id, String nom, int pointvie, int idpiece)
 			throws MalformedURLException, RemoteException, NotBoundException;
@@ -97,11 +97,11 @@ public interface Labyrinthe extends Remote {
 	/**
 	 * Récupération de tous les personnages qui sont dans la même pièce qu'un personnage donné
 	 * 
-	 * @param persoName
-	 * @return
-	 * @throws MalformedURLException
-	 * @throws RemoteException
-	 * @throws NotBoundException
+	 * @param persoName : nom du personnage
+	 * @return liste personnage
+	 * @throws MalformedURLException e
+	 * @throws RemoteException e
+	 * @throws NotBoundException e
 	 */
 	public ArrayList<String> getPersonnagesSamePiece(String persoName)
 			throws MalformedURLException, RemoteException, NotBoundException;
@@ -110,19 +110,19 @@ public interface Labyrinthe extends Remote {
 	/**
 	 * Récupération d'une pièce
 	 * 
-	 * @param idPiece
-	 * @return
-	 * @throws MalformedURLException
-	 * @throws RemoteException
-	 * @throws NotBoundException
+	 * @param idPiece : id de la piece
+	 * @return piece
+	 * @throws MalformedURLException e
+	 * @throws RemoteException e
+	 * @throws NotBoundException e
 	 */
 	public Piece getPieceById(int idPiece) throws MalformedURLException, RemoteException, NotBoundException;
 
 	/**
 	 * Récupération de toutes les pièces
 	 * 
-	 * @return
-	 * @throws RemoteException
+	 * @return liste des pieces
+	 * @throws RemoteException remoteException
 	 */
 	public ArrayList<Piece> getPiece() throws RemoteException;
 
@@ -130,21 +130,21 @@ public interface Labyrinthe extends Remote {
 	/**
 	 * Récupération du monstre d'une pièce
 	 * 
-	 * @param idPiece
-	 * @return
-	 * @throws RemoteException
+	 * @param idPiece : id de la piece
+	 * @return monstre
+	 * @throws RemoteException : remoteException
 	 */
 	public Monstre getMonstreByPiece(int idPiece) throws RemoteException;
 
 	/**
 	 * Mise à jour d'un monstre
 	 * 
-	 * @param id
-	 * @param nom
-	 * @param pointvie
-	 * @param idpiece
-	 * @return
-	 * @throws RemoteException
+	 * @param id du monstre
+	 * @param nom du monstre
+	 * @param pointvie du monstre
+	 * @param idpiece du monstre
+	 * @return boolean
+	 * @throws RemoteException remoteException
 	 */
 	public boolean updateMonstre(int id, String nom, int pointvie, int idpiece) throws RemoteException;
 
@@ -152,16 +152,16 @@ public interface Labyrinthe extends Remote {
 	/**
 	 * Gestion de la chatbox dans le cas où il y a plusieurs personnages dans une même salle
 	 * 
-	 * @param nomPerso
-	 * @param msg
-	 * @throws RemoteException
+	 * @param nomPerso : nom du personnage
+	 * @param msg : message
+	 * @throws RemoteException : remoteException
 	 */
 	public void notifyChat(String nomPerso, String msg) throws RemoteException;
 
 	/**
 	 * Fermeture de l'application
 	 * 
-	 * @throws RemoteException
+	 * @throws RemoteException remoteException
 	 */
 	public void quitter() throws RemoteException;
 }
