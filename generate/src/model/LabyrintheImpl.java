@@ -32,7 +32,7 @@ public class LabyrintheImpl extends UnicastRemoteObject implements Labyrinthe {
 	/**
 	 * Lancer les 2 serveurs
 	 * 
-	 * @throws Exception
+	 * @throws Exception e
 	 */
 	public static void demarrer() throws Exception {
 		// Création des serveurs 1 et 2

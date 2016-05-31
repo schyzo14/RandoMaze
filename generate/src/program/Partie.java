@@ -1,3 +1,4 @@
+package program;
 import model.LabyrintheImpl;
 import persistence.LabyrintheJDBC;
 import ui.Connexion;

@@ -97,8 +97,8 @@ public interface Labyrinthe extends java.rmi.Remote {
 	 * 
 	 * @param id du personnage
 	 * @param nom du personnage
-	 * @param PV du personnage
-	 * @param identifiant de la pièce du personnage
+	 * @param pointvie du personnage
+	 * @param idpiece : identifiant de la pièce du personnage
 	 * @return false : erreur / true : MAJ réussie
 	 * @throws java.rmi.RemoteException : remoteException
 	 */
@@ -119,8 +119,8 @@ public interface Labyrinthe extends java.rmi.Remote {
 	 * 
 	 * @param id du monstre
 	 * @param nom du monstre
-	 * @param PV du monstre
-	 * @param id de la piece du monstre
+	 * @param pointvie du monstre
+	 * @param idpiece : id de la piece du monstre
 	 * @return false : erreur / true : MAJ réussie
 	 * @throws java.rmi.RemoteException : remoteException
 	 */

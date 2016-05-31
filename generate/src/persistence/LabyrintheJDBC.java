@@ -136,7 +136,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe {
 	/**
 	 * Retourne une piece grace à son id
 	 * 
-	 * @param id de la Piece
+	 * @param idPiece : id de la Piece
 	 * @return piece
 	 * @throws java.rmi.RemoteException : remoteException
 	 */
@@ -163,9 +163,9 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe {
 
 	// Porte
 	/**
-	 * Retourne la liste des portes d'une piece
+	 * idpiece : Retourne la liste des portes d'une piece
 	 * 
-	 * @param id de la piece
+	 * @param idpiece : id de la piece
 	 * @return liste des portes
 	 * @throws java.rmi.RemoteException : remoteException
 	 */
@@ -260,7 +260,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe {
 	/**
 	 * Retourne les personnages d'un utilisateur
 	 * 
-	 * @param id de l'Utilisateur
+	 * @param idUtilisateur : id de l'Utilisateur
 	 * @return liste de personnages
 	 * @throws java.rmi.RemoteException : remoteException
 	 */
@@ -289,7 +289,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe {
 	/**
 	 * Retourne un personnage grace à son nom
 	 * 
-	 * @param nom du Personnage
+	 * @param nomPerso : nom du Personnage
 	 * @return personnage
 	 * @throws java.rmi.RemoteException : remoteException
 	 */
@@ -317,7 +317,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe {
 	 * Créer un personnage avec son nom et utilisateur
 	 * 
 	 * @param nom du personnage
-	 * @param id de l'Utilisateur du personnage
+	 * @param idUtilisateur : id de l'Utilisateur du personnage
 	 * @return false : le nom existe déjà / true : création réussie
 	 * @throws java.rmi.RemoteException : remoteException
 	 */
@@ -352,8 +352,8 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe {
 	 * 
 	 * @param id du personnage
 	 * @param nom du personnage
-	 * @param PV du personnage
-	 * @param id de la piece du personnage
+	 * @param pointvie : PV du personnage
+	 * @param idpiece : id de la piece du personnage
 	 * @return false : erreur / true : MAJ réussie
 	 * @throws java.rmi.RemoteException : remoteException
 	 */
@@ -382,7 +382,7 @@ public class LabyrintheJDBC extends UnicastRemoteObject implements Labyrinthe {
 	/**
 	 * Retourne le monstre d'une piece
 	 * 
-	 * @param id de la Piece
+	 * @param idPiece : id de la Piece
 	 * @return monstre
 	 * @throws java.rmi.RemoteException : remoteException
 	 */
