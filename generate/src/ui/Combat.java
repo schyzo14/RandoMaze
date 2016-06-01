@@ -235,6 +235,8 @@ public class Combat extends javax.swing.JFrame {
 				// Message de victoire si la pièce est 15
 				if (currentPerso.getIdPiece() == 15) {
 					Util.afficherPopUp("Félicitations, vous avez vaincu. \n \"Je suis venu, j'ai vu, j'ai vaincu.\"");
+					
+					// Le personnage est réinitialisé
 					currentPerso.setNbPVIndiv(10);
 					currentPerso.setIdPiece(1);
 					laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv(),
