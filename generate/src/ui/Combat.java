@@ -235,6 +235,10 @@ public class Combat extends javax.swing.JFrame {
 				// Message de victoire si la pièce est 15
 				if (currentPerso.getIdPiece() == 15) {
 					Util.afficherPopUp("Félicitations, vous avez vaincu. \n \"Je suis venu, j'ai vu, j'ai vaincu.\"");
+					currentPerso.setNbPVIndiv(10);
+					currentPerso.setIdPiece(1);
+					laby.updatePersonnage(currentPerso.getIdIndiv(), currentPerso.getNomIndiv(),
+							currentPerso.getNbPVIndiv(), currentPerso.getIdPiece());
 				}
 				// Fermeture de la fenetre de combat
 				fermer();
@@ -365,8 +369,6 @@ public class Combat extends javax.swing.JFrame {
 
 		lifePointsEnemy.setFont(new java.awt.Font("Arial", 0, 14));
 		lifePointsEnemy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		// lifePointsEnemy.setText("PV : " + monsterPV.getMaximum() + " / " +
-		// monsterPV.getMaximum());
 
 		buttonRun.setFont(new java.awt.Font("Arial", 0, 14));
 		buttonRun.setText("Fuir");
